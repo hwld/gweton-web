@@ -1,36 +1,51 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
+
+    <v-app-bar 
+      app
+      color="amber darken-3"
+      clipped-left
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title class="headline text-uppercase">Gweton</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-btn icon>
+        <v-icon x-large="true">search</v-icon>
       </v-btn>
     </v-app-bar>
 
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      clipped
+      :width="drawerWidth"
+    >
+    </v-navigation-drawer>
+
     <v-content>
-      <HelloWorld/>
     </v-content>
+
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
   },
   data: () => ({
-    //
+    drawer: null,
   }),
+
+  computed: {
+    drawerWidth: function(){
+      return window.parent.screen.width * 0.3
+    }
+  },
+
+  created (){
+    this.$vuetify.theme.dark = true
+  }
 };
 </script>
