@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isDrawerOpen: true,
     selectedGenre: {},
     genres: [
       //GenreにMemoとGenreが包含されている
@@ -65,6 +66,9 @@ export default new Vuex.Store({
   mutations: {
     [types.SELECT_GENRE](state, genre) {
       state.selectedGenre = genre;
+    },
+    [types.INVERT_IS_DRAWER_OPEN](state) {
+      state.isDrawerOpen = !state.isDrawerOpen;
     }
   },
   actions: {},

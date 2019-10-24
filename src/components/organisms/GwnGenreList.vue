@@ -26,7 +26,7 @@ import { mapState } from "vuex";
 import * as types from "@/store/mutation-types";
 
 export default {
-  name: "GenreList",
+  name: "GwnGenreList",
 
   data: () => ({
     active: []

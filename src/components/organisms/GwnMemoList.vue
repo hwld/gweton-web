@@ -48,7 +48,7 @@
 import { mapState } from "vuex";
 
 export default {
-  name: "MemoList",
+  name: "GwnMemoList",
 
   computed: {
     ...mapState(["selectedGenre"])

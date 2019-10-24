@@ -1,36 +1,30 @@
 <template>
   <v-app>
-    <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Gweton</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon x-large>search</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <GwnHeader></GwnHeader>
 
-    <v-navigation-drawer v-model="drawer" app clipped :width="drawerWidth">
-      <GenreList></GenreList>
+    <v-navigation-drawer :value="isDrawerOpen" app clipped :width="drawerWidth">
+      <GwnGenreList></GwnGenreList>
     </v-navigation-drawer>
 
     <v-content>
-      <MemoList></MemoList>
+      <GwnMemoList></GwnMemoList>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import MemoList from "@/components/organisms/MemoList.vue";
-import GenreList from "@/components/organisms/GenreList.vue";
+import GwnHeader from "@/components/organisms/GwnHeader.vue";
+import GwnMemoList from "@/components/organisms/GwnMemoList.vue";
+import GwnGenreList from "@/components/organisms/GwnGenreList.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
 
   components: {
-    MemoList,
-    GenreList
+    GwnHeader,
+    GwnMemoList,
+    GwnGenreList
   },
 
   data: () => ({
@@ -40,7 +34,8 @@ export default {
   computed: {
     drawerWidth() {
       return window.parent.screen.width * 0.3;
-    }
+    },
+    ...mapState(["isDrawerOpen"])
   },
 
   created() {
