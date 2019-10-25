@@ -15,7 +15,7 @@
 <script>
 import { mapState } from "vuex"
 import * as types from "@/store/mutation-types"
-import GwnGenreListMenu from "@/components/molecules/GwnGenreListMenu.vue"
+import GwnGenreListMenu from "@/components/organisms/GwnGenreListMenu.vue"
 
 export default {
   name: "GwnGenreList",

@@ -13,7 +13,7 @@ export default new Vuex.Store({
       {
         id: 1,
         genreName: "CSS単位",
-        nextMemoId: 3,
+        nextMemoId: 5,
         memos: [
           {
             id: 1,
@@ -32,7 +32,9 @@ export default new Vuex.Store({
             authorName: "Asha Laxmi",
             bookName:
               "CSS初心者が混乱しがちな7つの単位の意味と違いをしっかり理解しよう"
-          }
+          },
+          { id: 3, title: "id3のメモ" },
+          { id: 4, title: "id4のメモ" }
         ],
         genres: []
       },
@@ -70,7 +72,7 @@ export default new Vuex.Store({
       { id: 5, genreName: "hoge3", nextMemoId: 1, memos: [], genres: [] },
       { id: 6, genreName: "hoge4", nextMemoId: 1, memos: [], genres: [] }
     ],
-    nextGenreId: 0
+    nextGenreId: 7
   },
   mutations: {
     //ジャンルを選択する
@@ -84,8 +86,12 @@ export default new Vuex.Store({
     },
 
     //指定されたidのメモを選択されているジャンルから削除する
-    [types.DELETE_MEMO](state, targetIndex) {
-      state.selectedGenre = state.selectedGenre.memos.splice(targetIndex, 1);
+    [types.DELETE_MEMO](state, memoId) {
+      const targetIndex = state.selectedGenre.memos.findIndex(
+        memo => memo.id === memoId
+      );
+
+      state.selectedGenre.memos.splice(targetIndex, 1);
       state.selectedGenre.nextMemoId--;
     }
   },

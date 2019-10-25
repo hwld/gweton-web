@@ -5,7 +5,7 @@
         <div class="memo-title">{{memo.title}}</div>
       </v-col>
       <v-col cols="12">
-        <div class="memo-text">テキスト</div>
+        <div class="memo-text">{{memo.text}}</div>
       </v-col>
       <v-col cols="6">
         <div>
@@ -32,8 +32,10 @@ export default {
       type: Object,
       default: () => {}
     }
-  }
-  
+  },
+
+  methods: {
+  },
 }
 </script>
 

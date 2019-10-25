@@ -1,12 +1,16 @@
 <template>
   <div>
-    <GwnMemoListMenu></GwnMemoListMenu>
+    <GwnMemoListMenu @deleteMemo="deleteMemo"></GwnMemoListMenu>
 
     <div v-if="!selectedGenre">ジャンルを選択してください</div>
 
     <v-list v-else dense>
       <v-list-item-group>
-        <v-list-item v-for="memo in selectedGenre.memos" :key="memo.id">
+        <v-list-item
+          v-for="memo in selectedGenre.memos"
+          :key="memo.id"
+          @click="SelectMemo(memo.id)"
+        >
           <v-list-item-content>
             <GwnMemoItem :memo="memo"></GwnMemoItem>
           </v-list-item-content>
@@ -18,9 +22,9 @@
 
 <script>
 import { mapState } from "vuex"
-import GwnMemoItem from '@/components/molecules/GwnMemoItem.vue'
-import GwnMemoListMenu from '@/components/molecules/GwnMemoListMenu.vue'
-
+import GwnMemoItem from '@/components/organisms/GwnMemoItem.vue'
+import GwnMemoListMenu from '@/components/organisms/GwnMemoListMenu.vue'
+import * as types from '@/store/mutation-types'
 
 export default {
   name: "GwnMemoList",
@@ -30,13 +34,33 @@ export default {
     GwnMemoListMenu,
   },
 
+  data() {
+    return {
+      SelectedMemoId: 0
+    }
+  },
+
   computed: {
     ...mapState(["selectedGenre"])
   },
 
   methods: {
-    deleteMemo(){
 
+    deleteMemo(){
+      if(this.SelectedMemoId === 0) {
+        alert('メモが選択されていません')
+        return
+      }
+      this.$store.commit(types.DELETE_MEMO, this.SelectedMemoId)
+      this.SelectedMemoId = 0
+    },
+
+    SelectMemo(id){
+      if(this.SelectedMemoId === id){
+        this.SelectedMemoId = 0
+        return
+      }
+      this.SelectedMemoId = id
     }
   },
 }

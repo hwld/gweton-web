@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import GwnHeader from "@/components/molecules/GwnHeader.vue"
+import GwnHeader from "@/components/organisms/GwnHeader.vue"
 import GwnMemoList from "@/components/organisms/GwnMemoList.vue"
 import GwnGenreList from "@/components/organisms/GwnGenreList.vue"
 import { mapState } from "vuex"
