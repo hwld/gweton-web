@@ -32,7 +32,13 @@ export default {
 
   computed: {
     ...mapState(["selectedGenre"])
-  }
+  },
+
+  methods: {
+    deleteMemo(){
+
+    }
+  },
 }
 </script>
 

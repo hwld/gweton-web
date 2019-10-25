@@ -73,11 +73,20 @@ export default new Vuex.Store({
     nextGenreId: 0
   },
   mutations: {
+    //ジャンルを選択する
     [types.SELECT_GENRE](state, genre) {
       state.selectedGenre = genre;
     },
+
+    //ドロワーの状態を反転させる (開く・閉じる)
     [types.INVERT_IS_DRAWER_OPEN](state) {
       state.isDrawerOpen = !state.isDrawerOpen;
+    },
+
+    //指定されたidのメモを選択されているジャンルから削除する
+    [types.DELETE_MEMO](state, targetIndex) {
+      state.selectedGenre = state.selectedGenre.memos.splice(targetIndex, 1);
+      state.selectedGenre.nextMemoId--;
     }
   },
   actions: {},

@@ -1,2 +1,3 @@
 export const SELECT_GENRE = "SELECT_GENRE";
 export const INVERT_IS_DRAWER_OPEN = "INVERT_IS_DRAWER_OPEN";
+export const DELETE_MEMO = "DELETE_MEMO";
