@@ -81,19 +81,37 @@ export default new Vuex.Store({
       state.selectedGenre = genre;
     },
 
+    //メモを選択し、idをセットする
+    [types.SELECT_MEMO_ID](state, memoId) {
+      if (state.selectedMemoId === memoId) {
+        state.selectedMemoId = 0;
+        return;
+      }
+      state.selectedMemoId = memoId;
+    },
+
     //ドロワーの状態を反転させる (開く・閉じる)
     [types.INVERT_IS_DRAWER_OPEN](state) {
       state.isDrawerOpen = !state.isDrawerOpen;
     },
 
-    //指定されたidのメモを選択されているジャンルから削除する
-    [types.DELETE_MEMO](state, memoId) {
+    //選択されているジャンルにメモを追加する
+    [types.ADD_MEMO](state, memo) {
+      memo.id = state.selectedGenre.nextMemoId;
+      state.selectedGenre.nextMemoId++;
+      state.selectedGenre.memos.push(memo);
+    },
+
+    //選択されているメモを選択されているジャンルから削除する
+    [types.DELETE_MEMO](state) {
       const targetIndex = state.selectedGenre.memos.findIndex(
-        memo => memo.id === memoId
+        memo => memo.id === state.selectedMemoId
       );
 
       state.selectedGenre.memos.splice(targetIndex, 1);
       state.selectedGenre.nextMemoId--;
+
+      state.selectedMemoId = 0;
     }
   },
   actions: {},

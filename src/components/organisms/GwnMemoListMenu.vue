@@ -1,38 +1,42 @@
 <template>
   <v-toolbar>
-    <GwnAddMemoMenuItem @addMemo="addMemo"></GwnAddMemoMenuItem>
+    <GwnAddMemoMenuItem @addMemo="addMemo" :selectedGenre="selectedGenre"></GwnAddMemoMenuItem>
     <GwnDeleteMemoMenuItem @deleteMemo="deleteMemo" :selectedMemoId="selectedMemoId"></GwnDeleteMemoMenuItem>
   </v-toolbar>
 </template>
 
 <script>
-import GwnAddMemoMenuItem from '@/components/organisms/GwnAddMemoMenuItem.vue'
-import GwnDeleteMemoMenuItem from '@/components/organisms/GwnDeleteMemoMenuItem.vue'
+import GwnAddMemoMenuItem from "@/components/organisms/GwnAddMemoMenuItem.vue";
+import GwnDeleteMemoMenuItem from "@/components/organisms/GwnDeleteMemoMenuItem.vue";
 
 export default {
-  name: 'GwnMemoListMenu',
-  
+  name: "GwnMemoListMenu",
+
   components: {
     GwnAddMemoMenuItem,
-    GwnDeleteMemoMenuItem,
+    GwnDeleteMemoMenuItem
   },
 
-  props:{
+  props: {
+    selectedGenre: {
+      type: Object,
+      default: () => {}
+    },
     selectedMemoId: {
       type: Number,
-      default: 0,
+      default: 0
     }
   },
 
-  methods:{
-    addMemo(){
-      this.$emit('addMemo')
+  methods: {
+    addMemo(memo) {
+      this.$emit("addMemo", memo);
     },
-    deleteMemo(){
-      this.$emit('deleteMemo')
+    deleteMemo() {
+      this.$emit("deleteMemo");
     }
   }
-}
+};
 </script>
 
 <style scoped>

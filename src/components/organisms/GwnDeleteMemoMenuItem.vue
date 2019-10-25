@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="650">
+  <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
       <v-btn icon v-on="on" :disabled="selectedMemoId===0">
         <v-icon>delete</v-icon>
@@ -23,27 +23,27 @@
 
 <script>
 export default {
-  name: 'GwnDeleteMemoMenuItem',
-  
+  name: "GwnDeleteMemoMenuItem",
+
   data() {
     return {
-      dialog: false,
-    }
+      dialog: false
+    };
   },
 
-  props:{
-    selectedMemoId:{
+  props: {
+    selectedMemoId: {
       type: Number,
-      default: 0,
+      default: 0
     }
   },
 
   methods: {
-    deleteMemo(){
-      this.$emit('deleteMemo')
-    }    
-  },
-}
+    deleteMemo() {
+      this.$emit("deleteMemo");
+    }
+  }
+};
 </script>
 
 <style scoped>
