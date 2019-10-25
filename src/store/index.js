@@ -13,6 +13,7 @@ export default new Vuex.Store({
       {
         id: 1,
         genreName: "CSS単位",
+        nextMemoId: 3,
         memos: [
           {
             id: 1,
@@ -32,36 +33,44 @@ export default new Vuex.Store({
             bookName:
               "CSS初心者が混乱しがちな7つの単位の意味と違いをしっかり理解しよう"
           }
-        ]
+        ],
+        genres: []
       },
       {
-        id: 4,
+        id: 2,
         genreName: "hoge2",
+        nextMemoId: 1,
+        memos: [],
         genres: [
           {
-            id: 100,
+            id: 3,
             genreName: "hoge2-1",
+            nextMemoId: 1,
+            memos: [],
             genres: [
               {
-                id: 101,
+                id: 4,
                 genreName: "hoge-2-1-1",
+                nextMemoId: 2,
                 memos: [
                   {
-                    id: 3,
+                    id: 1,
                     title: "うおおおおお",
                     text: "うおおおおお",
                     authorName: "うおおお",
                     bookName: "うおおお"
                   }
-                ]
+                ],
+                genres: []
               }
             ]
           }
         ]
       },
-      { id: 5, genreName: "hoge3" },
-      { id: 6, genreName: "hoge4" }
-    ]
+      { id: 5, genreName: "hoge3", nextMemoId: 1, memos: [], genres: [] },
+      { id: 6, genreName: "hoge4", nextMemoId: 1, memos: [], genres: [] }
+    ],
+    nextGenreId: 0
   },
   mutations: {
     [types.SELECT_GENRE](state, genre) {

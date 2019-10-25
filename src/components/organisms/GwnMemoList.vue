@@ -1,13 +1,6 @@
 <template>
   <div>
-    <v-toolbar>
-      <v-btn icon>
-        <v-icon>post_add</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>delete</v-icon>
-      </v-btn>
-    </v-toolbar>
+    <GwnMemoListMenu></GwnMemoListMenu>
 
     <div v-if="!selectedGenre">ジャンルを選択してください</div>
 
@@ -26,13 +19,15 @@
 <script>
 import { mapState } from "vuex"
 import GwnMemoItem from '@/components/molecules/GwnMemoItem.vue'
+import GwnMemoListMenu from '@/components/molecules/GwnMemoListMenu.vue'
 
 
 export default {
   name: "GwnMemoList",
 
   components:{
-    GwnMemoItem
+    GwnMemoItem,
+    GwnMemoListMenu,
   },
 
   computed: {

@@ -1,16 +1,7 @@
 <template>
   <div>
-    <v-toolbar>
-      <v-btn icon>
-        <v-icon>playlist_add</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>delete</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>edit</v-icon>
-      </v-btn>
-    </v-toolbar>
+    <GwnGenreListMenu></GwnGenreListMenu>
+
     <v-treeview
       :items="genres"
       activatable
@@ -24,9 +15,14 @@
 <script>
 import { mapState } from "vuex"
 import * as types from "@/store/mutation-types"
+import GwnGenreListMenu from "@/components/molecules/GwnGenreListMenu.vue"
 
 export default {
   name: "GwnGenreList",
+
+  components:{
+    GwnGenreListMenu,
+  },
 
   data: () => ({
     active: []
