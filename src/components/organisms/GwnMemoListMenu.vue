@@ -1,18 +1,29 @@
 <template>
   <v-toolbar>
-    <v-btn icon @click="addMemo">
-      <v-icon>post_add</v-icon>
-    </v-btn>
-    <v-btn icon @click="deleteMemo">
-      <v-icon>delete</v-icon>
-    </v-btn>
+    <GwnAddMemoMenuItem @addMemo="addMemo"></GwnAddMemoMenuItem>
+    <GwnDeleteMemoMenuItem @deleteMemo="deleteMemo" :selectedMemoId="selectedMemoId"></GwnDeleteMemoMenuItem>
   </v-toolbar>
 </template>
 
 <script>
+import GwnAddMemoMenuItem from '@/components/organisms/GwnAddMemoMenuItem.vue'
+import GwnDeleteMemoMenuItem from '@/components/organisms/GwnDeleteMemoMenuItem.vue'
+
 export default {
   name: 'GwnMemoListMenu',
   
+  components: {
+    GwnAddMemoMenuItem,
+    GwnDeleteMemoMenuItem,
+  },
+
+  props:{
+    selectedMemoId: {
+      type: Number,
+      default: 0,
+    }
+  },
+
   methods:{
     addMemo(){
       this.$emit('addMemo')

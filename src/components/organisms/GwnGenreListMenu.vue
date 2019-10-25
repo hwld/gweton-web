@@ -1,20 +1,24 @@
 <template>
   <v-toolbar>
-    <v-btn icon>
-      <v-icon>playlist_add</v-icon>
-    </v-btn>
-    <v-btn icon>
-      <v-icon>delete</v-icon>
-    </v-btn>
-    <v-btn icon>
-      <v-icon>edit</v-icon>
-    </v-btn>
+    <GwnAddGenreMenuItem></GwnAddGenreMenuItem>
+    <GwnDeleteGenreMenuItem></GwnDeleteGenreMenuItem>
+    <GwnUpdateGenreMenuItem></GwnUpdateGenreMenuItem>
   </v-toolbar>
 </template>
 
 <script>
+import GwnAddGenreMenuItem from '@/components/organisms/GwnAddGenreMenuItem.vue'
+import GwnDeleteGenreMenuItem from '@/components/organisms/GwnDeleteGenreMenuItem.vue'
+import GwnUpdateGenreMenuItem from '@/components/organisms/GwnUpdateGenreMenuItem.vue'
+
 export default {
-  name: 'GwnGenreListMenu'
+  name: 'GwnGenreListMenu',
+
+  components:{
+    GwnAddGenreMenuItem,
+    GwnDeleteGenreMenuItem,
+    GwnUpdateGenreMenuItem,
+  }
 }
 </script>
 

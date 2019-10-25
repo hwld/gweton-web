@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     isDrawerOpen: true,
     selectedGenre: {},
+    selectedMemoId: 0,
     genres: [
       //GenreにMemoとGenreが包含されている
       {

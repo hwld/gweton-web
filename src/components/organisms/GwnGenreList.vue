@@ -27,11 +27,13 @@ export default {
   data: () => ({
     active: []
   }),
+
   computed: {
     ...mapState(["genres"])
   },
 
   methods: {
+    
     findGenreById(genres, searchId) {
       for (const genre of genres) {
         if (genre.id === searchId) {
@@ -45,6 +47,7 @@ export default {
         }
       }
     },
+
     SelectGenre(id) {
       let genre = this.findGenreById(this.genres, id[0])
       this.$store.commit(types.SELECT_GENRE, genre)

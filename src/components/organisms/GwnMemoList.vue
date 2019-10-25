@@ -1,6 +1,6 @@
 <template>
   <div>
-    <GwnMemoListMenu @deleteMemo="deleteMemo"></GwnMemoListMenu>
+    <GwnMemoListMenu @deleteMemo="deleteMemo" @addMemo="addMemo" :selectedMemoId="selectedMemoId"></GwnMemoListMenu>
 
     <div v-if="!selectedGenre">ジャンルを選択してください</div>
 
@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      SelectedMemoId: 0
+      selectedMemoId: 0
     }
   },
 
@@ -46,21 +46,21 @@ export default {
 
   methods: {
 
-    deleteMemo(){
-      if(this.SelectedMemoId === 0) {
-        alert('メモが選択されていません')
+    SelectMemo(id){
+      if(this.selectedMemoId === id){
+        this.selectedMemoId = 0
         return
       }
-      this.$store.commit(types.DELETE_MEMO, this.SelectedMemoId)
-      this.SelectedMemoId = 0
+      this.selectedMemoId = id
     },
 
-    SelectMemo(id){
-      if(this.SelectedMemoId === id){
-        this.SelectedMemoId = 0
-        return
-      }
-      this.SelectedMemoId = id
+    deleteMemo(){
+      this.$store.commit(types.DELETE_MEMO, this.selectedMemoId)
+      this.selectedMemoId = 0
+    },
+
+    addMemo(){
+      
     }
   },
 }
