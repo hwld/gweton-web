@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import * as types from "@/store/mutation-types";
+import { mapState } from "vuex"
+import * as types from "@/store/mutation-types"
 
 export default {
   name: "GwnGenreList",
@@ -39,22 +39,22 @@ export default {
     findGenreById(genres, searchId) {
       for (const genre of genres) {
         if (genre.id === searchId) {
-          return genre;
+          return genre
         }
         if (genre.genres != null) {
-          let result = this.findGenreById(genre.genres, searchId);
+          let result = this.findGenreById(genre.genres, searchId)
           if (result != null) {
-            return result;
+            return result
           }
         }
       }
     },
     SelectGenre(id) {
-      let genre = this.findGenreById(this.genres, id[0]);
-      this.$store.commit(types.SELECT_GENRE, genre);
+      let genre = this.findGenreById(this.genres, id[0])
+      this.$store.commit(types.SELECT_GENRE, genre)
     }
   }
-};
+}
 </script>
 
 <style scoped>

@@ -15,28 +15,7 @@
       <v-list-item-group>
         <v-list-item v-for="memo in selectedGenre.memos" :key="memo.id">
           <v-list-item-content>
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <div class="memo-title">{{memo.title}}</div>
-                </v-col>
-                <v-col cols="12">
-                  <div class="memo-text">{{memo.text}}</div>
-                </v-col>
-                <v-col cols="6">
-                  <div>
-                    <span class="memo-meta-data-head">書籍名:</span>
-                    <span class="memo-meta-data">{{memo.bookName}}</span>
-                  </div>
-                </v-col>
-                <v-col cols="6">
-                  <div>
-                    <span class="memo-meta-data-head">著者名:</span>
-                    <span class="memo-meta-data">{{memo.authorName}}</span>
-                  </div>
-                </v-col>
-              </v-row>
-            </v-container>
+            <GwnMemoItem :memo="memo"></GwnMemoItem>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -45,15 +24,21 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from "vuex"
+import GwnMemoItem from '@/components/molecules/GwnMemoItem.vue'
+
 
 export default {
   name: "GwnMemoList",
 
+  components:{
+    GwnMemoItem
+  },
+
   computed: {
     ...mapState(["selectedGenre"])
   }
-};
+}
 </script>
 
 <style scoped>

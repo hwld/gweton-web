@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import GwnHeader from "@/components/organisms/GwnHeader.vue";
-import GwnMemoList from "@/components/organisms/GwnMemoList.vue";
-import GwnGenreList from "@/components/organisms/GwnGenreList.vue";
-import { mapState } from "vuex";
+import GwnHeader from "@/components/organisms/GwnHeader.vue"
+import GwnMemoList from "@/components/organisms/GwnMemoList.vue"
+import GwnGenreList from "@/components/organisms/GwnGenreList.vue"
+import { mapState } from "vuex"
 
 export default {
   name: "App",
@@ -33,15 +33,15 @@ export default {
 
   computed: {
     drawerWidth() {
-      return window.parent.screen.width * 0.3;
+      return window.parent.screen.width * 0.3
     },
     ...mapState(["isDrawerOpen"])
   },
 
   created() {
-    this.$vuetify.theme.dark = true;
+    this.$vuetify.theme.dark = true
   }
-};
+}
 </script>
 
 <style scoped>
