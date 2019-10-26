@@ -9,7 +9,7 @@
 
     <div v-if="!selectedGenre">ジャンルを選択してください</div>
 
-    <v-list v-else dense>
+    <v-list v-else dense class="overflow-y-auto" max-height="86vh">
       <v-list-item-group>
         <v-list-item
           v-for="memo in selectedGenre.memos"

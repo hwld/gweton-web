@@ -90,6 +90,7 @@ export default {
         authorName: this.authorName,
         bookName: this.bookName
       });
+      this.clearField();
     },
     clearField() {
       this.title = this.text = this.authorName = this.bookName = "";

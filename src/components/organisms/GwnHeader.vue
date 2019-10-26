@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app clipped-left>
+  <v-app-bar app clipped-left max-height="10vh">
     <v-app-bar-nav-icon @click.stop="invertIsOpenDrawer"></v-app-bar-nav-icon>
     <v-toolbar-title class="headline text-uppercase">
       <span>Gweton</span>
@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import * as types from "@/store/mutation-types"
-import { mapState } from "vuex"
+import * as types from "@/store/mutation-types";
+import { mapState } from "vuex";
 
 export default {
   name: "GwnHeader",
@@ -24,10 +24,10 @@ export default {
 
   methods: {
     invertIsOpenDrawer() {
-      this.$store.commit(types.INVERT_IS_DRAWER_OPEN)
+      this.$store.commit(types.INVERT_IS_DRAWER_OPEN);
     }
   }
-}
+};
 </script>
 
 <style scoped>

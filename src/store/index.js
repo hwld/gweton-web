@@ -14,7 +14,7 @@ export default new Vuex.Store({
       {
         id: 1,
         genreName: "CSS単位",
-        nextMemoId: 5,
+        nextMemoId: 6,
         memos: [
           {
             id: 1,
@@ -35,7 +35,12 @@ export default new Vuex.Store({
               "CSS初心者が混乱しがちな7つの単位の意味と違いをしっかり理解しよう"
           },
           { id: 3, title: "id3のメモ" },
-          { id: 4, title: "id4のメモ" }
+          { id: 4, title: "id4のメモ" },
+          {
+            id: 5,
+            text:
+              "あああああああああああああああああfffああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
+          }
         ],
         genres: []
       },

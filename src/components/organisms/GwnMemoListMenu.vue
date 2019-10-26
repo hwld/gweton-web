@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar>
+  <v-toolbar max-height="10vh">
     <GwnAddMemoMenuItem @addMemo="addMemo" :selectedGenre="selectedGenre"></GwnAddMemoMenuItem>
     <GwnDeleteMemoMenuItem @deleteMemo="deleteMemo" :selectedMemoId="selectedMemoId"></GwnDeleteMemoMenuItem>
   </v-toolbar>
