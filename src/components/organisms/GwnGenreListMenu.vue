@@ -7,19 +7,19 @@
 </template>
 
 <script>
-import GwnAddGenreMenuItem from '@/components/organisms/GwnAddGenreMenuItem.vue'
-import GwnDeleteGenreMenuItem from '@/components/organisms/GwnDeleteGenreMenuItem.vue'
-import GwnUpdateGenreMenuItem from '@/components/organisms/GwnUpdateGenreMenuItem.vue'
+import GwnAddGenreMenuItem from "@/components/organisms/GwnAddGenreMenuItem.vue";
+import GwnDeleteGenreMenuItem from "@/components/organisms/GwnDeleteGenreMenuItem.vue";
+import GwnUpdateGenreMenuItem from "@/components/organisms/GwnUpdateGenreMenuItem.vue";
 
 export default {
-  name: 'GwnGenreListMenu',
+  name: "GwnGenreListMenu",
 
-  components:{
+  components: {
     GwnAddGenreMenuItem,
     GwnDeleteGenreMenuItem,
-    GwnUpdateGenreMenuItem,
+    GwnUpdateGenreMenuItem
   }
-}
+};
 </script>
 
 <style scoped>
