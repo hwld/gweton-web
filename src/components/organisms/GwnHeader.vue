@@ -8,15 +8,20 @@
     <v-btn icon>
       <v-icon x-large>search</v-icon>
     </v-btn>
+    <v-spacer></v-spacer>
+    <GwnAuthState></GwnAuthState>
   </v-app-bar>
 </template>
 
 <script>
+import GwnAuthState from "@/components/organisms/GwnAuthState.vue";
 import * as types from "@/store/mutation-types";
 import { mapState } from "vuex";
 
 export default {
   name: "GwnHeader",
+
+  components: { GwnAuthState },
 
   computed: {
     ...mapState(["isDrawerOpen"])

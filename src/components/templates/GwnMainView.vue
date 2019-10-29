@@ -28,7 +28,8 @@ export default {
   },
 
   data: () => ({
-    drawer: null
+    drawer: null,
+    user: {}
   }),
 
   computed: {
