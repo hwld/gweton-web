@@ -14,7 +14,6 @@ export default new Vuex.Store({
       {
         id: 1,
         genreName: "CSS単位",
-        nextMemoId: 6,
         memos: [
           {
             id: 1,
@@ -47,22 +46,19 @@ export default new Vuex.Store({
       {
         id: 2,
         genreName: "hoge2",
-        nextMemoId: 1,
         memos: [],
         genres: [
           {
             id: 3,
             genreName: "hoge2-1",
-            nextMemoId: 1,
             memos: [],
             genres: [
               {
                 id: 4,
                 genreName: "hoge-2-1-1",
-                nextMemoId: 2,
                 memos: [
                   {
-                    id: 1,
+                    id: 6,
                     title: "うおおおおお",
                     text: "うおおおおお",
                     authorName: "うおおお",
@@ -75,10 +71,11 @@ export default new Vuex.Store({
           }
         ]
       },
-      { id: 5, genreName: "hoge3", nextMemoId: 1, memos: [], genres: [] },
-      { id: 6, genreName: "hoge4", nextMemoId: 1, memos: [], genres: [] }
+      { id: 5, genreName: "hoge3", memos: [], genres: [] },
+      { id: 6, genreName: "hoge4", memos: [], genres: [] }
     ],
-    nextGenreId: 7
+    nextGenreId: 7,
+    nextMemoId: 7
   },
   mutations: {
     //すべてのジャンルから指定されたidのジャンルを選択する
@@ -111,8 +108,8 @@ export default new Vuex.Store({
 
     //選択されているジャンルにメモを追加する
     [types.ADD_MEMO](state, memo) {
-      memo.id = state.selectedGenre.nextMemoId;
-      state.selectedGenre.nextMemoId++;
+      memo.id = state.nextMemoId;
+      state.nextMemoId++;
       state.selectedGenre.memos.push(memo);
     },
 
@@ -123,7 +120,7 @@ export default new Vuex.Store({
       );
 
       state.selectedGenre.memos.splice(targetIndex, 1);
-      state.selectedGenre.nextMemoId--;
+      state.nextMemoId--;
 
       state.selectedMemo = {};
     }
