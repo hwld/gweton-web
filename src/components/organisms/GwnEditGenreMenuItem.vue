@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'GwnUpdateGenreMenuItem'
-}
+  name: "GwnEditGenreMenuItem"
+};
 </script>
 
 <style scoped>

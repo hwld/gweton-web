@@ -2,14 +2,14 @@
   <v-toolbar>
     <GwnAddGenreMenuItem></GwnAddGenreMenuItem>
     <GwnDeleteGenreMenuItem></GwnDeleteGenreMenuItem>
-    <GwnUpdateGenreMenuItem></GwnUpdateGenreMenuItem>
+    <GwnEditGenreMenuItem></GwnEditGenreMenuItem>
   </v-toolbar>
 </template>
 
 <script>
 import GwnAddGenreMenuItem from "@/components/organisms/GwnAddGenreMenuItem.vue";
 import GwnDeleteGenreMenuItem from "@/components/organisms/GwnDeleteGenreMenuItem.vue";
-import GwnUpdateGenreMenuItem from "@/components/organisms/GwnUpdateGenreMenuItem.vue";
+import GwnEditGenreMenuItem from "@/components/organisms/GwnEditGenreMenuItem.vue";
 
 export default {
   name: "GwnGenreListMenu",
@@ -17,7 +17,7 @@ export default {
   components: {
     GwnAddGenreMenuItem,
     GwnDeleteGenreMenuItem,
-    GwnUpdateGenreMenuItem
+    GwnEditGenreMenuItem
   }
 };
 </script>

@@ -123,6 +123,16 @@ export default new Vuex.Store({
       state.nextMemoId--;
 
       state.selectedMemo = {};
+    },
+
+    //選択されているメモを更新する
+    [types.EDIT_MEMO](state, memo) {
+      //id以外を変更する
+      const selectedMemo = state.selectedMemo;
+      selectedMemo.title = memo.title;
+      selectedMemo.text = memo.text;
+      selectedMemo.authorName = memo.authorName;
+      selectedMemo.bookName = memo.bookName;
     }
   },
   getters: {

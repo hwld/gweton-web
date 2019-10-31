@@ -1,14 +1,14 @@
 <template>
-  <v-dialog v-model="dialog" max-width="800" @click:outside="resetMemo">
+  <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
     <template v-slot:activator="{ on }">
-      <v-btn icon v-on="on" :disabled="selectedGenre.id == null">
-        <v-icon>post_add</v-icon>
+      <v-btn icon v-on="on" :disabled="selectedMemo.id == null">
+        <v-icon>edit</v-icon>
       </v-btn>
     </template>
 
     <!--ダイアログの外側がクリックされたときにフィールドをリセットするために、空のメモオブジェクトを渡す。-->
     <!--外側がクリックされたら、メモオブジェクトを空文字でリセットし、反映させる。-->
-    <GwnMemoEditCard :oldMemo="memo" cardTitle="メモ作成" @onOk="addMemo" @onCancel="cancel"></GwnMemoEditCard>
+    <GwnMemoEditCard :oldMemo="selectedMemo" cardTitle="メモ編集" @onOk="editMemo" @onCancel="cancel"></GwnMemoEditCard>
   </v-dialog>
 </template>
 
@@ -17,38 +17,31 @@ import * as types from "@/store/mutation-types.js";
 import GwnMemoEditCard from "@/components/organisms/GwnMemoEditCard.vue";
 
 export default {
-  name: "GwnAddMemoMenuItem",
+  name: "GwnEditMemoMenuItem",
 
   components: {
     GwnMemoEditCard
   },
 
   computed: {
-    selectedGenre() {
-      return this.$store.getters.getSelectedGenre;
+    selectedMemo() {
+      return this.$store.getters.getSelectedMemo;
     }
   },
 
   data() {
     return {
-      dialog: false,
-      memo: { title: "", text: "", authorName: "", bookName: "" }
+      dialog: false
     };
   },
 
   methods: {
-    addMemo(memo) {
+    editMemo(memo) {
       this.dialog = false;
-      this.$store.commit(types.ADD_MEMO, memo);
-      this.resetMemo();
+      this.$store.commit(types.EDIT_MEMO, memo);
     },
     cancel() {
       this.dialog = false;
-      this.resetMemo();
-    },
-    resetMemo() {
-      this.memo.title = this.memo.text = this.memo.authorName = this.memo.bookName =
-        "";
     }
   }
 };
