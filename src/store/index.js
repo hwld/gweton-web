@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     isDrawerOpen: true,
     selectedGenre: {},
-    selectedMemoId: 0,
+    selectedMemo: {},
     genres: [
       //GenreにMemoとGenreが包含されている
       {
@@ -81,18 +81,27 @@ export default new Vuex.Store({
     nextGenreId: 7
   },
   mutations: {
-    //ジャンルを選択する
+    //すべてのジャンルから指定されたidのジャンルを選択する
     [types.SELECT_GENRE](state, genre) {
       state.selectedGenre = genre;
     },
 
-    //メモを選択し、idをセットする
-    [types.SELECT_MEMO_ID](state, memoId) {
-      if (state.selectedMemoId === memoId) {
-        state.selectedMemoId = 0;
+    //選択されているジャンルから指定されたidのメモを選択する
+    [types.SELECT_MEMO](state, memoId) {
+      if (!state.selectedGenre.id) return;
+
+      const memo = state.selectedGenre.memos.find(memo => memo.id === memoId);
+
+      if (state.selectedMemo === memo) {
+        state.selectedMemo = {};
         return;
       }
-      state.selectedMemoId = memoId;
+      state.selectedMemo = memo;
+    },
+
+    //選択されているメモの選択状態を解除する
+    [types.DESELECT_MEMO](state) {
+      state.selectedMemo = {};
     },
 
     //ドロワーの状態を反転させる (開く・閉じる)
@@ -110,13 +119,24 @@ export default new Vuex.Store({
     //選択されているメモを選択されているジャンルから削除する
     [types.DELETE_MEMO](state) {
       const targetIndex = state.selectedGenre.memos.findIndex(
-        memo => memo.id === state.selectedMemoId
+        memo => memo.id === state.selectedMemo.id
       );
 
       state.selectedGenre.memos.splice(targetIndex, 1);
       state.selectedGenre.nextMemoId--;
 
-      state.selectedMemoId = 0;
+      state.selectedMemo = {};
+    }
+  },
+  getters: {
+    getGenres: state => {
+      return state.genres;
+    },
+    getSelectedGenre: state => {
+      return state.selectedGenre;
+    },
+    getSelectedMemo: state => {
+      return state.selectedMemo;
     }
   },
   actions: {},

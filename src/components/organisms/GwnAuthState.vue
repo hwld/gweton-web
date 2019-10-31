@@ -1,17 +1,18 @@
 <template>
   <div>
     <div v-if="!user.uid">
-      <v-btn text @click="login">ログイン</v-btn>
+      <v-btn text @click="login" color="blue">ログイン</v-btn>
     </div>
 
     <div v-else>
-      <v-btn text @click="logout">ログアウト</v-btn>
+      <v-btn text @click="logout" color="red">ログアウト</v-btn>
     </div>
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   name: "GwnAuthState",
@@ -25,7 +26,6 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user ? user : {};
-      alert("Hello");
     });
   },
 

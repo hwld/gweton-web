@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
-      <v-btn icon v-on="on" :disabled="selectedMemoId===0">
+      <v-btn icon v-on="on" :disabled="selectedMemo.id == null">
         <v-icon>delete</v-icon>
       </v-btn>
     </template>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import * as types from "@/store/mutation-types";
+
 export default {
   name: "GwnDeleteMemoMenuItem",
 
@@ -31,16 +33,15 @@ export default {
     };
   },
 
-  props: {
-    selectedMemoId: {
-      type: Number,
-      default: 0
+  computed: {
+    selectedMemo() {
+      return this.$store.getters.getSelectedMemo;
     }
   },
 
   methods: {
     deleteMemo() {
-      this.$emit("deleteMemo");
+      this.$store.commit(types.DELETE_MEMO);
     }
   }
 };

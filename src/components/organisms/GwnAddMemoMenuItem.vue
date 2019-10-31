@@ -61,13 +61,14 @@
 </template>
 
 <script>
+import * as types from "@/store/mutation-types.js";
+
 export default {
   name: "GwnAddMemoMenuItem",
 
-  props: {
-    selectedGenre: {
-      type: Object,
-      default: () => {}
+  computed: {
+    selectedGenre() {
+      return this.$store.getters.getSelectedGenre;
     }
   },
 
@@ -84,12 +85,13 @@ export default {
 
   methods: {
     addMemo() {
-      this.$emit("addMemo", {
+      this.$store.commit(types.ADD_MEMO, {
         title: this.title,
         text: this.text,
         authorName: this.authorName,
         bookName: this.bookName
       });
+
       this.clearField();
     },
     clearField() {

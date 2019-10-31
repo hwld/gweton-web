@@ -2,7 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import store from "./store";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/analytics";
 
 Vue.config.productionTip = false;
 

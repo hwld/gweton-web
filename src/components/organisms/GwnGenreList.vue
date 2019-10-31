@@ -7,14 +7,13 @@
       activatable
       item-text="genreName"
       item-children="genres"
-      @update:active="SelectGenre"
+      @update:active="selectGenre"
       class="overflow-y-auto"
     ></v-treeview>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
 import * as types from "@/store/mutation-types";
 import GwnGenreListMenu from "@/components/organisms/GwnGenreListMenu.vue";
 
@@ -30,10 +29,23 @@ export default {
   }),
 
   computed: {
-    ...mapState(["genres"])
+    genres() {
+      return this.$store.getters.getGenres;
+    }
   },
 
   methods: {
+    selectGenre(id) {
+      if (id[0] != null) {
+        const genre = this.findGenreById(this.$store.getters.getGenres, id[0]);
+        this.$store.commit(types.SELECT_GENRE, genre);
+      } else {
+        this.$store.commit(types.SELECT_GENRE, {});
+      }
+
+      this.$store.commit(types.DESELECT_MEMO);
+    },
+
     findGenreById(genres, searchId) {
       for (const genre of genres) {
         if (genre.id === searchId) {
@@ -46,11 +58,6 @@ export default {
           }
         }
       }
-    },
-
-    SelectGenre(id) {
-      let genre = this.findGenreById(this.genres, id[0]);
-      this.$store.commit(types.SELECT_GENRE, genre);
     }
   }
 };
