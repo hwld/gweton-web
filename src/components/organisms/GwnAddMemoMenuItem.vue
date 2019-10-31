@@ -1,70 +1,27 @@
 <template>
-  <v-dialog v-model="dialog" max-width="800" @click:outside="clearField">
+  <v-dialog v-model="dialog" max-width="800" @click:outside="resetMemo">
     <template v-slot:activator="{ on }">
-      <v-btn icon v-on="on" :disabled="selectedGenre == null">
+      <v-btn icon v-on="on" :disabled="selectedGenre.id == null">
         <v-icon>post_add</v-icon>
       </v-btn>
     </template>
 
-    <v-card>
-      <v-card-title>メモの作成</v-card-title>
-
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-spacer></v-spacer>
-            <v-col cols="10">
-              <v-text-field label="タイトル" v-model="title" filled></v-text-field>
-            </v-col>
-            <v-spacer></v-spacer>
-          </v-row>
-
-          <v-row>
-            <v-spacer></v-spacer>
-            <v-col cols="10">
-              <v-textarea label="メモ*" v-model="text" filled :rules="rules"></v-textarea>
-            </v-col>
-            <v-spacer></v-spacer>
-          </v-row>
-
-          <v-row>
-            <v-spacer></v-spacer>
-            <v-col cols="10">
-              <v-text-field label="書籍名" v-model="authorName" filled></v-text-field>
-            </v-col>
-            <v-spacer></v-spacer>
-          </v-row>
-          <v-row>
-            <v-spacer></v-spacer>
-            <v-col cols="10">
-              <v-text-field label="著者名" v-model="bookName" filled></v-text-field>
-            </v-col>
-            <v-spacer></v-spacer>
-          </v-row>
-          <v-row>
-            <v-spacer></v-spacer>
-            <v-col cols="10">
-              <label>*は必須項目です</label>
-            </v-col>
-            <v-spacer></v-spacer>
-          </v-row>
-        </v-container>
-      </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false, clearField()">キャンセル</v-btn>
-        <v-btn text @click="dialog = false, addMemo()" :disabled="text==''">作成</v-btn>
-      </v-card-actions>
-    </v-card>
+    <!--ダイアログの外側がクリックされたときにフィールドをリセットするために、空のメモオブジェクトを渡す。-->
+    <!--外側がクリックされたら、メモオブジェクトを空文字でリセットし、反映させる。-->
+    <GwnMemoEditCard :memo="memo" cardTitle="メモ作成" @onOk="addMemo" @onCancel="cancel"></GwnMemoEditCard>
   </v-dialog>
 </template>
 
 <script>
 import * as types from "@/store/mutation-types.js";
+import GwnMemoEditCard from "@/components/organisms/GwnMemoEditCard.vue";
 
 export default {
   name: "GwnAddMemoMenuItem",
+
+  components: {
+    GwnMemoEditCard
+  },
 
   computed: {
     selectedGenre() {
@@ -75,27 +32,21 @@ export default {
   data() {
     return {
       dialog: false,
-      title: "",
-      text: "",
-      authorName: "",
-      bookName: "",
-      rules: [v => !!v || "入力してください"]
+      memo: { title: "", text: "", authorName: "", bookName: "" }
     };
   },
 
   methods: {
-    addMemo() {
-      this.$store.commit(types.ADD_MEMO, {
-        title: this.title,
-        text: this.text,
-        authorName: this.authorName,
-        bookName: this.bookName
-      });
-
-      this.clearField();
+    addMemo(memo) {
+      this.dialog = false;
+      this.$store.commit(types.ADD_MEMO, memo);
     },
-    clearField() {
-      this.title = this.text = this.authorName = this.bookName = "";
+    cancel() {
+      this.dialog = false;
+    },
+    resetMemo() {
+      this.memo.title = this.memo.text = this.memo.authorName = this.memo.bookName =
+        "";
     }
   }
 };
