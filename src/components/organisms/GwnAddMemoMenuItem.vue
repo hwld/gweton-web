@@ -8,7 +8,13 @@
 
     <!--ダイアログの外側がクリックされたときにフィールドをリセットするために、空のメモオブジェクトを渡す。-->
     <!--外側がクリックされたら、メモオブジェクトを空文字でリセットし、反映させる。-->
-    <GwnMemoEditCard :defaultMemo="memo" cardTitle="メモ作成" @onOk="addMemo" @onCancel="cancel"></GwnMemoEditCard>
+    <GwnMemoEditCard
+      :defaultMemo="memo"
+      cardTitle="メモ作成"
+      okButtonText="作成"
+      @onOk="addMemo"
+      @onCancel="cancel"
+    ></GwnMemoEditCard>
   </v-dialog>
 </template>
 
@@ -47,6 +53,7 @@ export default {
       this.resetMemo();
     },
     resetMemo() {
+      //defaultMemoとして渡すオブジェクトを空にすることで、フィールドをリセットする
       this.memo = { title: "", text: "", authorName: "", bookName: "" };
     }
   }

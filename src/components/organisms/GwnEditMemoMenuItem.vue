@@ -6,11 +6,10 @@
       </v-btn>
     </template>
 
-    <!--ダイアログの外側がクリックされたときにフィールドをリセットするために、空のメモオブジェクトを渡す。-->
-    <!--外側がクリックされたら、メモオブジェクトを空文字でリセットし、反映させる。-->
     <GwnMemoEditCard
-      :defaultMemo="selectedMemo"
+      :defaultMemo="defaultMemo"
       cardTitle="メモ編集"
+      okButtonText="変更"
       @onOk="editMemo"
       @onCancel="cancel"
     ></GwnMemoEditCard>
@@ -36,7 +35,8 @@ export default {
 
   data() {
     return {
-      dialog: false
+      dialog: false,
+      defaultMemo: {}
     };
   },
 
@@ -47,6 +47,20 @@ export default {
     },
     cancel() {
       this.dialog = false;
+    }
+  },
+
+  watch: {
+    dialog: {
+      immediate: true,
+      handler() {
+        this.defaultMemo = {
+          title: this.selectedMemo.title,
+          text: this.selectedMemo.text,
+          authorName: this.selectedMemo.authorName,
+          bookName: this.selectedMemo.bookName
+        };
+      }
     }
   }
 };

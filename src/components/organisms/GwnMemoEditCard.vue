@@ -46,8 +46,8 @@
 
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn text @click="onCancel">CANCEL</v-btn>
-      <v-btn text @click="onOk" :disabled="text === ''">OK</v-btn>
+      <v-btn text @click="onCancel">中止</v-btn>
+      <v-btn text @click="onOk" :disabled="text === ''">{{okButtonText}}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -61,6 +61,10 @@ export default {
       default: () => ({})
     },
     cardTitle: {
+      type: String,
+      default: ""
+    },
+    okButtonText: {
       type: String,
       default: ""
     }
@@ -82,10 +86,10 @@ export default {
     },
     onOk() {
       this.$emit("onOk", {
-        title: this.defaultMemo.title,
-        text: this.defaultMemo.text,
-        authorName: this.defaultMemo.authorName,
-        bookName: this.defaultMemo.bookName
+        title: this.title,
+        text: this.text,
+        authorName: this.authorName,
+        bookName: this.bookName
       });
     }
   },
