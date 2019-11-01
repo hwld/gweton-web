@@ -47,8 +47,7 @@ export default {
       this.resetMemo();
     },
     resetMemo() {
-      this.memo.title = this.memo.text = this.memo.authorName = this.memo.bookName =
-        "";
+      this.memo = { title: "", text: "", authorName: "", bookName: "" };
     }
   }
 };
