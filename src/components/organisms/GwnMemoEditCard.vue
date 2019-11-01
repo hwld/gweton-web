@@ -7,7 +7,7 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="10">
-            <v-text-field label="タイトル" v-model="newMemo.title" filled></v-text-field>
+            <v-text-field label="タイトル" v-model="title" filled></v-text-field>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -15,7 +15,7 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="10">
-            <v-textarea label="メモ*" v-model="newMemo.text" filled :rules="rules"></v-textarea>
+            <v-textarea label="メモ*" v-model="text" filled :rules="rules"></v-textarea>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -23,14 +23,14 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="10">
-            <v-text-field label="書籍名" v-model="newMemo.authorName" filled></v-text-field>
+            <v-text-field label="書籍名" v-model="authorName" filled></v-text-field>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="10">
-            <v-text-field label="著者名" v-model="newMemo.bookName" filled></v-text-field>
+            <v-text-field label="著者名" v-model="bookName" filled></v-text-field>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -47,7 +47,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn text @click="onCancel">CANCEL</v-btn>
-      <v-btn text @click="onOk" :disabled="newMemo.text == ''">OK</v-btn>
+      <v-btn text @click="onOk" :disabled="text === ''">OK</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -56,7 +56,7 @@
 export default {
   name: "GwnMemoEditCard",
   props: {
-    oldMemo: {
+    defaultMemo: {
       type: Object,
       default: () => ({})
     },
@@ -68,14 +68,12 @@ export default {
 
   data() {
     return {
-      rules: [v => !!v || "入力してください"]
+      rules: [v => !!v || "入力してください"],
+      title: "",
+      text: "",
+      authorName: "",
+      bookName: ""
     };
-  },
-
-  computed: {
-    newMemo() {
-      return Object.assign({}, this.oldMemo);
-    }
   },
 
   methods: {
@@ -84,11 +82,23 @@ export default {
     },
     onOk() {
       this.$emit("onOk", {
-        title: this.newMemo.title,
-        text: this.newMemo.text,
-        authorName: this.newMemo.authorName,
-        bookName: this.newMemo.bookName
+        title: this.defaultMemo.title,
+        text: this.defaultMemo.text,
+        authorName: this.defaultMemo.authorName,
+        bookName: this.defaultMemo.bookName
       });
+    }
+  },
+
+  watch: {
+    defaultMemo: {
+      immediate: true,
+      handler(memo) {
+        this.title = memo.title;
+        this.text = memo.text;
+        this.authorName = memo.authorName;
+        this.bookName = memo.bookName;
+      }
     }
   }
 };

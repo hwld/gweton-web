@@ -8,7 +8,7 @@
 
     <!--ダイアログの外側がクリックされたときにフィールドをリセットするために、空のメモオブジェクトを渡す。-->
     <!--外側がクリックされたら、メモオブジェクトを空文字でリセットし、反映させる。-->
-    <GwnMemoEditCard :oldMemo="memo" cardTitle="メモ作成" @onOk="addMemo" @onCancel="cancel"></GwnMemoEditCard>
+    <GwnMemoEditCard :defaultMemo="memo" cardTitle="メモ作成" @onOk="addMemo" @onCancel="cancel"></GwnMemoEditCard>
   </v-dialog>
 </template>
 
