@@ -33,8 +33,8 @@ export default new Vuex.Store({
             bookName:
               "CSS初心者が混乱しがちな7つの単位の意味と違いをしっかり理解しよう"
           },
-          { id: 3, title: "id3のメモ" },
-          { id: 4, title: "id4のメモ" },
+          { id: 3, text: "Hello", title: "id3のメモ" },
+          { id: 4, text: "World", title: "id4のメモ" },
           {
             id: 5,
             text:
@@ -78,10 +78,14 @@ export default new Vuex.Store({
     nextMemoId: 7
   },
   mutations: {
-    //すべてのジャンルから指定されたidのジャンルを選択する
-    [types.SELECT_GENRE](state, genre) {
-      state.selectedGenre = genre;
+    //ドロワーの状態を反転させる (開く・閉じる)
+    [types.INVERT_IS_DRAWER_OPEN](state) {
+      state.isDrawerOpen = !state.isDrawerOpen;
     },
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //メモ操作
+    //////////////////////////////////////////////////////////////////////////////////////////////
 
     //選択されているジャンルから指定されたidのメモを選択する
     [types.SELECT_MEMO](state, memoId) {
@@ -99,11 +103,6 @@ export default new Vuex.Store({
     //選択されているメモの選択状態を解除する
     [types.DESELECT_MEMO](state) {
       state.selectedMemo = {};
-    },
-
-    //ドロワーの状態を反転させる (開く・閉じる)
-    [types.INVERT_IS_DRAWER_OPEN](state) {
-      state.isDrawerOpen = !state.isDrawerOpen;
     },
 
     //選択されているジャンルにメモを追加する
@@ -133,6 +132,55 @@ export default new Vuex.Store({
       selectedMemo.text = memo.text;
       selectedMemo.authorName = memo.authorName;
       selectedMemo.bookName = memo.bookName;
+    },
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //ジャンル操作
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    //すべてのジャンルから指定されたidのジャンルを選択する
+    [types.SELECT_GENRE](state, genre) {
+      state.selectedGenre = genre;
+    },
+
+    //選択されているジャンルにジャンルを追加する
+    [types.ADD_GENRE](state, genre) {
+      genre.parent = state.selectedGenre;
+      genre.id = state.nextGenreId;
+
+      state.nextGenreId++;
+
+      if (state.selectedGenre.id != null) {
+        state.selectedGenre.genres.push(genre);
+      } else {
+        state.genres.push(genre);
+      }
+    },
+
+    //選択されているジャンルを削除する
+    [types.DELETE_GENRE](state) {
+      const parentGenre = state.selectedGenre.parent;
+
+      let targetArray = [];
+      if (parentGenre == null) {
+        targetArray = state.genres;
+      } else {
+        targetArray = parentGenre.genres;
+      }
+
+      let targetIndex = targetArray.findIndex(genre => {
+        genre.id === state.selectedGenre.id;
+      });
+      targetArray.splice(targetIndex, 1);
+
+      state.nextGenreId--;
+      state.selectedGenre = {};
+    },
+
+    //選択されているジャンルを更新する
+    [types.EDIT_GENRE](state, genre) {
+      //名前を更新する
+      state.selectedGenre.genreName = genre.genreName;
     }
   },
   getters: {

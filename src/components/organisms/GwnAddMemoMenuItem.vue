@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="800" @click:outside="resetMemo">
+  <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
     <template v-slot:activator="{ on }">
       <v-btn icon v-on="on" :disabled="selectedGenre.id == null">
         <v-icon>post_add</v-icon>

@@ -53,13 +53,15 @@ export default {
   watch: {
     dialog: {
       immediate: true,
-      handler() {
-        this.defaultMemo = {
-          title: this.selectedMemo.title,
-          text: this.selectedMemo.text,
-          authorName: this.selectedMemo.authorName,
-          bookName: this.selectedMemo.bookName
-        };
+      handler(value) {
+        if (value == true) {
+          this.defaultMemo = {
+            title: this.selectedMemo.title,
+            text: this.selectedMemo.text,
+            authorName: this.selectedMemo.authorName,
+            bookName: this.selectedMemo.bookName
+          };
+        }
       }
     }
   }
