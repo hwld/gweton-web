@@ -8,7 +8,8 @@
       item-text="genreName"
       item-children="genres"
       @update:active="selectGenre"
-      class="overflow-y-auto"
+      class="treeview overflow-y-auto"
+      max-height="1"
     ></v-treeview>
   </div>
 </template>
@@ -64,4 +65,7 @@ export default {
 </script>
 
 <style scoped>
+.treeview {
+  max-height: 86vh;
+}
 </style>
