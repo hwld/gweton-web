@@ -163,8 +163,10 @@ export default new Vuex.Store({
 
       let targetArray = [];
       if (parentGenre == null) {
+        alert("親を持たないジャンル");
         targetArray = state.genres;
       } else {
+        alert("親を持つジャンル");
         targetArray = parentGenre.genres;
       }
 
