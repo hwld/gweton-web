@@ -25,18 +25,15 @@
 
 <script>
 export default {
-  name: 'GwnMemoItem',
+  name: "GwnMemoItem",
 
   props: {
     memo: {
       type: Object,
       default: () => {}
     }
-  },
-
-  methods: {
-  },
-}
+  }
+};
 </script>
 
 <style scoped>
@@ -46,6 +43,7 @@ export default {
 
 .memo-text {
   font-size: 1.2rem;
+  white-space: pre-wrap;
 }
 
 .memo-meta-data-head {

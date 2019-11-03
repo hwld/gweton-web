@@ -68,4 +68,8 @@ export default {
 .treeview {
   max-height: 86vh;
 }
+.v-treeview-node__content,
+.v-treeview-node__label {
+  word-break: break-all;
+}
 </style>
