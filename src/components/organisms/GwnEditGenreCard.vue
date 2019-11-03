@@ -17,7 +17,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn text @click="onCancel">中止</v-btn>
-      <v-btn text @click="onOk" :disabled="text === ''">{{okButtonText}}</v-btn>
+      <v-btn text @click="onOk" :disabled="genreName === ''">{{okButtonText}}</v-btn>
     </v-card-actions>
   </v-card>
 </template>

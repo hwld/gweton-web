@@ -11,68 +11,6 @@ export default new Vuex.Store({
     selectedMemo: {},
     genres: [
       //GenreにMemoとGenreが包含されている
-      {
-        id: 1,
-        genreName: "CSS単位",
-        memos: [
-          {
-            id: 1,
-            title: "Em単位とは",
-            text:
-              "フォントサイズ設定にem単位を使うと、ユーザー設定のオーバーライドに関する問題を回避しやすくなります。1emの大きさはブラウザーのfont-sizeのデフォルト値で決まります。開発者やユーザーが変更しなければ、1emは16pxです。",
-            authorName: "Asha Laxmi",
-            bookName:
-              "CSS初心者が混乱しがちな7つの単位の意味と違いをしっかり理解しよう"
-          },
-          {
-            id: 2,
-            title: "Rem単位とは",
-            text:
-              "em単位の問題は、親要素のfont-sizeに従って子要素のfont-sizeが拡大縮小するのが望ましいとは限らないことです。font-sizeの継承が、em単位の値を計算するプロセスを複雑にする場合があります.この問題はrem単位で解決します。1remの値はルート要素のfont-size値と同じです。",
-            authorName: "Asha Laxmi",
-            bookName:
-              "CSS初心者が混乱しがちな7つの単位の意味と違いをしっかり理解しよう"
-          },
-          { id: 3, text: "Hello", title: "id3のメモ" },
-          { id: 4, text: "World", title: "id4のメモ" },
-          {
-            id: 5,
-            text:
-              "あああああああああああああああああfffああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
-          }
-        ],
-        genres: []
-      },
-      {
-        id: 2,
-        genreName: "hoge2",
-        memos: [],
-        genres: [
-          {
-            id: 3,
-            genreName: "hoge2-1",
-            memos: [],
-            genres: [
-              {
-                id: 4,
-                genreName: "hoge-2-1-1",
-                memos: [
-                  {
-                    id: 6,
-                    title: "うおおおおお",
-                    text: "うおおおおお",
-                    authorName: "うおおお",
-                    bookName: "うおおお"
-                  }
-                ],
-                genres: []
-              }
-            ]
-          }
-        ]
-      },
-      { id: 5, genreName: "hoge3", memos: [], genres: [] },
-      { id: 6, genreName: "hoge4", memos: [], genres: [] }
     ],
     nextGenreId: 7,
     nextMemoId: 7
@@ -150,13 +88,13 @@ export default new Vuex.Store({
       genre.genres = [];
       genre.memos = [];
 
-      state.nextGenreId++;
-
       if (state.selectedGenre.id != null) {
         state.selectedGenre.genres.push(genre);
       } else {
         state.genres.push(genre);
       }
+
+      state.nextGenreId++;
     },
 
     //選択されているジャンルを削除する
@@ -164,11 +102,9 @@ export default new Vuex.Store({
       const parentGenre = state.selectedGenre.parent;
 
       let targetArray = [];
-      if (parentGenre == null) {
-        alert("親を持たないジャンル");
+      if (parentGenre.id == null) {
         targetArray = state.genres;
       } else {
-        alert("親を持つジャンル");
         targetArray = parentGenre.genres;
       }
 
