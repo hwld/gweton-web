@@ -62,7 +62,7 @@ export default {
     defaultGenre: {
       immediate: true,
       handler(genre) {
-        this.genreName = genre.title;
+        this.genreName = genre.genreName;
       }
     }
   }
