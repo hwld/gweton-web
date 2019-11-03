@@ -8,25 +8,25 @@
 
     <!--ダイアログの外側がクリックされたときにフィールドをリセットするために、空のメモオブジェクトを渡す。-->
     <!--外側がクリックされたら、メモオブジェクトを空文字でリセットし、反映させる。-->
-    <GwnMemoEditCard
+    <GwnEditMemoCard
       :defaultMemo="memo"
       cardTitle="メモ作成"
       okButtonText="作成"
       @onOk="addMemo"
       @onCancel="cancel"
-    ></GwnMemoEditCard>
+    ></GwnEditMemoCard>
   </v-dialog>
 </template>
 
 <script>
 import * as types from "@/store/mutation-types.js";
-import GwnMemoEditCard from "@/components/organisms/GwnMemoEditCard.vue";
+import GwnEditMemoCard from "@/components/organisms/GwnEditMemoCard.vue";
 
 export default {
   name: "GwnAddMemoMenuItem",
 
   components: {
-    GwnMemoEditCard
+    GwnEditMemoCard
   },
 
   computed: {

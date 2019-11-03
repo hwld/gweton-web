@@ -147,6 +147,8 @@ export default new Vuex.Store({
     [types.ADD_GENRE](state, genre) {
       genre.parent = state.selectedGenre;
       genre.id = state.nextGenreId;
+      genre.genres = [];
+      genre.memos = [];
 
       state.nextGenreId++;
 

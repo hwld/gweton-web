@@ -6,25 +6,25 @@
       </v-btn>
     </template>
 
-    <GwnMemoEditCard
+    <GwnEditMemoCard
       :defaultMemo="defaultMemo"
       cardTitle="メモ編集"
       okButtonText="変更"
       @onOk="editMemo"
       @onCancel="cancel"
-    ></GwnMemoEditCard>
+    ></GwnEditMemoCard>
   </v-dialog>
 </template>
 
 <script>
 import * as types from "@/store/mutation-types.js";
-import GwnMemoEditCard from "@/components/organisms/GwnMemoEditCard.vue";
+import GwnEditMemoCard from "@/components/organisms/GwnEditMemoCard.vue";
 
 export default {
   name: "GwnEditMemoMenuItem",
 
   components: {
-    GwnMemoEditCard
+    GwnEditMemoCard
   },
 
   computed: {

@@ -54,7 +54,7 @@
 
 <script>
 export default {
-  name: "GwnMemoEditCard",
+  name: "GwnEditMemoCard",
   props: {
     defaultMemo: {
       type: Object,
