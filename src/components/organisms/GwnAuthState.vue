@@ -26,6 +26,9 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user ? user : {};
+      if (user) {
+        this.$store.dispatch("downloadData");
+      }
     });
   },
 
@@ -37,6 +40,7 @@ export default {
 
     logout() {
       firebase.auth().signOut();
+      this.$store.dispatch("uploadData");
     }
   }
 };

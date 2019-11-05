@@ -16,7 +16,6 @@
 import GwnHeader from "@/components/organisms/GwnHeader.vue";
 import GwnMemoList from "@/components/organisms/GwnMemoList.vue";
 import GwnGenreList from "@/components/organisms/GwnGenreList.vue";
-import { mapState } from "vuex";
 
 export default {
   name: "GwnMainView",
@@ -28,15 +27,16 @@ export default {
   },
 
   data: () => ({
-    drawer: null,
-    user: {}
+    drawer: null
   }),
 
   computed: {
     drawerWidth() {
       return window.parent.screen.width * 0.3;
     },
-    ...mapState(["isDrawerOpen"])
+    isDrawerOpen() {
+      return this.$store.getters.getIsDrawerOpen;
+    }
   },
 
   created() {

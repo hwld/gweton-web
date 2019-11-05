@@ -46,7 +46,6 @@ export default {
 
       this.$store.commit(types.DESELECT_MEMO);
     },
-
     findGenreById(genres, searchId) {
       for (const genre of genres) {
         if (genre.id === searchId) {

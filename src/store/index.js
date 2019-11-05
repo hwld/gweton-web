@@ -1,6 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import * as types from "./mutation-types";
+import axios from "axios";
+import firebase from "firebase/app";
+import "firebase/storage";
 
 Vue.use(Vuex);
 
@@ -12,10 +15,18 @@ export default new Vuex.Store({
     genres: [
       //GenreにMemoとGenreが包含されている
     ],
-    nextGenreId: 34,
+    nextGenreId: 1,
     nextMemoId: 1
   },
   mutations: {
+    //文字列としてダウンロードしたデータを設定する
+    [types.SET_DOWNLOAD_DATA](state, strData) {
+      const jsonData = JSON.parse(strData);
+      state.genres = jsonData.genres;
+      state.nextGenreId = jsonData.nextGenreId;
+      state.nextMemoId = jsonData.nextMemoId;
+    },
+
     //ドロワーの状態を反転させる (開く・閉じる)
     [types.INVERT_IS_DRAWER_OPEN](state) {
       state.isDrawerOpen = !state.isDrawerOpen;
@@ -83,7 +94,7 @@ export default new Vuex.Store({
 
     //選択されているジャンルにジャンルを追加する
     [types.ADD_GENRE](state, genre) {
-      genre.parent = state.selectedGenre;
+      genre.parentId = state.selectedGenre.id;
       genre.id = state.nextGenreId;
       genre.genres = [];
       genre.memos = [];
@@ -97,12 +108,10 @@ export default new Vuex.Store({
       state.nextGenreId++;
     },
 
-    //選択されているジャンルを削除する
-    [types.DELETE_GENRE](state) {
-      const parentGenre = state.selectedGenre.parent;
-
+    //選択されているジャンルを渡されたジャンルから削除する
+    [types.DELETE_GENRE](state, parentGenre) {
       let targetArray = [];
-      if (parentGenre.id == null) {
+      if (parentGenre == null) {
         targetArray = state.genres;
       } else {
         targetArray = parentGenre.genres;
@@ -124,6 +133,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getIsDrawerOpen: state => {
+      return state.isDrawerOpen;
+    },
     getGenres: state => {
       return state.genres;
     },
@@ -132,8 +144,45 @@ export default new Vuex.Store({
     },
     getSelectedMemo: state => {
       return state.selectedMemo;
+    },
+    getNextGenreId: state => {
+      return state.nextGenreId;
+    },
+    getNextMemoId: state => {
+      return state.nextMemoId;
     }
   },
-  actions: {},
+  actions: {
+    downloadData({ commit }) {
+      const dataRef = firebase.storage().ref("data.json");
+      dataRef
+        .getDownloadURL()
+        .then(function(url) {
+          axios.get(url).then(function(response) {
+            //responseをstringからJSONに変換して、stateに代入する
+            commit(types.SET_DOWNLOAD_DATA, response);
+          });
+        })
+        .catch(function(error) {
+          switch (error.code) {
+            case "storage/object-not-found":
+              break;
+          }
+        });
+    },
+    uploadData({ getters }) {
+      const dataRef = firebase
+        .storage()
+        .ref()
+        .child("data.json");
+      const jsonData = {
+        genres: getters.getGenres,
+        nextGenreId: getters.getNextGenreId,
+        nextMemoId: getters.getNextMemoId
+      };
+      const strData = JSON.stringify(jsonData);
+      dataRef.putString(strData);
+    }
+  },
   modules: {}
 });

@@ -36,12 +36,33 @@ export default {
   computed: {
     selectedGenre() {
       return this.$store.getters.getSelectedGenre;
+    },
+    genres() {
+      return this.$store.getters.getGenres;
     }
   },
 
   methods: {
     deleteGenre() {
-      this.$store.commit(types.DELETE_GENRE);
+      let parentGenre = this.findGenreById(
+        this.genres,
+        this.selectedGenre.parentId
+      );
+      this.$store.commit(types.DELETE_GENRE, parentGenre);
+    },
+
+    findGenreById(genres, searchId) {
+      for (const genre of genres) {
+        if (genre.id === searchId) {
+          return genre;
+        }
+        if (genre.genres != null) {
+          let result = this.findGenreById(genre.genres, searchId);
+          if (result != null) {
+            return result;
+          }
+        }
+      }
     }
   }
 };
