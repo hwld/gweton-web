@@ -39,8 +39,8 @@ export default {
     },
 
     logout() {
-      firebase.auth().signOut();
       this.$store.dispatch("uploadData");
+      firebase.auth().signOut();
     }
   }
 };

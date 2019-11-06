@@ -19,12 +19,11 @@ export default new Vuex.Store({
     nextMemoId: 1
   },
   mutations: {
-    //文字列としてダウンロードしたデータを設定する
-    [types.SET_DOWNLOAD_DATA](state, strData) {
-      const jsonData = JSON.parse(strData);
-      state.genres = jsonData.genres;
-      state.nextGenreId = jsonData.nextGenreId;
-      state.nextMemoId = jsonData.nextMemoId;
+    //ダウンロードしたデータを設定する
+    [types.SET_DOWNLOAD_DATA](state, Data) {
+      state.genres = Data.genres;
+      state.nextGenreId = Data.nextGenreId;
+      state.nextMemoId = Data.nextMemoId;
     },
 
     //ドロワーの状態を反転させる (開く・閉じる)
@@ -142,6 +141,19 @@ export default new Vuex.Store({
     getSelectedGenre: state => {
       return state.selectedGenre;
     },
+    getGenreById: (state, getters) => (searchId, genres = state.genres) => {
+      for (const genre of genres) {
+        if (genre.id === searchId) {
+          return genre;
+        }
+        if (genre.genres != null) {
+          let result = getters.getGenreById(searchId, genre.genres);
+          if (result != null) {
+            return result;
+          }
+        }
+      }
+    },
     getSelectedMemo: state => {
       return state.selectedMemo;
     },
@@ -159,8 +171,7 @@ export default new Vuex.Store({
         .getDownloadURL()
         .then(function(url) {
           axios.get(url).then(function(response) {
-            //responseをstringからJSONに変換して、stateに代入する
-            commit(types.SET_DOWNLOAD_DATA, response);
+            commit(types.SET_DOWNLOAD_DATA, response.data);
           });
         })
         .catch(function(error) {
@@ -171,17 +182,22 @@ export default new Vuex.Store({
         });
     },
     uploadData({ getters }) {
-      const dataRef = firebase
-        .storage()
-        .ref()
-        .child("data.json");
+      const dataRef = firebase.storage().ref("data.json");
       const jsonData = {
         genres: getters.getGenres,
         nextGenreId: getters.getNextGenreId,
         nextMemoId: getters.getNextMemoId
       };
       const strData = JSON.stringify(jsonData);
-      dataRef.putString(strData);
+      dataRef.putString(strData).catch(function(error) {
+        window.console.log(error.serverResponse);
+      });
+    },
+    deleteGenre({ commit, getters }) {
+      const parentGenre = getters.getGenreById(
+        getters.getSelectedGenre.parentId
+      );
+      commit(types.DELETE_GENRE, parentGenre);
     }
   },
   modules: {}

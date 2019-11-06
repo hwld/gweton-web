@@ -38,26 +38,13 @@ export default {
   methods: {
     selectGenre(id) {
       if (id[0] != null) {
-        const genre = this.findGenreById(this.$store.getters.getGenres, id[0]);
+        const genre = this.$store.getters.getGenreById(id[0]);
         this.$store.commit(types.SELECT_GENRE, genre);
       } else {
         this.$store.commit(types.SELECT_GENRE, {});
       }
 
       this.$store.commit(types.DESELECT_MEMO);
-    },
-    findGenreById(genres, searchId) {
-      for (const genre of genres) {
-        if (genre.id === searchId) {
-          return genre;
-        }
-        if (genre.genres != null) {
-          let result = this.findGenreById(genre.genres, searchId);
-          if (result != null) {
-            return result;
-          }
-        }
-      }
     }
   }
 };
