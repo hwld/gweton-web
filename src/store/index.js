@@ -165,8 +165,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    downloadData({ commit }) {
-      const dataRef = firebase.storage().ref("data.json");
+    downloadData({ commit }, uid) {
+      const dataRef = firebase.storage().ref(`user/${uid}/data.json`);
       dataRef
         .getDownloadURL()
         .then(function(url) {
@@ -181,8 +181,8 @@ export default new Vuex.Store({
           }
         });
     },
-    uploadData({ getters }) {
-      const dataRef = firebase.storage().ref("data.json");
+    uploadData({ getters }, uid) {
+      const dataRef = firebase.storage().ref(`user/${uid}/data.json`);
       const jsonData = {
         genres: getters.getGenres,
         nextGenreId: getters.getNextGenreId,

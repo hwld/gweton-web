@@ -27,11 +27,11 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user ? user : {};
       if (user) {
-        this.$store.dispatch("downloadData");
+        this.$store.dispatch("downloadData", user.uid);
+        window.console.log(user.uid);
       }
     });
   },
-
   methods: {
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -39,7 +39,9 @@ export default {
     },
 
     logout() {
-      this.$store.dispatch("uploadData");
+      if (this.user.uid) {
+        this.$store.dispatch("uploadData", this.user.uid);
+      }
       firebase.auth().signOut();
     }
   }
