@@ -37,12 +37,8 @@ export default {
 
   methods: {
     selectGenre(id) {
-      if (id[0] != null) {
-        const genre = this.$store.getters.getGenreById(id[0]);
-        this.$store.commit(types.SELECT_GENRE, genre);
-      } else {
-        this.$store.commit(types.SELECT_GENRE, {});
-      }
+      const genre = this.$store.getters.getGenreById(id[0]);
+      this.$store.commit(types.SELECT_GENRE, genre);
     }
   }
 };

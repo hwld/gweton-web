@@ -23,20 +23,14 @@ export default {
       return this.$store.getters.getUser;
     }
   },
-  created() {
-    window.addEventListener("beforeunload", () => {
-      this.$store.dispatch("uploadData");
-    });
 
+  created() {
     firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.$store.commit(types.SET_USER, user);
-      } else {
-        this.$store.commit(types.SET_USER, {});
-      }
+      this.$store.commit(types.SET_USER, user);
       this.$store.dispatch("downloadData");
     });
   },
+
   methods: {
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();

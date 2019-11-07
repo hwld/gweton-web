@@ -22,7 +22,7 @@ export default new Vuex.Store({
   mutations: {
     //ユーザを設定する
     [types.SET_USER](state, user) {
-      state.user = user;
+      state.user = user ? user : {};
     },
 
     //ダウンロードしたデータを設定する
@@ -89,7 +89,7 @@ export default new Vuex.Store({
 
     //すべてのジャンルから指定されたidのジャンルを選択する
     [types.SELECT_GENRE](state, genre) {
-      state.selectedGenre = genre;
+      state.selectedGenre = genre ? genre : {};
     },
 
     //選択されているジャンルにジャンルを追加する
@@ -215,11 +215,13 @@ export default new Vuex.Store({
       const dataRef = firebase
         .storage()
         .ref(`user/${getters.getUser.uid}/data.json`);
+
       const jsonData = {
         genres: getters.getGenres,
         nextGenreId: getters.getNextGenreId,
         nextMemoId: getters.getNextMemoId
       };
+
       const strData = JSON.stringify(jsonData);
       dataRef.putString(strData).catch(function(error) {
         window.console.log(error.serverResponse);
