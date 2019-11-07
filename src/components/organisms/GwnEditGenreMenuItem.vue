@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import * as types from "@/store/mutation-types.js";
 import GwnEditGenreCard from "@/components/organisms/GwnEditGenreCard.vue";
 
 export default {
@@ -43,7 +42,7 @@ export default {
   methods: {
     editGenre(genre) {
       this.dialog = false;
-      this.$store.commit(types.EDIT_GENRE, genre);
+      this.$store.dispatch("editGenre", genre);
     },
     cancel() {
       this.dialog = false;

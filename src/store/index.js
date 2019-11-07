@@ -76,11 +76,11 @@ export default new Vuex.Store({
     //選択されているメモを更新する
     [types.EDIT_MEMO](state, memo) {
       //id以外を変更する
-      const selectedMemo = state.selectedMemo;
-      selectedMemo.title = memo.title;
-      selectedMemo.text = memo.text;
-      selectedMemo.authorName = memo.authorName;
-      selectedMemo.bookName = memo.bookName;
+      Object.keys(memo).forEach(prop => {
+        if (prop !== "id") {
+          state.selectedMemo[prop] = memo[prop];
+        }
+      });
     },
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -170,19 +170,37 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    addMemo({ commit }, memo) {
+    addMemo({ commit, dispatch }, memo) {
       commit(types.ADD_MEMO, memo);
+      dispatch("uploadData");
     },
 
-    addGenre({ commit }, genre) {
+    deleteMemo({ commit, dispatch }) {
+      commit(types.DELETE_MEMO);
+      dispatch("uploadData");
+    },
+
+    editMemo({ commit, dispatch }, memo) {
+      commit(types.EDIT_MEMO, memo);
+      dispatch("uploadData");
+    },
+
+    addGenre({ commit, dispatch }, genre) {
       commit(types.ADD_GENRE, genre);
+      dispatch("uploadData");
     },
 
-    deleteGenre({ commit, getters }) {
+    deleteGenre({ commit, getters, dispatch }) {
       const parentGenre = getters.getGenreById(
         getters.getSelectedGenre.parentId
       );
       commit(types.DELETE_GENRE, parentGenre);
+      dispatch("uploadData");
+    },
+
+    editGenre({ commit, dispatch }, genre) {
+      commit(types.EDIT_GENRE, genre);
+      dispatch("uploadData");
     },
 
     downloadData({ commit, getters }) {

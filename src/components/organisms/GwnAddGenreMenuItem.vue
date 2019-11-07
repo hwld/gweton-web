@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import * as types from "@/store/mutation-types.js";
 import GwnEditGenreCard from "@/components/organisms/GwnEditGenreCard.vue";
 
 export default {
@@ -45,7 +44,7 @@ export default {
   methods: {
     addGenre(genre) {
       this.dialog = false;
-      this.$store.commit(types.ADD_GENRE, genre);
+      this.$store.dispatch("addGenre", genre);
       this.resetGenre();
     },
     cancel() {

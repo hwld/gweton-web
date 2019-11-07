@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import * as types from "@/store/mutation-types.js";
 import GwnEditMemoCard from "@/components/organisms/GwnEditMemoCard.vue";
 
 export default {
@@ -43,7 +42,7 @@ export default {
   methods: {
     editMemo(memo) {
       this.dialog = false;
-      this.$store.commit(types.EDIT_MEMO, memo);
+      this.$store.dispatch("editMemo", memo);
     },
     cancel() {
       this.dialog = false;
