@@ -170,6 +170,21 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    addMemo({ commit }, memo) {
+      commit(types.ADD_MEMO, memo);
+    },
+
+    addGenre({ commit }, genre) {
+      commit(types.ADD_GENRE, genre);
+    },
+
+    deleteGenre({ commit, getters }) {
+      const parentGenre = getters.getGenreById(
+        getters.getSelectedGenre.parentId
+      );
+      commit(types.DELETE_GENRE, parentGenre);
+    },
+
     downloadData({ commit, getters }) {
       if (getters.getUser.uid == null) {
         return;
@@ -191,6 +206,7 @@ export default new Vuex.Store({
           }
         });
     },
+
     uploadData({ getters }) {
       if (getters.getUser.uid == null) {
         return;
@@ -208,12 +224,6 @@ export default new Vuex.Store({
       dataRef.putString(strData).catch(function(error) {
         window.console.log(error.serverResponse);
       });
-    },
-    deleteGenre({ commit, getters }) {
-      const parentGenre = getters.getGenreById(
-        getters.getSelectedGenre.parentId
-      );
-      commit(types.DELETE_GENRE, parentGenre);
     }
   },
   modules: {}

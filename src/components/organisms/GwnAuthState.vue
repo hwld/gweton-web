@@ -24,6 +24,10 @@ export default {
     }
   },
   created() {
+    window.addEventListener("beforeunload", () => {
+      this.$store.dispatch("uploadData");
+    });
+
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.$store.commit(types.SET_USER, user);
