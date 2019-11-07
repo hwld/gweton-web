@@ -26,10 +26,10 @@ export default new Vuex.Store({
     },
 
     //ダウンロードしたデータを設定する
-    [types.SET_DOWNLOAD_DATA](state, Data) {
-      state.genres = Data.genres;
-      state.nextGenreId = Data.nextGenreId;
-      state.nextMemoId = Data.nextMemoId;
+    [types.SET_DOWNLOAD_DATA](state, data) {
+      Object.keys(data).forEach(prop => {
+        state[prop] = data[prop];
+      });
     },
 
     //ドロワーの状態を反転させる (開く・閉じる)
@@ -43,15 +43,9 @@ export default new Vuex.Store({
 
     //選択されているジャンルから指定されたidのメモを選択する
     [types.SELECT_MEMO](state, memoId) {
-      if (!state.selectedGenre.id) return;
-
       const memo = state.selectedGenre.memos.find(memo => memo.id === memoId);
 
-      if (state.selectedMemo === memo) {
-        state.selectedMemo = {};
-        return;
-      }
-      state.selectedMemo = memo;
+      state.selectedMemo = state.selectedMemo === memo ? {} : memo;
     },
 
     //選択されているジャンルにメモを追加する
@@ -99,11 +93,14 @@ export default new Vuex.Store({
       genre.genres = [];
       genre.memos = [];
 
+      let targetArray = [];
       if (state.selectedGenre.id != null) {
-        state.selectedGenre.genres.push(genre);
+        targetArray = state.selectedGenre.genres;
       } else {
-        state.genres.push(genre);
+        targetArray = state.genres;
       }
+
+      targetArray.push(genre);
 
       state.nextGenreId++;
     },
@@ -137,34 +134,39 @@ export default new Vuex.Store({
     getUser: state => {
       return state.user;
     },
+
     getIsDrawerOpen: state => {
       return state.isDrawerOpen;
     },
+
     getGenres: state => {
       return state.genres;
     },
+
     getSelectedGenre: state => {
       return state.selectedGenre;
     },
+
     getGenreById: (state, getters) => (searchId, genres = state.genres) => {
       for (const genre of genres) {
         if (genre.id === searchId) {
           return genre;
         }
-        if (genre.genres != null) {
-          let result = getters.getGenreById(searchId, genre.genres);
-          if (result != null) {
-            return result;
-          }
+        let result = getters.getGenreById(searchId, genre.genres);
+        if (result != null) {
+          return result;
         }
       }
     },
+
     getSelectedMemo: state => {
       return state.selectedMemo;
     },
+
     getNextGenreId: state => {
       return state.nextGenreId;
     },
+
     getNextMemoId: state => {
       return state.nextMemoId;
     }
@@ -207,10 +209,10 @@ export default new Vuex.Store({
       if (getters.getUser.uid == null) {
         return;
       }
-      const dataRef = firebase
+
+      firebase
         .storage()
-        .ref(`user/${getters.getUser.uid}/data.json`);
-      dataRef
+        .ref(`user/${getters.getUser.uid}/data.json`)
         .getDownloadURL()
         .then(function(url) {
           axios.get(url).then(function(response) {
@@ -241,6 +243,7 @@ export default new Vuex.Store({
       };
 
       const strData = JSON.stringify(jsonData);
+
       dataRef.putString(strData).catch(function(error) {
         window.console.log(error.serverResponse);
       });
