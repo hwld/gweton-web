@@ -21,9 +21,12 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-new Vue({
+const app = new Vue({
   vuetify,
   store,
   render: h => h(App)
 }).$mount("#app");
 
+window.addEventListener("beforeunload", () => {
+  app.$destroy();
+});

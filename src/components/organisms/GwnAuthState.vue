@@ -26,10 +26,11 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user ? user : {};
-      if (user) {
-        this.$store.dispatch("downloadData", user.uid);
-      }
+      this.$store.dispatch("downloadData", this.user.uid);
     });
+  },
+  destroyed() {
+    this.$store.dispatch("uploadData", this.user.uid);
   },
   methods: {
     login() {
@@ -38,9 +39,7 @@ export default {
     },
 
     logout() {
-      if (this.user.uid) {
-        this.$store.dispatch("uploadData", this.user.uid);
-      }
+      this.$store.dispatch("uploadData", this.user.uid);
       firebase.auth().signOut();
     }
   }

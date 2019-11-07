@@ -111,7 +111,6 @@ export default new Vuex.Store({
         targetArray = parentGenre.genres;
       }
 
-      alert(targetArray);
       let targetIndex = targetArray.findIndex(genre => {
         return genre.id === state.selectedGenre.id;
       });
@@ -163,6 +162,9 @@ export default new Vuex.Store({
   },
   actions: {
     downloadData({ commit }, uid) {
+      if (uid == null) {
+        return;
+      }
       const dataRef = firebase.storage().ref(`user/${uid}/data.json`);
       dataRef
         .getDownloadURL()
@@ -179,6 +181,9 @@ export default new Vuex.Store({
         });
     },
     uploadData({ getters }, uid) {
+      if (uid == null) {
+        return;
+      }
       const dataRef = firebase.storage().ref(`user/${uid}/data.json`);
       const jsonData = {
         genres: getters.getGenres,
