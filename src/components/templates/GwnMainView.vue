@@ -29,7 +29,6 @@ export default {
   data: () => ({
     drawer: null
   }),
-
   computed: {
     drawerWidth() {
       return window.parent.screen.width * 0.3;
@@ -38,7 +37,6 @@ export default {
       return this.$store.getters.getIsDrawerOpen;
     }
   },
-
   created() {
     this.$vuetify.theme.dark = true;
   }

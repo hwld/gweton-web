@@ -28,7 +28,6 @@ export default {
       this.user = user ? user : {};
       if (user) {
         this.$store.dispatch("downloadData", user.uid);
-        window.console.log(user.uid);
       }
     });
   },

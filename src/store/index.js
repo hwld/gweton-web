@@ -48,11 +48,6 @@ export default new Vuex.Store({
       state.selectedMemo = memo;
     },
 
-    //選択されているメモの選択状態を解除する
-    [types.DESELECT_MEMO](state) {
-      state.selectedMemo = {};
-    },
-
     //選択されているジャンルにメモを追加する
     [types.ADD_MEMO](state, memo) {
       memo.id = state.nextMemoId;
@@ -116,9 +111,11 @@ export default new Vuex.Store({
         targetArray = parentGenre.genres;
       }
 
+      alert(targetArray);
       let targetIndex = targetArray.findIndex(genre => {
-        genre.id === state.selectedGenre.id;
+        return genre.id === state.selectedGenre.id;
       });
+
       targetArray.splice(targetIndex, 1);
 
       state.nextGenreId--;

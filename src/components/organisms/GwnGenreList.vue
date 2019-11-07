@@ -43,8 +43,6 @@ export default {
       } else {
         this.$store.commit(types.SELECT_GENRE, {});
       }
-
-      this.$store.commit(types.DESELECT_MEMO);
     }
   }
 };
