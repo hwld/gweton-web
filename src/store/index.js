@@ -9,6 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    user: {},
     isDrawerOpen: true,
     selectedGenre: {},
     selectedMemo: {},
@@ -19,6 +20,11 @@ export default new Vuex.Store({
     nextMemoId: 1
   },
   mutations: {
+    //ユーザを設定する
+    [types.SET_USER](state, user) {
+      state.user = user;
+    },
+
     //ダウンロードしたデータを設定する
     [types.SET_DOWNLOAD_DATA](state, Data) {
       state.genres = Data.genres;
@@ -128,6 +134,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getUser: state => {
+      return state.user;
+    },
     getIsDrawerOpen: state => {
       return state.isDrawerOpen;
     },
@@ -161,11 +170,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    downloadData({ commit }, uid) {
-      if (uid == null) {
+    downloadData({ commit, getters }) {
+      if (getters.getUser.uid == null) {
         return;
       }
-      const dataRef = firebase.storage().ref(`user/${uid}/data.json`);
+      const dataRef = firebase
+        .storage()
+        .ref(`user/${getters.getUser.uid}/data.json`);
       dataRef
         .getDownloadURL()
         .then(function(url) {
@@ -180,11 +191,14 @@ export default new Vuex.Store({
           }
         });
     },
-    uploadData({ getters }, uid) {
-      if (uid == null) {
+    uploadData({ getters }) {
+      if (getters.getUser.uid == null) {
         return;
       }
-      const dataRef = firebase.storage().ref(`user/${uid}/data.json`);
+
+      const dataRef = firebase
+        .storage()
+        .ref(`user/${getters.getUser.uid}/data.json`);
       const jsonData = {
         genres: getters.getGenres,
         nextGenreId: getters.getNextGenreId,

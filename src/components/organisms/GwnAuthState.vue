@@ -12,25 +12,26 @@
 
 <script>
 import firebase from "firebase/app";
+import * as types from "@/store/mutation-types";
 import "firebase/auth";
 
 export default {
   name: "GwnAuthState",
 
-  data() {
-    return {
-      user: {}
-    };
+  computed: {
+    user() {
+      return this.$store.getters.getUser;
+    }
   },
-
   created() {
     firebase.auth().onAuthStateChanged(user => {
-      this.user = user ? user : {};
-      this.$store.dispatch("downloadData", this.user.uid);
+      if (user) {
+        this.$store.commit(types.SET_USER, user);
+      } else {
+        this.$store.commit(types.SET_USER, {});
+      }
+      this.$store.dispatch("downloadData");
     });
-  },
-  destroyed() {
-    this.$store.dispatch("uploadData", this.user.uid);
   },
   methods: {
     login() {
@@ -39,7 +40,7 @@ export default {
     },
 
     logout() {
-      this.$store.dispatch("uploadData", this.user.uid);
+      this.$store.dispatch("uploadData");
       firebase.auth().signOut();
     }
   }
