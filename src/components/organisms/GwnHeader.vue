@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app clipped-left max-height="10vh">
+  <v-app-bar app clipped-left>
     <v-app-bar-nav-icon @click.stop="invertIsOpenDrawer"></v-app-bar-nav-icon>
     <v-toolbar-title class="headline text-uppercase">
       <span>Gweton</span>

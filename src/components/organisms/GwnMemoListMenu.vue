@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar max-height="10vh">
+  <v-toolbar>
     <GwnAddMemoMenuItem></GwnAddMemoMenuItem>
     <GwnDeleteMemoMenuItem></GwnDeleteMemoMenuItem>
     <GwnEditMemoMenuItem></GwnEditMemoMenuItem>
