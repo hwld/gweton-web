@@ -2,11 +2,11 @@
   <v-app>
     <GwnHeader>
       <template v-slot:prepend>
-        <v-app-bar-nav-icon @click.stop="invertIsOpenDrawer"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       </template>
     </GwnHeader>
 
-    <v-navigation-drawer :value="isDrawerOpen" app clipped :width="drawerWidth">
+    <v-navigation-drawer :value="drawer" app clipped :width="drawerWidth">
       <GwnGenreList></GwnGenreList>
     </v-navigation-drawer>
 
@@ -20,7 +20,6 @@
 import GwnHeader from "@/components/organisms/GwnHeader.vue";
 import GwnMemoList from "@/components/organisms/GwnMemoList.vue";
 import GwnGenreList from "@/components/organisms/GwnGenreList.vue";
-import * as types from "@/store/mutation-types";
 
 export default {
   name: "GwnMainView",
@@ -38,20 +37,11 @@ export default {
   computed: {
     drawerWidth() {
       return window.parent.screen.width * 0.3;
-    },
-    isDrawerOpen() {
-      return this.$store.getters.getIsDrawerOpen;
     }
   },
 
   created() {
     this.$vuetify.theme.dark = true;
-  },
-
-  methods: {
-    invertIsOpenDrawer() {
-      this.$store.commit(types.INVERT_IS_DRAWER_OPEN);
-    }
   }
 };
 </script>

@@ -10,7 +10,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {},
-    isDrawerOpen: true,
     selectedGenre: {},
     selectedMemo: {},
     genres: [
@@ -30,11 +29,6 @@ export default new Vuex.Store({
       Object.keys(data).forEach(prop => {
         state[prop] = data[prop];
       });
-    },
-
-    //ドロワーの状態を反転させる (開く・閉じる)
-    [types.INVERT_IS_DRAWER_OPEN](state) {
-      state.isDrawerOpen = !state.isDrawerOpen;
     },
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,10 +127,6 @@ export default new Vuex.Store({
   getters: {
     getUser: state => {
       return state.user;
-    },
-
-    getIsDrawerOpen: state => {
-      return state.isDrawerOpen;
     },
 
     getGenres: state => {
