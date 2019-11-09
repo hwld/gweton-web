@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app clipped-left>
-    <v-app-bar-nav-icon @click.stop="invertIsOpenDrawer"></v-app-bar-nav-icon>
+    <slot name="prepend"></slot>
 
     <v-toolbar-title class="headline text-uppercase">
       <span>Gweton</span>
@@ -17,24 +17,11 @@
 <script>
 import GwnAuthState from "@/components/organisms/GwnAuthState.vue";
 import GwnSearchField from "@/components/organisms/GwnSearchField.vue";
-import * as types from "@/store/mutation-types";
 
 export default {
   name: "GwnHeader",
 
-  components: { GwnAuthState, GwnSearchField },
-
-  computed: {
-    isDrawerOpen() {
-      return this.$store.getters.getIsDraewrOpen;
-    }
-  },
-
-  methods: {
-    invertIsOpenDrawer() {
-      this.$store.commit(types.INVERT_IS_DRAWER_OPEN);
-    }
-  }
+  components: { GwnAuthState, GwnSearchField }
 };
 </script>
 

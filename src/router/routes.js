@@ -1,9 +1,9 @@
-import GwnMainView from "@/components/templates/GwnMainView.vue";
+import GwnMainPage from "@/components/templates/GwnMainPage.vue";
 
 export default [
   {
     path: "/home",
-    component: GwnMainView
+    component: GwnMainPage
   },
   {
     path: "*",
