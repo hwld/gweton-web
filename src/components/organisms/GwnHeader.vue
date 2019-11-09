@@ -1,30 +1,33 @@
 <template>
   <v-app-bar app clipped-left>
     <v-app-bar-nav-icon @click.stop="invertIsOpenDrawer"></v-app-bar-nav-icon>
+
     <v-toolbar-title class="headline text-uppercase">
       <span>Gweton</span>
     </v-toolbar-title>
+
     <v-spacer></v-spacer>
-    <v-btn icon>
-      <v-icon x-large>search</v-icon>
-    </v-btn>
+    <GwnSearchField></GwnSearchField>
     <v-spacer></v-spacer>
+
     <GwnAuthState></GwnAuthState>
   </v-app-bar>
 </template>
 
 <script>
 import GwnAuthState from "@/components/organisms/GwnAuthState.vue";
+import GwnSearchField from "@/components/organisms/GwnSearchField.vue";
 import * as types from "@/store/mutation-types";
-import { mapState } from "vuex";
 
 export default {
   name: "GwnHeader",
 
-  components: { GwnAuthState },
+  components: { GwnAuthState, GwnSearchField },
 
   computed: {
-    ...mapState(["isDrawerOpen"])
+    isDrawerOpen() {
+      return this.$store.getters.getIsDraewrOpen;
+    }
   },
 
   methods: {
