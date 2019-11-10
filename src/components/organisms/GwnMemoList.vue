@@ -1,76 +1,32 @@
 <template>
-  <div>
-    <GwnMemoListMenu></GwnMemoListMenu>
-    <div v-if="!selectedGenre.id">ジャンルを選択してください</div>
-
-    <v-list v-else dense class="overflow-y-auto" max-height="86vh">
-      <v-list-item-group>
-        <v-list-item
-          v-for="memo in selectedGenre.memos"
-          :key="memo.id"
-          @click="selectMemo(memo.id)"
-        >
-          <v-list-item-content>
-            <GwnMemoItem :memo="memo"></GwnMemoItem>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </div>
+  <GwnMemoListBase :memos="selectedGenre.memos">
+    <template v-slot:menu>
+      <GwnMemoListMenu></GwnMemoListMenu>
+    </template>
+  </GwnMemoListBase>
 </template>
 
 <script>
-import GwnMemoItem from "@/components/organisms/GwnMemoItem.vue";
+import GwnMemoListBase from "@/components/organisms/GwnMemoListBase.vue";
 import GwnMemoListMenu from "@/components/organisms/GwnMemoListMenu.vue";
 
 export default {
   name: "GwnMemoList",
 
   components: {
-    GwnMemoItem,
+    GwnMemoListBase,
     GwnMemoListMenu
-  },
-
-  data() {
-    return {
-      filterTargetMemos: []
-    };
   },
 
   computed: {
     selectedGenre() {
       return this.$store.getters.getSelectedGenre;
-    },
-
-    filterText() {
-      return this.$store.getters.getFilterText;
-    },
-
-    filteredMemos() {
-      return false;
     }
   },
 
   methods: {
     selectMemo(id) {
       this.$store.dispatch("selectMemo", id);
-    },
-
-    setFilterTargetMemos(genres) {
-      for (const genre of genres) {
-        this.filterTargetMemos.push(...genre.memos);
-        this.setFilterTargetMemos(genre.genres);
-      }
-    }
-  },
-
-  watch: {
-    selectedGenre: {
-      immediate: true,
-      handler(genre) {
-        let arr = [genre];
-        this.setFilterTargetMemos(arr);
-      }
     }
   }
 };

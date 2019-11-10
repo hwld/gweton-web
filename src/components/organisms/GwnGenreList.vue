@@ -9,7 +9,6 @@
       item-children="genres"
       @update:active="selectGenre"
       class="treeview overflow-y-auto"
-      max-height="1"
     ></v-treeview>
   </div>
 </template>
