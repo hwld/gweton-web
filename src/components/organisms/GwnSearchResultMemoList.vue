@@ -1,30 +1,21 @@
 <template>
-  <div>
-    <GwnMemoListMenu></GwnMemoListMenu>
-    <div v-if="!selectedGenre.id">ジャンルを選択してください</div>
-
-    <v-list v-else dense class="overflow-y-auto" max-height="86vh">
-      <v-list-item-group>
-        <v-list-item v-for="memo in filteredMemos" :key="memo.id" @click="selectMemo(memo.id)">
-          <v-list-item-content>
-            <GwnMemoItem :memo="memo"></GwnMemoItem>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </div>
+  <GwnMemoListBase :memos="filteredMemos">
+    <template v-slot:menu>
+      <GwnSearchResultMemoListMenu></GwnSearchResultMemoListMenu>
+    </template>
+  </GwnMemoListBase>
 </template>
 
 <script>
-import GwnMemoItem from "@/components/organisms/GwnMemoItem.vue";
-import GwnMemoListMenu from "@/components/organisms/GwnMemoListMenu.vue";
+import GwnMemoListBase from "@/components/organisms/GwnMemoListBase.vue";
+import GwnSearchResultMemoListMenu from "@/components/organisms/GwnSearchResultMemoListMenu.vue";
 
 export default {
   name: "GwnSearchResultMemoList",
 
   components: {
-    GwnMemoItem,
-    GwnMemoListMenu
+    GwnMemoListBase,
+    GwnSearchResultMemoListMenu
   },
 
   data() {

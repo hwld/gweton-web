@@ -1,24 +1,61 @@
 <template>
   <v-text-field
+    v-model="filterText"
     outlined
     dense
     hide-details
     prepend-inner-icon="search"
-    clearable
+    :append-icon="isSearchMode ? 'clear' : ''"
     :placeholder="searchTarget"
+    @focus="onFocus"
+    @click:append="clear"
+    @keydown="keydown"
+    ref="field"
   ></v-text-field>
 </template>
 
 <script>
+import * as types from "@/store/mutation-types.js";
+
 export default {
+  data() {
+    return {
+      isSearchMode: false
+    };
+  },
+
   computed: {
+    filterText: {
+      get: function() {
+        return this.$store.getters.getFilterText;
+      },
+      set: function(value) {
+        this.$store.commit(types.SET_FILTER_TEXT, value);
+      }
+    },
+    selectedGenreName() {
+      return this.$store.getters.getSelectedGenre.genreName;
+    },
     searchTarget() {
-      return `「${this.$store.getters.getSelectedGenre.genreName}」内のすべてのメモを検索`;
+      return this.selectedGenreName == null
+        ? `全ジャンルのメモを検索`
+        : `「${this.selectedGenreName}」内のメモを検索`;
     }
   },
   methods: {
-    searchEnd() {
-      alert("SearchEnd");
+    onFocus() {
+      if (!this.isSearchMode) {
+        this.isSearchMode = true;
+        this.$router.push("/search");
+      }
+    },
+    clear() {
+      this.filterText = "";
+      this.isSearchMode = false;
+      this.$refs.field.blur();
+    },
+    keydown(event) {
+      if (event.key === "Enter") this.$refs.field.blur();
     }
   }
 };
