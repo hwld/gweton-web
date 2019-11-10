@@ -44,13 +44,14 @@ export default new Vuex.Store({
     //選択されているジャンルにメモを追加する
     [types.ADD_MEMO](state, memo) {
       memo.id = state.nextMemoId;
+      memo.genreId = state.selectedGenre.id;
       state.nextMemoId++;
       state.selectedGenre.memos.push(memo);
     },
 
-    //選択されているメモを選択されているジャンルから削除する
-    [types.DELETE_MEMO](state) {
-      const targetIndex = state.selectedGenre.memos.findIndex(
+    //選択されているメモを指定されたジャンルから削除する
+    [types.DELETE_MEMO](state, genre) {
+      const targetIndex = genre.memos.findIndex(
         memo => memo.id === state.selectedMemo.id
       );
 
@@ -196,8 +197,9 @@ export default new Vuex.Store({
       dispatch("uploadData");
     },
 
-    deleteMemo({ commit, dispatch }) {
-      commit(types.DELETE_MEMO);
+    deleteMemo({ commit, getters, dispatch }) {
+      const genre = getters.getGenreById(getters.getSelectedMemo.genreId);
+      commit(types.DELETE_MEMO, genre);
       dispatch("uploadData");
     },
 
