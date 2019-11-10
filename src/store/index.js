@@ -183,6 +183,17 @@ export default new Vuex.Store({
       }
     },
 
+    getNumberOfGenresAndMemos: (state, getters) => genres => {
+      let numberOfGenres = 0;
+      let numberOfMemos = 0;
+      for (let genre of genres) {
+        let childNumber = getters.getNumberOfGenresAndMemos(genre.genres);
+        numberOfGenres += genre.genres.length + childNumber.numberOfGenres;
+        numberOfMemos += genre.memos.length + childNumber.numberOfMemos;
+      }
+      return { numberOfGenres, numberOfMemos };
+    },
+
     getSelectedMemo: state => {
       return state.selectedMemo;
     },
@@ -225,7 +236,6 @@ export default new Vuex.Store({
     deleteMemo({ commit, getters, dispatch }) {
       const genre = getters.getGenreById(getters.getSelectedMemo.genreId);
       commit(types.DELETE_MEMO, genre);
-      commit(types.DECREMENT_NEXT_MEMO_ID);
       dispatch("uploadData");
     },
 
@@ -249,8 +259,6 @@ export default new Vuex.Store({
         getters.getSelectedGenre.parentId
       );
       commit(types.DELETE_GENRE, parentGenre);
-
-      //含まれるすべてのジャンル、メモのidをnextIdから引く
       dispatch("uploadData");
     },
 
