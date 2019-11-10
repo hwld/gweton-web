@@ -87,6 +87,7 @@ export default new Vuex.Store({
     //ジャンルを選択する
     [types.SELECT_GENRE](state, genre) {
       state.selectedGenre = genre ? genre : {};
+      state.selectedMemo = {};
     },
 
     //選択されているジャンルにジャンルを追加する

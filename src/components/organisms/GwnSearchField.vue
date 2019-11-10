@@ -53,6 +53,7 @@ export default {
       this.filterText = "";
       this.isSearchMode = false;
       this.$refs.field.blur();
+      this.$router.push("/home");
     },
     keydown(event) {
       if (event.key === "Enter") this.$refs.field.blur();
