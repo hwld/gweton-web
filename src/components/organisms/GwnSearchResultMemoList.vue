@@ -1,9 +1,8 @@
 <template>
-  <GwnMemoListBase :memos="filteredMemos">
-    <template v-slot:menu>
-      <GwnSearchResultMemoListMenu></GwnSearchResultMemoListMenu>
-    </template>
-  </GwnMemoListBase>
+  <div>
+    <GwnSearchResultMemoListMenu></GwnSearchResultMemoListMenu>
+    <GwnMemoListBase :memos="filteredMemos"></GwnMemoListBase>
+  </div>
 </template>
 
 <script>
@@ -34,7 +33,19 @@ export default {
     },
 
     filteredMemos() {
-      return false;
+      const text = this.filterText;
+      if (text == "") return [];
+
+      return this.filterTargetMemos.filter(memo => {
+        if (
+          memo.title.includes(text) ||
+          memo.text.includes(text) ||
+          memo.authorName.includes(text) ||
+          memo.bookName.includes(text)
+        ) {
+          return memo;
+        }
+      });
     }
   },
 
@@ -55,7 +66,6 @@ export default {
     selectedGenre: {
       immediate: true,
       handler(genre) {
-        window.console.log("Hello");
         let arr = [];
 
         if (genre.id != null) {

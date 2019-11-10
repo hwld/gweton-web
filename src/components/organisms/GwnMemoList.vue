@@ -1,9 +1,9 @@
 <template>
-  <GwnMemoListBase :memos="selectedGenre.memos">
-    <template v-slot:menu>
-      <GwnMemoListMenu></GwnMemoListMenu>
-    </template>
-  </GwnMemoListBase>
+  <div>
+    <GwnMemoListMenu></GwnMemoListMenu>
+    <div v-if="!selectedGenre.id">ジャンルを選択してください</div>
+    <GwnMemoListBase v-else :memos="selectedGenre.memos"></GwnMemoListBase>
+  </div>
 </template>
 
 <script>

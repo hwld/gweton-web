@@ -1,18 +1,13 @@
 <template>
-  <div>
-    <slot name="menu"></slot>
-    <div v-if="!selectedGenre.id">ジャンルを選択してください</div>
-
-    <v-list v-else dense class="overflow-y-auto" max-height="86vh">
-      <v-list-item-group>
-        <v-list-item v-for="memo in memos" :key="memo.id" @click="selectMemo(memo.id)">
-          <v-list-item-content>
-            <GwnMemoItem :memo="memo"></GwnMemoItem>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </div>
+  <v-list dense class="overflow-y-auto" max-height="86vh">
+    <v-list-item-group>
+      <v-list-item v-for="memo in memos" :key="memo.id" @click="selectMemo(memo.id)">
+        <v-list-item-content>
+          <GwnMemoItem :memo="memo"></GwnMemoItem>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list-item-group>
+  </v-list>
 </template>
 
 <script>
@@ -29,12 +24,6 @@ export default {
     memos: {
       type: Array,
       default: () => []
-    }
-  },
-
-  computed: {
-    selectedGenre() {
-      return this.$store.getters.getSelectedGenre;
     }
   },
 
