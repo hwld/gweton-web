@@ -71,7 +71,7 @@ export default {
         if (genre.id != null) {
           arr.push(genre);
         }
-
+        this.filterTargetMemos = [];
         this.setFilterTargetMemos(arr);
       }
     }
