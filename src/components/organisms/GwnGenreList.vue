@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import * as types from "@/store/mutation-types";
 import GwnGenreListMenu from "@/components/organisms/GwnGenreListMenu.vue";
 
 export default {
@@ -37,8 +36,7 @@ export default {
 
   methods: {
     selectGenre(id) {
-      const genre = this.$store.getters.getGenreById(id[0]);
-      this.$store.commit(types.SELECT_GENRE, genre);
+      this.$store.dispatch("selectGenre", id[0]);
     }
   }
 };

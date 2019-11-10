@@ -16,7 +16,8 @@ export default new Vuex.Store({
       //GenreにMemoとGenreが包含されている
     ],
     nextGenreId: 1,
-    nextMemoId: 1
+    nextMemoId: 1,
+    filterText: ""
   },
   mutations: {
     //ユーザを設定する
@@ -35,11 +36,9 @@ export default new Vuex.Store({
     //メモ操作
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    //選択されているジャンルから指定されたidのメモを選択する
-    [types.SELECT_MEMO](state, memoId) {
-      const memo = state.selectedGenre.memos.find(memo => memo.id === memoId);
-
-      state.selectedMemo = state.selectedMemo === memo ? {} : memo;
+    //メモを選択する
+    [types.SELECT_MEMO](state, memo) {
+      state.selectedMemo = memo ? memo : {};
     },
 
     //選択されているジャンルにメモを追加する
@@ -71,11 +70,20 @@ export default new Vuex.Store({
       });
     },
 
+    ////////////////////////////////////////////////////////////////////////
+    //検索
+    ///////////////////////////////////////////////////////////////////////
+
+    //メモ検索文字列を設定する
+    [types.SET_FILTER_TEXT](state, text) {
+      state.filterText = text;
+    },
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //ジャンル操作
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    //すべてのジャンルから指定されたidのジャンルを選択する
+    //ジャンルを選択する
     [types.SELECT_GENRE](state, genre) {
       state.selectedGenre = genre ? genre : {};
     },
@@ -142,6 +150,7 @@ export default new Vuex.Store({
         if (genre.id === searchId) {
           return genre;
         }
+
         let result = getters.getGenreById(searchId, genre.genres);
         if (result != null) {
           return result;
@@ -153,6 +162,22 @@ export default new Vuex.Store({
       return state.selectedMemo;
     },
 
+    getMemoById: (state, getters) => (searchId, genres = state.genres) => {
+      for (const genre of genres) {
+        let memo = genre.memos.find(memo => memo.id === searchId);
+        if (memo != null) return memo;
+
+        let result = getters.getMemoById(searchId, genre.genres);
+        if (result != null) {
+          return result;
+        }
+      }
+    },
+
+    getFilterText: state => {
+      return state.filterText;
+    },
+
     getNextGenreId: state => {
       return state.nextGenreId;
     },
@@ -162,6 +187,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    selectMemo({ commit, getters }, id) {
+      commit(types.SELECT_MEMO, getters.getMemoById(id));
+    },
+
     addMemo({ commit, dispatch }, memo) {
       commit(types.ADD_MEMO, memo);
       dispatch("uploadData");
@@ -175,6 +204,10 @@ export default new Vuex.Store({
     editMemo({ commit, dispatch }, memo) {
       commit(types.EDIT_MEMO, memo);
       dispatch("uploadData");
+    },
+
+    selectGenre({ commit, getters }, id) {
+      commit(types.SELECT_GENRE, getters.getGenreById(id));
     },
 
     addGenre({ commit, dispatch }, genre) {

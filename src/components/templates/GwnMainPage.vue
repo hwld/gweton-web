@@ -11,14 +11,13 @@
     </v-navigation-drawer>
 
     <v-content>
-      <GwnMemoList></GwnMemoList>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
 import GwnHeader from "@/components/organisms/GwnHeader.vue";
-import GwnMemoList from "@/components/organisms/GwnMemoList.vue";
 import GwnGenreList from "@/components/organisms/GwnGenreList.vue";
 
 export default {
@@ -26,12 +25,11 @@ export default {
 
   components: {
     GwnHeader,
-    GwnMemoList,
     GwnGenreList
   },
 
   data: () => ({
-    drawer: null
+    drawer: true
   }),
 
   computed: {
