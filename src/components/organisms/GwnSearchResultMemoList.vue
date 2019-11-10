@@ -70,6 +70,8 @@ export default {
 
         if (genre.id != null) {
           arr.push(genre);
+        } else {
+          arr.push(...this.$store.getters.getGenres);
         }
         this.filterTargetMemos = [];
         this.setFilterTargetMemos(arr);
