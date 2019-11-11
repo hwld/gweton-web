@@ -34,8 +34,8 @@ export default {
   },
 
   methods: {
-    selectGenre(id) {
-      this.$store.dispatch("selectGenre", id[0]);
+    selectGenre(selectId) {
+      this.$store.dispatch("selectGenre", selectId[0]);
     }
   }
 };

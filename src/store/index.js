@@ -224,7 +224,9 @@ export default new Vuex.Store({
   },
   actions: {
     selectMemo({ commit, getters }, id) {
-      commit(types.SELECT_MEMO, getters.getMemoById(id));
+      const memo =
+        getters.getSelectedMemo.id == null ? getters.getMemoById(id) : {};
+      commit(types.SELECT_MEMO, memo);
     },
 
     addMemo({ commit, dispatch }, memo) {
@@ -245,7 +247,9 @@ export default new Vuex.Store({
     },
 
     selectGenre({ commit, getters }, id) {
-      commit(types.SELECT_GENRE, getters.getGenreById(id));
+      const genre =
+        getters.getSelectedGenre.id == null ? getters.getGenreById(id) : {};
+      commit(types.SELECT_GENRE, genre);
     },
 
     addGenre({ commit, dispatch }, genre) {

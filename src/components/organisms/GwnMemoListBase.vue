@@ -1,5 +1,5 @@
 <template>
-  <v-list dense class="overflow-y-auto" max-height="86vh">
+  <v-list dense class="overflow-y-auto" max-height="87vh">
     <v-list-item-group>
       <v-list-item v-for="memo in memos" :key="memo.id" @click="selectMemo(memo.id)">
         <v-list-item-content>
@@ -29,6 +29,7 @@ export default {
 
   methods: {
     selectMemo(id) {
+      window.console.log(id);
       this.$store.dispatch("selectMemo", id);
     }
   }
@@ -36,20 +37,4 @@ export default {
 </script>
 
 <style scoped>
-.memo-title {
-  font-size: 1.5rem;
-}
-
-.memo-text {
-  font-size: 1.2rem;
-}
-
-.memo-meta-data-head {
-  font-size: 0.9rem;
-  color: slategray;
-}
-
-.memo-meta-data {
-  font-size: 0.9rem;
-}
 </style>
