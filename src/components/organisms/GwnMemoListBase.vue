@@ -29,7 +29,6 @@ export default {
 
   methods: {
     selectMemo(id) {
-      window.console.log(id);
       this.$store.dispatch("selectMemo", id);
     }
   }
