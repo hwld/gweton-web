@@ -6,7 +6,7 @@
     hide-details
     prepend-inner-icon="search"
     :append-icon="isSearchMode ? 'clear' : ''"
-    :placeholder="searchTarget"
+    :placeholder="placeholder"
     @focus="onFocus"
     @click:append="clear"
     @keydown="keydown"
@@ -36,10 +36,14 @@ export default {
     selectedGenreName() {
       return this.$store.getters.getSelectedGenre.genreName;
     },
-    searchTarget() {
-      return this.selectedGenreName == null
-        ? `全ジャンルのメモを検索`
-        : `「${this.selectedGenreName}」内のメモを検索`;
+    placeholder() {
+      if (this.isSearchMode) {
+        return this.selectedGenreName == null
+          ? `全ジャンルのメモを検索中`
+          : `「${this.selectedGenreName}」内のメモを検索中`;
+      } else {
+        return "検索";
+      }
     }
   },
   methods: {

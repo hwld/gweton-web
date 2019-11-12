@@ -24,6 +24,10 @@ export default {
   },
 
   computed: {
+    genres() {
+      return this.$store.getters.getGenres;
+    },
+
     selectedGenre() {
       return this.$store.getters.getSelectedGenre;
     },
@@ -59,6 +63,18 @@ export default {
         this.filterTargetMemos.push(...genre.memos);
         this.setFilterTargetMemos(genre.genres);
       }
+    },
+
+    updateFilterTargetMemos(genre) {
+      let arr = [];
+
+      if (genre.id != null) {
+        arr.push(genre);
+      } else {
+        arr.push(...this.$store.getters.getGenres);
+      }
+      this.filterTargetMemos = [];
+      this.setFilterTargetMemos(arr);
     }
   },
 
@@ -66,15 +82,12 @@ export default {
     selectedGenre: {
       immediate: true,
       handler(genre) {
-        let arr = [];
-
-        if (genre.id != null) {
-          arr.push(genre);
-        } else {
-          arr.push(...this.$store.getters.getGenres);
-        }
-        this.filterTargetMemos = [];
-        this.setFilterTargetMemos(arr);
+        this.updateFilterTargetMemos(genre);
+      }
+    },
+    genres: {
+      handler(genre) {
+        this.updateFilterTargetMemos(genre);
       }
     }
   }

@@ -45,8 +45,8 @@ export default new Vuex.Store({
     [types.ADD_MEMO](state, memo) {
       memo.id = state.nextMemoId;
       memo.genreId = state.selectedGenre.id;
-      //state.nextMemoId++;
       state.selectedGenre.memos.push(memo);
+      state.genres.splice();
     },
 
     //選択されているメモを指定されたジャンルから削除する
@@ -56,9 +56,9 @@ export default new Vuex.Store({
       );
 
       state.selectedGenre.memos.splice(targetIndex, 1);
-      //state.nextMemoId--;
 
       state.selectedMemo = {};
+      state.genres.splice();
     },
 
     //選択されているメモを更新する
@@ -68,6 +68,8 @@ export default new Vuex.Store({
       state.selectedMemo.text = memo.text;
       state.selectedMemo.authorName = memo.authorName;
       state.selectedMemo.bookName = memo.bookName;
+
+      state.genres.splice();
     },
 
     [types.INCREMENT_NEXT_MEMO_ID](state) {
@@ -116,8 +118,7 @@ export default new Vuex.Store({
       }
 
       targetArray.push(genre);
-
-      //state.nextGenreId++;
+      state.genres.splice();
     },
 
     //選択されているジャンルを渡されたジャンルから削除する
@@ -135,14 +136,16 @@ export default new Vuex.Store({
 
       targetArray.splice(targetIndex, 1);
 
-      //state.nextGenreId--;
       state.selectedGenre = {};
+      state.genres.splice();
     },
 
     //選択されているジャンルを更新する
     [types.EDIT_GENRE](state, genre) {
       //名前を更新する
       state.selectedGenre.genreName = genre.genreName;
+
+      state.genres.splice();
     },
 
     [types.INCREMENT_NEXT_GENRE_ID](state) {
