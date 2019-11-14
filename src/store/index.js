@@ -12,9 +12,8 @@ export default new Vuex.Store({
     user: {},
     selectedGenre: {},
     selectedMemo: {},
-    genres: [
-      //GenreにMemoとGenreが包含されている
-    ],
+    genres: [],
+    memos: [],
     nextGenreId: 1,
     nextMemoId: 1,
     filterText: ""
@@ -41,35 +40,35 @@ export default new Vuex.Store({
       state.selectedMemo = memo ? memo : {};
     },
 
-    //選択されているジャンルにメモを追加する
-    [types.ADD_MEMO](state, memo) {
+    //指定されたジャンルのメモを追加する
+    [types.ADD_MEMO](state, memo, genreId) {
       memo.id = state.nextMemoId;
-      memo.genreId = state.selectedGenre.id;
-      state.selectedGenre.memos.push(memo);
-      state.genres.splice();
+      memo.genreId = genreId;
+      state.memos.push(memo);
     },
 
-    //選択されているメモを指定されたジャンルから削除する
-    [types.DELETE_MEMO](state, genre) {
-      const targetIndex = genre.memos.findIndex(
-        memo => memo.id === state.selectedMemo.id
-      );
-
-      state.selectedGenre.memos.splice(targetIndex, 1);
-
-      state.selectedMemo = {};
-      state.genres.splice();
+    //指定されたメモを削除する
+    [types.DELETE_MEMO](state, memoId) {
+      const targetMemoIndex = state.memos.findIndex(memo => memo.id === memoId);
+      state.memos.splice(targetMemoIndex, 1);
     },
 
-    //選択されているメモを更新する
-    [types.EDIT_MEMO](state, memo) {
-      //id以外を変更する
-      state.selectedMemo.title = memo.title;
-      state.selectedMemo.text = memo.text;
-      state.selectedMemo.authorName = memo.authorName;
-      state.selectedMemo.bookName = memo.bookName;
+    //指定されたidのメモを更新する
+    [types.EDIT_MEMO](state, newMemoText, memoId) {
+      let targetMemoIndex = state.memos.findIndex(memo => memo.id === memoId);
 
-      state.genres.splice();
+      //完全なメモオブジェクトを作成
+      let newMemo = {
+        id: memoId,
+        genreId: state.memos[targetMemoIndex].genreId,
+        title: newMemoText.title,
+        text: newMemoText.text,
+        authorName: newMemoText.authorName,
+        bookName: newMemoText.bookName
+      };
+
+      //置き換える
+      state.memos.splice(targetMemoIndex, 1, newMemo);
     },
 
     [types.INCREMENT_NEXT_MEMO_ID](state) {
@@ -167,6 +166,10 @@ export default new Vuex.Store({
 
     getGenres: state => {
       return state.genres;
+    },
+
+    getMemos: state => {
+      return state.memos;
     },
 
     getSelectedGenre: state => {
@@ -307,6 +310,7 @@ export default new Vuex.Store({
 
       const jsonData = {
         genres: getters.getGenres,
+        memos: getters.getMemos,
         nextGenreId: getters.getNextGenreId,
         nextMemoId: getters.getNextMemoId
       };
