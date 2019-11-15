@@ -12,8 +12,8 @@ export default new Vuex.Store({
     user: {},
     selectedGenre: {},
     selectedMemo: {},
-    genres: [],
-    memos: [],
+    genreList: [],
+    memoList: [],
     nextGenreId: 1,
     nextMemoId: 1,
     filterText: ""
@@ -44,31 +44,33 @@ export default new Vuex.Store({
     [types.ADD_MEMO](state, memo, genreId) {
       memo.id = state.nextMemoId;
       memo.genreId = genreId;
-      state.memos.push(memo);
+      state.memoList.push(memo);
     },
 
     //指定されたメモを削除する
     [types.DELETE_MEMO](state, memoId) {
-      const targetMemoIndex = state.memos.findIndex(memo => memo.id === memoId);
-      state.memos.splice(targetMemoIndex, 1);
+      const targetMemoIndex = state.memoList.findIndex(
+        memo => memo.id === memoId
+      );
+      state.memoList.splice(targetMemoIndex, 1);
     },
 
     //指定されたidのメモを更新する
-    [types.EDIT_MEMO](state, newMemoText, memoId) {
-      let targetMemoIndex = state.memos.findIndex(memo => memo.id === memoId);
+    [types.EDIT_MEMO](state, newMemo, memoId) {
+      let oldMemoIndex = state.memoList.findIndex(memo => memo.id === memoId);
 
       //完全なメモオブジェクトを作成
-      let newMemo = {
+      let newCompleteMemo = {
         id: memoId,
-        genreId: state.memos[targetMemoIndex].genreId,
-        title: newMemoText.title,
-        text: newMemoText.text,
-        authorName: newMemoText.authorName,
-        bookName: newMemoText.bookName
+        genreId: state.memoList[oldMemoIndex].genreId,
+        title: newMemo.title,
+        text: newMemo.text,
+        authorName: newMemo.authorName,
+        bookName: newMemo.bookName
       };
 
       //置き換える
-      state.memos.splice(targetMemoIndex, 1, newMemo);
+      state.memoList.splice(oldMemoIndex, 1, newCompleteMemo);
     },
 
     [types.INCREMENT_NEXT_MEMO_ID](state) {
@@ -103,48 +105,39 @@ export default new Vuex.Store({
     },
 
     //選択されているジャンルにジャンルを追加する
-    [types.ADD_GENRE](state, genre) {
-      genre.parentId = state.selectedGenre.id;
+    [types.ADD_GENRE](state, genre, parentGenreId) {
       genre.id = state.nextGenreId;
-      genre.genres = [];
-      genre.memos = [];
+      genre.childrenId = [];
 
-      let targetArray = [];
-      if (state.selectedGenre.id != null) {
-        targetArray = state.selectedGenre.genres;
-      } else {
-        targetArray = state.genres;
-      }
-
-      targetArray.push(genre);
-      state.genres.splice();
+      state.genreList.push(genre);
     },
 
-    //選択されているジャンルを渡されたジャンルから削除する
-    [types.DELETE_GENRE](state, parentGenre) {
-      let targetArray = [];
-      if (parentGenre == null) {
-        targetArray = state.genres;
-      } else {
-        targetArray = parentGenre.genres;
-      }
-
-      let targetIndex = targetArray.findIndex(genre => {
-        return genre.id === state.selectedGenre.id;
+    //指定されたジャンルを削除する
+    [types.DELETE_GENRE](state, genreId) {
+      let targetIndex = state.getGenreList.findIndex(genre => {
+        return genre.id === genreId;
       });
 
-      targetArray.splice(targetIndex, 1);
+      state.getGenreList.splice(targetIndex, 1);
 
       state.selectedGenre = {};
-      state.genres.splice();
     },
 
     //選択されているジャンルを更新する
-    [types.EDIT_GENRE](state, genre) {
-      //名前を更新する
-      state.selectedGenre.genreName = genre.genreName;
+    [types.EDIT_GENRE](state, newGenreText, genreId) {
+      let oldGenreIndex = state.genreList.findIndex(
+        genre => genre.id === genreId
+      );
+      let oldGenre = state.genreList[oldGenreIndex];
 
-      state.genres.splice();
+      //完全なジャンルオブジェクトを作成
+      let newGenre = {
+        genreName: newGenreText.genreName,
+        id: oldGenre.id,
+        genres: oldGenre.genres,
+        memos: oldGenre.memos
+      };
+      state.genreList.splice(oldGenreIndex, 1, newGenre);
     },
 
     [types.INCREMENT_NEXT_GENRE_ID](state) {
@@ -164,56 +157,32 @@ export default new Vuex.Store({
       return state.user;
     },
 
-    getGenres: state => {
-      return state.genres;
+    getGenreList: state => {
+      return state.genreList;
     },
 
-    getMemos: state => {
-      return state.memos;
+    getMemoList: state => {
+      return state.memoList;
     },
 
     getSelectedGenre: state => {
       return state.selectedGenre;
     },
 
-    getGenreById: (state, getters) => (searchId, genres = state.genres) => {
-      for (const genre of genres) {
-        if (genre.id === searchId) {
-          return genre;
-        }
-
-        let result = getters.getGenreById(searchId, genre.genres);
-        if (result != null) {
-          return result;
-        }
-      }
-    },
-
-    getNumberOfGenresAndMemos: (state, getters) => genres => {
-      let numberOfGenres = 0;
-      let numberOfMemos = 0;
-      for (let genre of genres) {
-        let childNumber = getters.getNumberOfGenresAndMemos(genre.genres);
-        numberOfGenres += genre.genres.length + childNumber.numberOfGenres;
-        numberOfMemos += genre.memos.length + childNumber.numberOfMemos;
-      }
-      return { numberOfGenres, numberOfMemos };
+    getGenreById: getters => genreId => {
+      return getters.getGenreList.find(genre => genre.id === genreId);
     },
 
     getSelectedMemo: state => {
       return state.selectedMemo;
     },
 
-    getMemoById: (state, getters) => (searchId, genres = state.genres) => {
-      for (const genre of genres) {
-        let memo = genre.memos.find(memo => memo.id === searchId);
-        if (memo != null) return memo;
+    getMemoById: getters => memoId => {
+      return getters.getMemoList.find(memo => memo.id === memoId);
+    },
 
-        let result = getters.getMemoById(searchId, genre.genres);
-        if (result != null) {
-          return result;
-        }
-      }
+    getMemosByGenreId: getters => genreId => {
+      return getters.getMemoList.filter(memo => memo.genreId === genreId);
     },
 
     getFilterText: state => {
@@ -235,20 +204,19 @@ export default new Vuex.Store({
       commit(types.SELECT_MEMO, memo);
     },
 
-    addMemo({ commit, dispatch }, memo) {
-      commit(types.ADD_MEMO, memo);
+    addMemo({ commit, dispatch }, memo, genreId) {
+      commit(types.ADD_MEMO, memo, genreId);
       commit(types.INCREMENT_NEXT_MEMO_ID);
       dispatch("uploadData");
     },
 
-    deleteMemo({ commit, getters, dispatch }) {
-      const genre = getters.getGenreById(getters.getSelectedMemo.genreId);
-      commit(types.DELETE_MEMO, genre);
+    deleteMemo({ commit, dispatch }, memoId) {
+      commit(types.DELETE_MEMO, memoId);
       dispatch("uploadData");
     },
 
-    editMemo({ commit, dispatch }, memo) {
-      commit(types.EDIT_MEMO, memo);
+    editMemo({ commit, dispatch }, newMemo, memoId) {
+      commit(types.EDIT_MEMO, newMemo, memoId);
       dispatch("uploadData");
     },
 
@@ -258,22 +226,32 @@ export default new Vuex.Store({
       commit(types.SELECT_GENRE, genre);
     },
 
-    addGenre({ commit, dispatch }, genre) {
-      commit(types.ADD_GENRE, genre);
+    addGenre({ commit, dispatch }, genre, parentGenreId) {
+      commit(types.ADD_GENRE, genre, parentGenreId);
       commit(types.INCREMENT_NEXT_GENRE_ID);
       dispatch("uploadData");
     },
 
-    deleteGenre({ commit, getters, dispatch }) {
-      const parentGenre = getters.getGenreById(
-        getters.getSelectedGenre.parentId
-      );
-      commit(types.DELETE_GENRE, parentGenre);
+    deleteGenreAndMemo({ getters, commit, dispatch }, genreId) {
+      //指定されたジャンルのメモを削除
+      const deleteMemos = getters.getMemosByGenreId(genreId);
+      deleteMemos.forEach(memo => commit(types.DELETE_MEMO, memo.id));
+
+      //子ジャンルを削除
+      const genre = getters.getGenreById(genreId);
+      for (const child in genre.childrenId) {
+        dispatch("deleteGenreAndMemo", child);
+      }
+
+      //指定されたジャンルを削除
+      commit(types.DELETE_GENRE, genreId);
+
+      //ファイルを更新
       dispatch("uploadData");
     },
 
-    editGenre({ commit, dispatch }, genre) {
-      commit(types.EDIT_GENRE, genre);
+    editGenre({ commit, dispatch }, genre, genreId) {
+      commit(types.EDIT_GENRE, genre, genreId);
       dispatch("uploadData");
     },
 
@@ -309,8 +287,8 @@ export default new Vuex.Store({
         .ref(`user/${getters.getUser.uid}/data.json`);
 
       const jsonData = {
-        genres: getters.getGenres,
-        memos: getters.getMemos,
+        genreList: getters.getGenreList,
+        memoList: getters.getMemoList,
         nextGenreId: getters.getNextGenreId,
         nextMemoId: getters.getNextMemoId
       };

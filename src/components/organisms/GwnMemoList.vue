@@ -22,9 +22,6 @@ export default {
     selectedGenre() {
       return this.$store.getters.getSelectedGenre;
     },
-    genres() {
-      return this.$store.getters.getGenres;
-    }
   },
 
   methods: {

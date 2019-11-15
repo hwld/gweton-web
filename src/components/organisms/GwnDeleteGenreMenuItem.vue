@@ -39,7 +39,7 @@ export default {
 
   methods: {
     deleteGenre() {
-      this.$store.dispatch("deleteGenre");
+      this.$store.dispatch("deleteGenreAndMemo", this.selectedGenre.id);
     }
   }
 };

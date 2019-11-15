@@ -42,7 +42,7 @@ export default {
   methods: {
     editMemo(newMemo) {
       this.dialog = false;
-      this.$store.dispatch("editMemo", newMemo);
+      this.$store.dispatch("editMemo", newMemo, this.selectedMemo.id);
     },
     cancel() {
       this.dialog = false;

@@ -39,7 +39,7 @@ export default {
 
   methods: {
     deleteMemo() {
-      this.$store.dispatch("deleteMemo");
+      this.$store.dispatch("deleteMemo", this.selectedMemo.id);
     }
   }
 };
