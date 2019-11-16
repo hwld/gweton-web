@@ -2,10 +2,6 @@
   <v-app-bar app clipped-left>
     <slot name="prepend"></slot>
 
-    <v-toolbar-title class="headline text-uppercase">
-      <span>Gweton</span>
-    </v-toolbar-title>
-
     <v-spacer></v-spacer>
     <GwnSearchField></GwnSearchField>
     <v-spacer></v-spacer>

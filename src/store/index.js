@@ -41,7 +41,7 @@ export default new Vuex.Store({
     },
 
     //指定されたジャンルのメモを追加する
-    [types.ADD_MEMO](state, memo, genreId) {
+    [types.ADD_MEMO](state, { memo, genreId }) {
       memo.id = state.nextMemoId;
       memo.genreId = genreId;
       state.memoList.push(memo);
@@ -56,7 +56,7 @@ export default new Vuex.Store({
     },
 
     //指定されたidのメモを更新する
-    [types.EDIT_MEMO](state, newMemo, memoId) {
+    [types.EDIT_MEMO](state, { newMemo, memoId }) {
       let oldMemoIndex = state.memoList.findIndex(memo => memo.id === memoId);
 
       //完全なメモオブジェクトを作成
@@ -220,7 +220,7 @@ export default new Vuex.Store({
     },
 
     addMemo({ commit, dispatch }, { memo, genreId }) {
-      commit(types.ADD_MEMO, memo, genreId);
+      commit(types.ADD_MEMO, { memo, genreId });
       commit(types.INCREMENT_NEXT_MEMO_ID);
       dispatch("uploadData");
     },
@@ -231,7 +231,7 @@ export default new Vuex.Store({
     },
 
     editMemo({ commit, dispatch }, { newMemo, memoId }) {
-      commit(types.EDIT_MEMO, newMemo, memoId);
+      commit(types.EDIT_MEMO, { newMemo, memoId });
       dispatch("uploadData");
     },
 
