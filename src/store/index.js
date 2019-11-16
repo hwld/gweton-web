@@ -123,11 +123,11 @@ export default new Vuex.Store({
 
     //指定されたジャンルを削除する
     [types.DELETE_GENRE](state, genreId) {
-      let targetIndex = state.getGenreList.findIndex(genre => {
+      let targetIndex = state.genreList.findIndex(genre => {
         return genre.id === genreId;
       });
 
-      state.getGenreList.splice(targetIndex, 1);
+      state.genreList.splice(targetIndex, 1);
 
       state.selectedGenre = {};
     },
