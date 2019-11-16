@@ -2,7 +2,7 @@
   <div>
     <GwnMemoListMenu></GwnMemoListMenu>
     <div v-if="!selectedGenre.id">ジャンルを選択してください</div>
-    <GwnMemoListBase v-else :memos="selectedGenre.memos"></GwnMemoListBase>
+    <GwnMemoListBase v-else :memos="memosInSelectedGenre"></GwnMemoListBase>
   </div>
 </template>
 
@@ -22,6 +22,9 @@ export default {
     selectedGenre() {
       return this.$store.getters.getSelectedGenre;
     },
+    memosInSelectedGenre() {
+      return this.$store.getters.getMemosByGenreId(this.selectedGenre.id);
+    }
   },
 
   methods: {

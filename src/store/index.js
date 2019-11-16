@@ -104,10 +104,17 @@ export default new Vuex.Store({
       state.selectedMemo = {};
     },
 
-    //選択されているジャンルにジャンルを追加する
+    //指定されたジャンルにジャンルを追加する
     [types.ADD_GENRE](state, genre, parentGenreId) {
+      genre.parentGenreId = parentGenreId;
       genre.id = state.nextGenreId;
       genre.childrenId = [];
+
+      //親ジャンルに子供ジャンルのidを追加
+      const parentGenreIndex = state.genreList.findIndex(
+        genre => genre.id === parentGenreId
+      );
+      state.genreList[parentGenreIndex].childrenId.push(genre.id);
 
       state.genreList.push(genre);
     },
@@ -134,8 +141,8 @@ export default new Vuex.Store({
       let newGenre = {
         genreName: newGenreText.genreName,
         id: oldGenre.id,
-        genres: oldGenre.genres,
-        memos: oldGenre.memos
+        parentGenreId: oldGenre.parentGenreId,
+        childrenId: oldGenre.childrenId
       };
       state.genreList.splice(oldGenreIndex, 1, newGenre);
     },
@@ -171,6 +178,12 @@ export default new Vuex.Store({
 
     getGenreById: getters => genreId => {
       return getters.getGenreList.find(genre => genre.id === genreId);
+    },
+
+    getGenresByParentId: getters => parentGenreId => {
+      return getters.getGenreList.filter(
+        genre => genre.parentGenreId === parentGenreId
+      );
     },
 
     getSelectedMemo: state => {
@@ -239,7 +252,7 @@ export default new Vuex.Store({
 
       //子ジャンルを削除
       const genre = getters.getGenreById(genreId);
-      for (const child in genre.childrenId) {
+      for (const child of genre.childrenId) {
         dispatch("deleteGenreAndMemo", child);
       }
 
