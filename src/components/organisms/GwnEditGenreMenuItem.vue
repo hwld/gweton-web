@@ -42,7 +42,10 @@ export default {
   methods: {
     editGenre(genre) {
       this.dialog = false;
-      this.$store.dispatch("editGenre", genre, this.selectedGenre.id);
+      this.$store.dispatch("editGenre", {
+        genre,
+        genreId: this.selectedGenre.id
+      });
     },
     cancel() {
       this.dialog = false;

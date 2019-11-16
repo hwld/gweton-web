@@ -44,7 +44,10 @@ export default {
   methods: {
     addGenre(genre) {
       this.dialog = false;
-      this.$store.dispatch("addGenre", genre, this.selectedGenre.id);
+      this.$store.dispatch("addGenre", {
+        genre: genre,
+        parentGenreId: this.selectedGenre.id
+      });
       this.resetGenre();
     },
     cancel() {

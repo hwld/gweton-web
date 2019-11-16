@@ -15,7 +15,6 @@
 
 <script>
 import GwnGenreListMenu from "@/components/organisms/GwnGenreListMenu.vue";
-import undefined from "firebase/empty-import";
 
 export default {
   name: "GwnGenreList",

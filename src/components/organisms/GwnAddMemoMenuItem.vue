@@ -44,7 +44,7 @@ export default {
   methods: {
     addMemo(memo) {
       this.dialog = false;
-      this.$store.dispatch("addMemo", memo, this.selectedGenre.id);
+      this.$store.dispatch("addMemo", { memo, genreId: this.selectedGenre.id });
       this.resetMemo();
     },
     cancel() {
