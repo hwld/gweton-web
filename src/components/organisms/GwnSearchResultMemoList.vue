@@ -60,7 +60,6 @@ export default {
     },
 
     searchResultMemos() {
-      window.console.log("searchResultMemos");
       const text = this.filterText;
       if (text == "") return [];
 
@@ -93,6 +92,7 @@ export default {
     selectMemo(id) {
       this.$store.dispatch("selectMemo", id);
     },
+    
     setSearchTargetGenresId(genre, searchTargetGenresId) {
       searchTargetGenresId.push(...genre.childrenId);
 

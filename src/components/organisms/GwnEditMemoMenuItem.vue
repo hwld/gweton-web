@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
-    <template v-slot:activator="{ on }">
-      <v-btn icon v-on="on" :disabled="selectedMemo.id == null">
+    <template v-slot:activator="{on}">
+      <v-btn icon @click.stop="on.click">
         <v-icon>edit</v-icon>
       </v-btn>
     </template>
@@ -26,6 +26,13 @@ export default {
     GwnEditMemoCard
   },
 
+  props: {
+    memo: {
+      type: Object,
+      required: true
+    }
+  },
+
   computed: {
     selectedMemo() {
       return this.$store.getters.getSelectedMemo;
@@ -44,7 +51,7 @@ export default {
       this.dialog = false;
       this.$store.dispatch("editMemo", {
         newMemo,
-        memoId: this.selectedMemo.id
+        memoId: this.memo.id
       });
     },
     cancel() {
@@ -58,10 +65,10 @@ export default {
       handler(value) {
         if (value == true) {
           this.defaultMemo = {
-            title: this.selectedMemo.title,
-            text: this.selectedMemo.text,
-            authorName: this.selectedMemo.authorName,
-            bookName: this.selectedMemo.bookName
+            title: this.memo.title,
+            text: this.memo.text,
+            authorName: this.memo.authorName,
+            bookName: this.memo.bookName
           };
         }
       }
