@@ -28,14 +28,7 @@ export default {
 
   props: {
     memo: {
-      type: Object,
-      required: true
-    }
-  },
-
-  computed: {
-    selectedMemo() {
-      return this.$store.getters.getSelectedMemo;
+      type: Object
     }
   },
 

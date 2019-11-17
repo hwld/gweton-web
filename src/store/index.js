@@ -11,7 +11,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     selectedGenre: {},
-    selectedMemo: {},
+    selectedMemos: [],
     genreList: [],
     memoList: [],
     nextGenreId: 1,
@@ -36,8 +36,11 @@ export default new Vuex.Store({
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     //メモを選択する
-    [types.SELECT_MEMO](state, memo) {
-      state.selectedMemo = memo ? memo : {};
+    [types.SELECT_MEMO](state, memos) {
+      state.selectedMemos.splice(0);
+      if (memos[0] != null) {
+        state.selectedMemos.push(...memos);
+      }
     },
 
     //指定されたジャンルのメモを追加する
@@ -101,7 +104,6 @@ export default new Vuex.Store({
     //ジャンルを選択する
     [types.SELECT_GENRE](state, genre) {
       state.selectedGenre = genre ? genre : {};
-      state.selectedMemo = {};
     },
 
     //指定されたジャンルにジャンルを追加する
@@ -188,8 +190,8 @@ export default new Vuex.Store({
       );
     },
 
-    getSelectedMemo: state => {
-      return state.selectedMemo;
+    getSelectedMemos: state => {
+      return state.selectedMemos;
     },
 
     getMemoById: (state, getters) => memoId => {
@@ -213,10 +215,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    selectMemo({ commit, getters }, id) {
-      const memo =
-        getters.getSelectedMemo.id === id ? {} : getters.getMemoById(id);
-      commit(types.SELECT_MEMO, memo);
+    selectMemos({ commit, getters }, memosId) {
+      let memos = [];
+      if (memosId[0] != null) {
+        memosId.forEach(memoId => memos.push(getters.getMemoById(memoId)));
+      }
+      commit(types.SELECT_MEMO, memos);
     },
 
     addMemo({ commit, dispatch }, { memo, genreId }) {
@@ -225,8 +229,8 @@ export default new Vuex.Store({
       dispatch("uploadData");
     },
 
-    deleteMemo({ commit, dispatch }, memoId) {
-      commit(types.DELETE_MEMO, memoId);
+    deleteMemos({ commit, dispatch }, memos) {
+      memos.forEach(memo => commit(types.DELETE_MEMO, memo.id));
       dispatch("uploadData");
     },
 
@@ -252,8 +256,8 @@ export default new Vuex.Store({
 
     deleteGenreAndMemo({ getters, commit, dispatch }, genreId) {
       //指定されたジャンルのメモを削除
-      const deleteMemos = getters.getMemosByGenreId(genreId);
-      deleteMemos.forEach(memo => commit(types.DELETE_MEMO, memo.id));
+      const memosDelete = getters.getMemosByGenreId(genreId);
+      memosDelete.forEach(memo => commit(types.DELETE_MEMO, memo.id));
 
       //子ジャンルを削除
       const genre = getters.getGenreById(genreId);

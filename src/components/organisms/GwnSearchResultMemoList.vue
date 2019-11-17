@@ -89,10 +89,6 @@ export default {
       return this.$store.getters.getMemosByGenreId(genreId);
     },
 
-    selectMemo(id) {
-      this.$store.dispatch("selectMemo", id);
-    },
-    
     setSearchTargetGenresId(genre, searchTargetGenresId) {
       searchTargetGenresId.push(...genre.childrenId);
 

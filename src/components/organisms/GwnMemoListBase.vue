@@ -1,12 +1,14 @@
 <template>
   <v-list dense class="overflow-y-auto" max-height="87vh">
-    <v-list-item-group multiple>
-      <v-list-item v-for="memo in memos" :key="memo.id" @click="selectMemo(memo.id)">
-        <v-list-item-content>
-          <GwnMemoItem :memo="memo"></GwnMemoItem>
-        </v-list-item-content>
-        <GwnEditMemoMenuItem :memo="memo"></GwnEditMemoMenuItem>
-      </v-list-item>
+    <v-list-item-group multiple v-model="selectedMemos">
+      <template v-for="memo in memos">
+        <v-list-item :key="memo.id" :value="memo">
+          <v-list-item-content>
+            <GwnMemoItem :memo="memo"></GwnMemoItem>
+          </v-list-item-content>
+          <GwnEditMemoMenuItem :memo="memo"></GwnEditMemoMenuItem>
+        </v-list-item>
+      </template>
     </v-list-item-group>
   </v-list>
 </template>
@@ -30,13 +32,19 @@ export default {
     }
   },
 
-  methods: {
-    selectMemo(id) {
-      this.$store.dispatch("selectMemo", id);
+  computed: {
+    selectedGenre() {
+      return this.$store.getters.getSelectedGenre;
     },
-
-    iconClick() {
-      alert("Icon Click");
+    selectedMemos: {
+      get: function() {
+        return this.$store.getters.getSelectedMemos;
+      },
+      set: function(memos) {
+        let memosIds = [];
+        memos.forEach(memo => memosIds.push(memo.id));
+        this.$store.dispatch("selectMemos", memosIds);
+      }
     }
   }
 };

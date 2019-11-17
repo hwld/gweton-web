@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
-      <v-btn icon v-on="on" :disabled="selectedMemo.id == null">
+      <v-btn icon v-on="on" :disabled="selectedMemos[0] == null">
         <v-icon>delete</v-icon>
       </v-btn>
     </template>
@@ -15,7 +15,7 @@
 
         <v-btn text @click="dialog = false">いいえ</v-btn>
 
-        <v-btn text @click="dialog = false, deleteMemo()">はい</v-btn>
+        <v-btn text @click="dialog = false, deleteMemos()">はい</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -32,14 +32,15 @@ export default {
   },
 
   computed: {
-    selectedMemo() {
-      return this.$store.getters.getSelectedMemo;
+    selectedMemos() {
+      return this.$store.getters.getSelectedMemos;
     }
   },
 
   methods: {
-    deleteMemo() {
-      this.$store.dispatch("deleteMemo", this.selectedMemo.id);
+    deleteMemos() {
+      this.$store.dispatch("deleteMemos", this.selectedMemos);
+      this.$store.dispatch("selectMemos", []);
     }
   }
 };

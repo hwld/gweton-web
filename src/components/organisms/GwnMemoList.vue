@@ -25,12 +25,6 @@ export default {
     memosInSelectedGenre() {
       return this.$store.getters.getMemosByGenreId(this.selectedGenre.id);
     }
-  },
-
-  methods: {
-    selectMemo(id) {
-      this.$store.dispatch("selectMemo", id);
-    }
   }
 };
 </script>

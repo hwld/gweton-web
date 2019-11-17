@@ -7,6 +7,7 @@
       activatable
       item-text="genreName"
       item-children="childrenGenre"
+      item-key="id"
       @update:active="selectGenre"
       class="treeview overflow-y-auto"
     ></v-treeview>
@@ -22,10 +23,6 @@ export default {
   components: {
     GwnGenreListMenu
   },
-
-  data: () => ({
-    active: []
-  }),
 
   computed: {
     genreTree() {
