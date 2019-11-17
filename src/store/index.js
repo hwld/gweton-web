@@ -268,6 +268,15 @@ export default new Vuex.Store({
       //指定されたジャンルを削除
       commit(types.DELETE_GENRE, genreId);
 
+      //親ジャンルの子Idから指定されたジャンルのIDを削除
+      const parentGenre = getters.getGenreById(genre.parentGenreId);
+      if (parentGenre != null) {
+        const targetIndex = parentGenre.childrenId.findIndex(
+          id => id === genreId
+        );
+        parentGenre.childrenId.splice(targetIndex, 1);
+      }
+
       //ファイルを更新
       dispatch("uploadData");
     },
