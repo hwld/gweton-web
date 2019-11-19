@@ -73,6 +73,8 @@ export default {
   data() {
     return {
       rules: [v => !!v || "入力してください"],
+      id: null,
+      genreId: null,
       title: "",
       text: "",
       authorName: "",
@@ -86,6 +88,8 @@ export default {
     },
     onOk() {
       this.$emit("onOk", {
+        id: this.id,
+        genreId: this.genreId,
         title: this.title,
         text: this.text,
         authorName: this.authorName,
@@ -98,6 +102,8 @@ export default {
     defaultMemo: {
       immediate: true,
       handler(memo) {
+        this.id = memo.id;
+        this.genreId = memo.genreId;
         this.title = memo.title;
         this.text = memo.text;
         this.authorName = memo.authorName;

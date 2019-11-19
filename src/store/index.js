@@ -58,14 +58,16 @@ export default new Vuex.Store({
       state.memoList.splice(targetMemoIndex, 1);
     },
 
-    //指定されたidのメモを更新する
-    [types.EDIT_MEMO](state, { newMemo, memoId }) {
-      let oldMemoIndex = state.memoList.findIndex(memo => memo.id === memoId);
+    //指定されたメモを更新する
+    [types.EDIT_MEMO](state, newMemo) {
+      let oldMemoIndex = state.memoList.findIndex(
+        memo => memo.id === newMemo.id
+      );
 
       //完全なメモオブジェクトを作成
       let newCompleteMemo = {
-        id: memoId,
-        genreId: state.memoList[oldMemoIndex].genreId,
+        id: newMemo.id,
+        genreId: newMemo.genreId,
         title: newMemo.title,
         text: newMemo.text,
         authorName: newMemo.authorName,
@@ -79,15 +81,6 @@ export default new Vuex.Store({
     [types.INCREMENT_NEXT_MEMO_ID](state) {
       state.nextMemoId++;
     },
-
-    [types.DECREMENT_NEXT_MEMO_ID](state) {
-      state.nextMemoId--;
-    },
-
-    [types.SET_NEXT_MEMO_ID](state, value) {
-      state.nextMemoId = value;
-    },
-
     ////////////////////////////////////////////////////////////////////////
     //検索
     ///////////////////////////////////////////////////////////////////////
@@ -153,14 +146,6 @@ export default new Vuex.Store({
 
     [types.INCREMENT_NEXT_GENRE_ID](state) {
       state.nextGenreId++;
-    },
-
-    [types.DECREMENT_NEXT_GENRE_ID](state) {
-      state.nextGenreId--;
-    },
-
-    [types.SET_NEXT_GENRE_ID](state, value) {
-      state.nextGenreId = value;
     }
   },
   getters: {
@@ -234,8 +219,8 @@ export default new Vuex.Store({
       dispatch("uploadData");
     },
 
-    editMemo({ commit, dispatch }, { newMemo, memoId }) {
-      commit(types.EDIT_MEMO, { newMemo, memoId });
+    editMemo({ commit, dispatch }, newMemo) {
+      commit(types.EDIT_MEMO, newMemo);
       dispatch("uploadData");
     },
 

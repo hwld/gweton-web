@@ -42,10 +42,7 @@ export default {
   methods: {
     editMemo(newMemo) {
       this.dialog = false;
-      this.$store.dispatch("editMemo", {
-        newMemo,
-        memoId: this.memo.id
-      });
+      this.$store.dispatch("editMemo", newMemo);
     },
     cancel() {
       this.dialog = false;
@@ -58,6 +55,8 @@ export default {
       handler(value) {
         if (value == true) {
           this.defaultMemo = {
+            id: this.memo.id,
+            genreId: this.memo.genreId,
             title: this.memo.title,
             text: this.memo.text,
             authorName: this.memo.authorName,

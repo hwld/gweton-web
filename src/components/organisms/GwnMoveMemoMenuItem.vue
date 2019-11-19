@@ -12,7 +12,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text @click="cancel">中止</v-btn>
-        <v-btn text @click="moveMemo" :disabled="selectedGenreIds[0] == null">移動</v-btn>
+        <v-btn text @click="moveMemo" :disabled="selectedGenreId == null">移動</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       dialog: false,
-      selectedGenreIds: []
+      selectedGenreId: null
     };
   },
 
@@ -43,13 +43,13 @@ export default {
 
   methods: {
     selectGenre(event) {
-      this.selectedGenreIds.splice(0, 1, event);
+      this.selectedGenreId = event;
     },
     moveMemo() {
       //this.selectedMemos.forEach(memo => {});
     },
     cancel() {
-      this.selectedGenreIds = [];
+      this.selectedGenreIds = null;
       this.dialog = false;
     }
   }
