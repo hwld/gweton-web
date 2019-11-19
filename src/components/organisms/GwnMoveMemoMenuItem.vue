@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
+  <v-dialog v-model="dialog" max-width="800" @click:outside="close">
     <template v-slot:activator="{ on }">
       <v-btn icon v-on="on" :disabled="selectedMemos[0] == null">
         <v-icon>drive_file_move_outline</v-icon>
@@ -11,7 +11,7 @@
       <GwnGenreListBase class="treeview" :IsDisplay="dialog" @selectGenre="selectGenre"></GwnGenreListBase>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="cancel">中止</v-btn>
+        <v-btn text @click="close">中止</v-btn>
         <v-btn text @click="moveMemo" :disabled="selectedGenreId == null">移動</v-btn>
       </v-card-actions>
     </v-card>
@@ -46,10 +46,13 @@ export default {
       this.selectedGenreId = event;
     },
     moveMemo() {
-      //this.selectedMemos.forEach(memo => {});
+      this.selectedMemos.forEach(memo => {
+        memo.genreId = this.selectedGenreId;
+        this.$store.dispatch("editMemo", memo);
+      });
+      this.close();
     },
-    cancel() {
-      this.selectedGenreIds = null;
+    close() {
       this.dialog = false;
     }
   }
