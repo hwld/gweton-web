@@ -5,14 +5,28 @@
     item-text="genreName"
     item-children="childrenGenre"
     item-key="id"
-    @update:active="$emit('selectGenre',$event)"
-    class="treeview overflow-y-auto"
+    :active="active"
+    @update:active="updateActive"
+    class="overflow-y-auto"
   ></v-treeview>
 </template>
 
 <script>
 export default {
   name: "GwnGenreListBase",
+
+  data() {
+    return {
+      active: []
+    };
+  },
+
+  props: {
+    IsDisplay: {
+      type: Boolean,
+      default: false
+    }
+  },
 
   computed: {
     genreTree() {
@@ -35,6 +49,10 @@ export default {
   },
 
   methods: {
+    updateActive(selectedGenres) {
+      this.$emit("selectGenre", selectedGenres[0]);
+    },
+
     createGenreForTreeView(genre) {
       //元のジャンルを変更せずに、プロパティを追加したジャンルオブジェクトを返す
       return Object.assign(Object.create(genre), { childrenGenre: [] });
@@ -56,6 +74,14 @@ export default {
         genre.childrenGenre.push(...childrenGenre);
 
         this.buildGenreTree(childrenGenre);
+      }
+    }
+  },
+
+  watch: {
+    IsDisplay: {
+      handler(isDisplay) {
+        if (isDisplay === true) this.active.splice(0);
       }
     }
   }

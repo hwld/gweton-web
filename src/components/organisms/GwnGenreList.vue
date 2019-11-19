@@ -2,7 +2,7 @@
   <div>
     <GwnGenreListMenu></GwnGenreListMenu>
 
-    <GwnGenreListBase @selectGenre="selectGenre"></GwnGenreListBase>
+    <GwnGenreListBase @selectGenre="selectGenre" class="treeview"></GwnGenreListBase>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
 
   methods: {
     selectGenre(selectId) {
-      this.$store.dispatch("selectGenre", selectId[0]);
+      this.$store.dispatch("selectGenre", selectId);
     }
   }
 };
@@ -29,9 +29,5 @@ export default {
 <style scoped>
 .treeview {
   max-height: 86vh;
-}
-.v-treeview-node__content,
-.v-treeview-node__label {
-  word-break: break-all;
 }
 </style>
