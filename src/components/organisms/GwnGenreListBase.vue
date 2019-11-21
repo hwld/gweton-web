@@ -20,14 +20,6 @@ export default {
       active: []
     };
   },
-
-  props: {
-    IsDisplay: {
-      type: Boolean,
-      default: false
-    }
-  },
-
   computed: {
     genreTree() {
       let tree = [];
@@ -74,14 +66,6 @@ export default {
         genre.childrenGenre.push(...childrenGenre);
 
         this.buildGenreTree(childrenGenre);
-      }
-    }
-  },
-
-  watch: {
-    IsDisplay: {
-      handler(isDisplay) {
-        if (isDisplay === true) this.active.splice(0);
       }
     }
   }

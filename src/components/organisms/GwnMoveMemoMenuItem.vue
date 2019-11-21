@@ -6,9 +6,9 @@
       </v-btn>
     </template>
 
-    <v-card height="800">
+    <v-card v-if="dialog" height="800">
       <v-card-title>メモの移動</v-card-title>
-      <GwnGenreListBase class="treeview" :IsDisplay="dialog" @selectGenre="selectGenre"></GwnGenreListBase>
+      <GwnGenreListBase class="treeview" @selectGenre="selectGenre"></GwnGenreListBase>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text @click="close">中止</v-btn>

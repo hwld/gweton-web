@@ -7,7 +7,8 @@
     </template>
 
     <GwnEditGenreCard
-      :defaultGenre="defaultGenre"
+      v-if="dialog"
+      :defaultGenre="selectedGenre"
       cardTitle="メモ編集"
       okButtonText="変更"
       @onOk="editGenre"
@@ -34,8 +35,7 @@ export default {
 
   data() {
     return {
-      dialog: false,
-      defaultGenre: {}
+      dialog: false
     };
   },
 
@@ -49,19 +49,6 @@ export default {
     },
     cancel() {
       this.dialog = false;
-    }
-  },
-
-  watch: {
-    dialog: {
-      immediate: true,
-      handler(value) {
-        if (value == true) {
-          this.defaultGenre = {
-            genreName: this.selectedGenre.genreName
-          };
-        }
-      }
     }
   }
 };

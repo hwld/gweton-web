@@ -28,7 +28,7 @@ export default {
   props: {
     defaultGenre: {
       type: Object,
-      default: () => ({})
+      default: () => ({ genreName: "" })
     },
     cardTitle: {
       type: String,
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       rules: [v => !!v || "入力してください"],
-      genreName: ""
+      genreName: this.defaultGenre.genreName
     };
   },
 
@@ -55,15 +55,6 @@ export default {
       this.$emit("onOk", {
         genreName: this.genreName
       });
-    }
-  },
-
-  watch: {
-    defaultGenre: {
-      immediate: true,
-      handler(genre) {
-        this.genreName = genre.genreName;
-      }
     }
   }
 };

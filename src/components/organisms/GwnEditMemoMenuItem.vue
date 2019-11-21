@@ -7,7 +7,8 @@
     </template>
 
     <GwnEditMemoCard
-      :defaultMemo="defaultMemo"
+      v-if="dialog"
+      :defaultMemo="memo"
       cardTitle="メモ編集"
       okButtonText="変更"
       @onOk="editMemo"
@@ -34,8 +35,7 @@ export default {
 
   data() {
     return {
-      dialog: false,
-      defaultMemo: {}
+      dialog: false
     };
   },
 
@@ -46,24 +46,6 @@ export default {
     },
     cancel() {
       this.dialog = false;
-    }
-  },
-
-  watch: {
-    dialog: {
-      immediate: true,
-      handler(value) {
-        if (value == true) {
-          this.defaultMemo = {
-            id: this.memo.id,
-            genreId: this.memo.genreId,
-            title: this.memo.title,
-            text: this.memo.text,
-            authorName: this.memo.authorName,
-            bookName: this.memo.bookName
-          };
-        }
-      }
     }
   }
 };

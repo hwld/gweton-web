@@ -9,7 +9,7 @@
     <!--ダイアログの外側がクリックされたときにフィールドをリセットするために、空のメモオブジェクトを渡す。-->
     <!--外側がクリックされたら、メモオブジェクトを空文字でリセットし、反映させる。-->
     <GwnEditGenreCard
-      :defaultGenre="genre"
+      v-if="dialog"
       cardTitle="ジャンル作成"
       okButtonText="作成"
       @onOk="addGenre"
@@ -36,8 +36,7 @@ export default {
 
   data() {
     return {
-      dialog: false,
-      genre: { genreName: "" }
+      dialog: false
     };
   },
 
@@ -48,15 +47,9 @@ export default {
         genre: genre,
         parentGenreId: this.selectedGenre.id
       });
-      this.resetGenre();
     },
     cancel() {
       this.dialog = false;
-      this.resetGenre();
-    },
-    resetGenre() {
-      //defaultGenreとして渡すオブジェクトを空にすることで、フィールドをリセットする
-      this.genre = { genreName: "" };
     }
   }
 };

@@ -58,7 +58,14 @@ export default {
   props: {
     defaultMemo: {
       type: Object,
-      default: () => ({})
+      default: () => ({
+        id: null,
+        genreId: null,
+        title: "",
+        text: "",
+        authorName: "",
+        bookName: ""
+      })
     },
     cardTitle: {
       type: String,
@@ -73,12 +80,12 @@ export default {
   data() {
     return {
       rules: [v => !!v || "入力してください"],
-      id: null,
-      genreId: null,
-      title: "",
-      text: "",
-      authorName: "",
-      bookName: ""
+      id: this.defaultMemo.id,
+      genreId: this.defaultMemo.genreId,
+      title: this.defaultMemo.title,
+      text: this.defaultMemo.text,
+      authorName: this.defaultMemo.authorName,
+      bookName: this.defaultMemo.bookName
     };
   },
 
@@ -95,20 +102,6 @@ export default {
         authorName: this.authorName,
         bookName: this.bookName
       });
-    }
-  },
-
-  watch: {
-    defaultMemo: {
-      immediate: true,
-      handler(memo) {
-        this.id = memo.id;
-        this.genreId = memo.genreId;
-        this.title = memo.title;
-        this.text = memo.text;
-        this.authorName = memo.authorName;
-        this.bookName = memo.bookName;
-      }
     }
   }
 };
