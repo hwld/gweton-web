@@ -1,3 +1,4 @@
+import GwnLoginPage from "@/components/templates/GwnLoginPage.vue";
 import GwnMainPage from "@/components/templates/GwnMainPage.vue";
 import GwnMemoList from "@/components/organisms/GwnMemoList.vue";
 import GwnSearchResultMemoList from "@/components/organisms/GwnSearchResultMemoList.vue";
@@ -5,10 +6,14 @@ import GwnSearchResultMemoList from "@/components/organisms/GwnSearchResultMemoL
 export default [
   {
     path: "/",
-    redirect: "/home"
+    redirect: "/login"
   },
   {
-    path: "/",
+    path: "/login",
+    component: GwnLoginPage
+  },
+  {
+    path: "/main",
     component: GwnMainPage,
     children: [
       {
@@ -24,6 +29,6 @@ export default [
   },
   {
     path: "*",
-    redirect: "/home"
+    redirect: "/login"
   }
 ];
