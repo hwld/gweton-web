@@ -1,7 +1,7 @@
 <template>
   <div>
     <GwnSearchResultMemoListMenu></GwnSearchResultMemoListMenu>
-    <GwnMemoListBase :memos="searchResultMemos"></GwnMemoListBase>
+    <GwnMemoListBase :searchText="filterText" :memos="searchResultMemos"></GwnMemoListBase>
   </div>
 </template>
 

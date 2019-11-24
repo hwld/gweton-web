@@ -4,7 +4,7 @@
       <template v-for="memo in memos">
         <v-list-item :key="memo.id" :value="memo">
           <v-list-item-content>
-            <GwnMemoItem :memo="memo"></GwnMemoItem>
+            <GwnMemoItem :searchText="searchText" :memo="memo"></GwnMemoItem>
           </v-list-item-content>
           <GwnEditMemoMenuItem :memo="memo"></GwnEditMemoMenuItem>
         </v-list-item>
@@ -29,6 +29,10 @@ export default {
     memos: {
       type: Array,
       default: () => []
+    },
+    searchText: {
+      type: String,
+      default: null
     }
   },
 
