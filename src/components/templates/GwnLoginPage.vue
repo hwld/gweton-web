@@ -3,7 +3,7 @@
     <v-container class="fill-height">
       <v-row>
         <v-col></v-col>
-        <v-col cols="8" xs="12">
+        <v-col cols="8" lg="3">
           <v-card height="500">
             <v-container class="fill-height">
               <v-row></v-row>
@@ -26,14 +26,36 @@
 </template>
 
 <script>
+import * as types from "@/store/mutation-types";
+import firebase from "firebase/app";
+import "firebase/auth";
+
 export default {
   name: "GwnLoginPage",
+  data() {
+    return {
+      unsubscribe: {}
+    };
+  },
   created() {
     this.$vuetify.theme.dark = true;
+
+    this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.commit(types.SET_USER, user);
+        this.$store.dispatch("downloadData").then(() => {
+          this.$router.push({ path: "/home" });
+        });
+      }
+    });
+  },
+  destroyed() {
+    this.unsubscribe();
   },
   methods: {
     login() {
-      alert("hoge");
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider);
     }
   }
 };

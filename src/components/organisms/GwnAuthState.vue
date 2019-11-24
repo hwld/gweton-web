@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div v-if="!user.uid">
-      <v-btn text @click="login" color="blue">ログイン</v-btn>
-    </div>
-
-    <div v-else>
+    <div v-if="user.uid">
       <v-btn text @click="logout" color="red">ログアウト</v-btn>
     </div>
   </div>
@@ -12,7 +8,6 @@
 
 <script>
 import firebase from "firebase/app";
-import * as types from "@/store/mutation-types";
 import "firebase/auth";
 
 export default {
@@ -23,23 +18,15 @@ export default {
       return this.$store.getters.getUser;
     }
   },
-
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.$store.commit(types.SET_USER, user);
-      this.$store.dispatch("downloadData");
-    });
-  },
-
   methods: {
-    login() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithRedirect(provider);
-    },
-
     logout() {
       this.$store.dispatch("uploadData");
-      firebase.auth().signOut();
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({ path: "/login" });
+        });
     }
   }
 };

@@ -6,29 +6,28 @@ import GwnSearchResultMemoList from "@/components/organisms/GwnSearchResultMemoL
 export default [
   {
     path: "/",
-    redirect: "/login"
+    redirect: "/home",
+    component: GwnMainPage,
+    children: [
+      {
+        path: "home",
+        component: GwnMemoList,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "search",
+        //GwnMemoListと違い、選択したジャンルの子すべてを含むメモのリストを表示する
+        component: GwnSearchResultMemoList,
+        meta: { requiresAuth: true }
+      }
+    ]
   },
   {
     path: "/login",
     component: GwnLoginPage
   },
   {
-    path: "/main",
-    component: GwnMainPage,
-    children: [
-      {
-        path: "home",
-        component: GwnMemoList
-      },
-      {
-        path: "search",
-        //GwnMemoListと違い、選択したジャンルの子すべてを含むメモのリストを表示する
-        component: GwnSearchResultMemoList
-      }
-    ]
-  },
-  {
     path: "*",
-    redirect: "/login"
+    redirect: "/home"
   }
 ];
