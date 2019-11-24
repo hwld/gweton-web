@@ -23,14 +23,14 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="10">
-            <v-text-field label="書籍名" v-model="authorName" filled></v-text-field>
+            <v-combobox :items="bookNameList" label="書籍名" v-model="bookName" filled></v-combobox>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="10">
-            <v-text-field label="著者名" v-model="bookName" filled></v-text-field>
+            <v-combobox :items="authorNameList" label="著者名" v-model="authorName" filled></v-combobox>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -80,6 +80,8 @@ export default {
   data() {
     return {
       rules: [v => !!v || "入力してください"],
+      authorNameList: [],
+      bookNameList: [],
       id: this.defaultMemo.id,
       genreId: this.defaultMemo.genreId,
       title: this.defaultMemo.title,
@@ -89,7 +91,15 @@ export default {
     };
   },
 
+  created() {
+    this.buildAuthorNameList();
+    this.buildBookNameList();
+  },
+
   methods: {
+    input() {
+      window.console.log("hoge");
+    },
     onCancel() {
       this.$emit("onCancel");
     },
@@ -101,6 +111,26 @@ export default {
         text: this.text,
         authorName: this.authorName,
         bookName: this.bookName
+      });
+    },
+    buildAuthorNameList() {
+      this.$store.getters.getMemoList.forEach(memo => {
+        if (
+          !this.authorNameList.includes(memo.authorName) &&
+          memo.authorName != null &&
+          memo.authorName != ""
+        )
+          this.authorNameList.push(memo.authorName);
+      });
+    },
+    buildBookNameList() {
+      this.$store.getters.getMemoList.forEach(memo => {
+        if (
+          !this.bookNameList.includes(memo.bookName) &&
+          memo.bookName != null &&
+          memo.bookName != ""
+        )
+          this.bookNameList.push(memo.bookName);
       });
     }
   }
