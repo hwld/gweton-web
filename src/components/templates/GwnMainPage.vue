@@ -6,7 +6,7 @@
       </template>
     </GwnHeader>
 
-    <v-navigation-drawer :value="drawer" app clipped :width="drawerWidth">
+    <v-navigation-drawer v-model="drawer" app clipped :width="drawerWidth">
       <GwnGenreList></GwnGenreList>
     </v-navigation-drawer>
 
@@ -29,17 +29,31 @@ export default {
   },
 
   data: () => ({
-    drawer: true
+    drawer: true,
+    drawerWidth: null
   }),
 
   computed: {
     drawerWidth() {
-      return window.parent.screen.width * 0.3;
+      const screenWidth = window.parent.screen.width;
+      if (screenWidth > 960) {
+        return window.screen.width * 0.3;
+      }
+      return window.screen.width * 0.8;
     }
   },
 
   created() {
     this.$vuetify.theme.dark = true;
+
+    const screenWidth = window.parent.screen.width;
+    if (screenWidth >= 960) {
+      this.drawerWidth = screenWidth * 0.3;
+      this.drawer = true;
+    } else {
+      this.drawerWidth = screenWidth * 0.8;
+      this.drawer = false;
+    }
   }
 };
 </script>
