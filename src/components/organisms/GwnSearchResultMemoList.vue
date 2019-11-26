@@ -1,7 +1,13 @@
 <template>
   <div>
-    <GwnSearchResultMemoListMenu></GwnSearchResultMemoListMenu>
     <GwnMemoListBase :searchText="filterText" :memos="searchResultMemos"></GwnMemoListBase>
+    <v-footer padless fixed>
+      <v-card width="100%" flat tile class="text-center">
+        <v-card-text>
+          <GwnSearchResultMemoListMenu></GwnSearchResultMemoListMenu>
+        </v-card-text>
+      </v-card>
+    </v-footer>
   </div>
 </template>
 

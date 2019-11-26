@@ -29,8 +29,7 @@ export default {
   },
 
   data: () => ({
-    drawer: true,
-    drawerWidth: null
+    drawer: true
   }),
 
   computed: {

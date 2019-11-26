@@ -1,7 +1,7 @@
 <template>
-  <v-toolbar>
+  <div>
     <GwnDeleteMemoMenuItem></GwnDeleteMemoMenuItem>
-  </v-toolbar>
+  </div>
 </template>
 
 <script>
