@@ -1,15 +1,10 @@
 <template>
   <div>
-    <!-- <GwnGenreListMenu></GwnGenreListMenu> -->
+    <v-toolbar>
+      <GwnGenreListMenu></GwnGenreListMenu>
+    </v-toolbar>
 
     <GwnGenreListBase @selectGenre="selectGenre" class="treeview"></GwnGenreListBase>
-    <v-footer padless absolute>
-      <v-card width="100%" flat tile class="text-center">
-        <v-card-text>
-          <GwnGenreListMenu></GwnGenreListMenu>
-        </v-card-text>
-      </v-card>
-    </v-footer>
   </div>
 </template>
 

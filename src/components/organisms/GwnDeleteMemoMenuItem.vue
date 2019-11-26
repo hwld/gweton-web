@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
-      <v-btn icon v-on="on" :disabled="selectedMemos[0] == null" x-large class="mx-10">
+      <v-btn icon v-on="on" :disabled="selectedMemos[0] == null" large class="mx-4">
         <v-icon>delete</v-icon>
       </v-btn>
     </template>

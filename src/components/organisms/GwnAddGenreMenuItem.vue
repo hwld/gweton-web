@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
     <template v-slot:activator="{ on }">
-      <v-btn icon v-on="on" x-large class="mx-10">
+      <v-btn icon v-on="on" large class="mx-4">
         <v-icon>playlist_add</v-icon>
       </v-btn>
     </template>
