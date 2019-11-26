@@ -1,9 +1,9 @@
 <template>
-  <v-toolbar>
+  <div>
     <GwnAddGenreMenuItem></GwnAddGenreMenuItem>
     <GwnDeleteGenreMenuItem></GwnDeleteGenreMenuItem>
     <GwnEditGenreMenuItem></GwnEditGenreMenuItem>
-  </v-toolbar>
+  </div>
 </template>
 
 <script>

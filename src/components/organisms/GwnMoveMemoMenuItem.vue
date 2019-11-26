@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800" @click:outside="close">
     <template v-slot:activator="{ on }">
-      <v-btn icon v-on="on" :disabled="selectedMemos[0] == null">
+      <v-btn icon v-on="on" :disabled="selectedMemos[0] == null" x-large class="mx-10">
         <v-icon>drive_file_move_outline</v-icon>
       </v-btn>
     </template>

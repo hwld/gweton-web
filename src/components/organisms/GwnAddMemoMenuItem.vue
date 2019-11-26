@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
     <template v-slot:activator="{ on }">
-      <v-btn icon v-on="on" :disabled="selectedGenre.id == null">
+      <v-btn icon v-on="on" :disabled="selectedGenre.id == null" x-large class="mx-10">
         <v-icon>post_add</v-icon>
       </v-btn>
     </template>
