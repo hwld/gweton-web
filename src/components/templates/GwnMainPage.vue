@@ -29,18 +29,9 @@ export default {
   },
 
   data: () => ({
-    drawer: true
+    drawer: true,
+    drawerWidth: null
   }),
-
-  computed: {
-    drawerWidth() {
-      const screenWidth = window.parent.screen.width;
-      if (screenWidth > 960) {
-        return window.screen.width * 0.3;
-      }
-      return window.screen.width * 0.8;
-    }
-  },
 
   created() {
     this.$vuetify.theme.dark = true;
@@ -53,6 +44,8 @@ export default {
       this.drawerWidth = screenWidth * 0.8;
       this.drawer = false;
     }
+
+    this.$store.dispatch("downloadData");
   }
 };
 </script>

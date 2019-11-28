@@ -47,7 +47,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn text @click="onCancel">中止</v-btn>
-      <v-btn text @click="onOk" :disabled="text === ''">{{okButtonText}}</v-btn>
+      <v-btn text @click="onOk" :disabled="text === ''">完了</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -68,10 +68,6 @@ export default {
       })
     },
     cardTitle: {
-      type: String,
-      default: ""
-    },
-    okButtonText: {
       type: String,
       default: ""
     }
@@ -97,9 +93,6 @@ export default {
   },
 
   methods: {
-    input() {
-      window.console.log("hoge");
-    },
     onCancel() {
       this.$emit("onCancel");
     },

@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div v-if="user.uid">
+    <div v-if="userUid">
       <v-btn text @click="logout" color="red">ログアウト</v-btn>
     </div>
   </div>
 </template>
 
 <script>
+import * as types from "@/store/mutation-types";
 import firebase from "firebase/app";
 import "firebase/auth";
 
@@ -14,17 +15,17 @@ export default {
   name: "GwnAuthState",
 
   computed: {
-    user() {
-      return this.$store.getters.getUser;
+    userUid() {
+      return this.$store.getters.getUserUid;
     }
   },
   methods: {
     logout() {
-      this.$store.dispatch("uploadData");
       firebase
         .auth()
         .signOut()
         .then(() => {
+          this.$store.commit(types.CLEAR_USER_UID);
           this.$router.push({ path: "/login" });
         });
     }

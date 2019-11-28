@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
+  <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
       <v-btn icon v-on="on" :disabled="selectedGenre.id == null" large class="mx-4">
         <v-icon>edit</v-icon>
@@ -10,9 +10,8 @@
       v-if="dialog"
       :defaultGenre="selectedGenre"
       cardTitle="メモ編集"
-      okButtonText="変更"
       @onOk="editGenre"
-      @onCancel="cancel"
+      @onCancel="dialog = false"
     ></GwnEditGenreCard>
   </v-dialog>
 </template>
@@ -46,9 +45,6 @@ export default {
         genre,
         genreId: this.selectedGenre.id
       });
-    },
-    cancel() {
-      this.dialog = false;
     }
   }
 };

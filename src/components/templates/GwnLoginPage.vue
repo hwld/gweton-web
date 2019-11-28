@@ -32,30 +32,20 @@ import "firebase/auth";
 
 export default {
   name: "GwnLoginPage",
-  data() {
-    return {
-      unsubscribe: {}
-    };
-  },
+
   created() {
     this.$vuetify.theme.dark = true;
-
-    this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.$store.commit(types.SET_USER, user);
-        this.$store.dispatch("downloadData").then(() => {
-          this.$router.push({ path: "/home" });
-        });
-      }
-    });
-  },
-  destroyed() {
-    this.unsubscribe();
   },
   methods: {
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider);
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(({ user }) => {
+          this.$store.commit(types.SET_USER_UID, user.uid);
+          this.$router.push({ path: "/home" });
+        });
     }
   }
 };

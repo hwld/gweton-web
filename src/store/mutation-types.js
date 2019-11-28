@@ -2,7 +2,8 @@ export const SET_DOWNLOAD_DATA = "SET_DOWNLOAD_DATA";
 
 export const INVERT_IS_DRAWER_OPEN = "INVERT_IS_DRAWER_OPEN";
 
-export const SET_USER = "LOGIN";
+export const SET_USER_UID = "SET_USER_UID";
+export const CLEAR_USER_UID = "CLEAR_USER_UID";
 
 export const SELECT_GENRE = "SELECT_GENRE";
 export const SELECT_MEMO = "SELECT_MEMO";

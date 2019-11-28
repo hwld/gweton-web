@@ -1,20 +1,12 @@
 <template>
-  <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
+  <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
       <v-btn icon v-on="on" large class="mx-4">
         <v-icon>playlist_add</v-icon>
       </v-btn>
     </template>
 
-    <!--ダイアログの外側がクリックされたときにフィールドをリセットするために、空のメモオブジェクトを渡す。-->
-    <!--外側がクリックされたら、メモオブジェクトを空文字でリセットし、反映させる。-->
-    <GwnEditGenreCard
-      v-if="dialog"
-      cardTitle="ジャンル作成"
-      okButtonText="作成"
-      @onOk="addGenre"
-      @onCancel="cancel"
-    ></GwnEditGenreCard>
+    <GwnEditGenreCard v-if="dialog" cardTitle="ジャンル作成" @onOk="addGenre" @onCancel="dialog = false"></GwnEditGenreCard>
   </v-dialog>
 </template>
 
@@ -47,9 +39,6 @@ export default {
         genre: genre,
         parentGenreId: this.selectedGenre.id
       });
-    },
-    cancel() {
-      this.dialog = false;
     }
   }
 };

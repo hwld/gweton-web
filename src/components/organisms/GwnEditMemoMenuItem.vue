@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="800" @click:outside="cancel">
+  <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
       <v-btn icon @click.stop="on.click" large>
         <v-icon>edit</v-icon>
@@ -10,9 +10,8 @@
       v-if="dialog"
       :defaultMemo="memo"
       cardTitle="メモ編集"
-      okButtonText="変更"
       @onOk="editMemo"
-      @onCancel="cancel"
+      @onCancel="dialog = false"
     ></GwnEditMemoCard>
   </v-dialog>
 </template>
@@ -43,9 +42,6 @@ export default {
     editMemo(newMemo) {
       this.dialog = false;
       this.$store.dispatch("editMemo", newMemo);
-    },
-    cancel() {
-      this.dialog = false;
     }
   }
 };

@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    userUid: localStorage.getItem("userUid"),
     selectedGenre: {},
     selectedMemos: [],
     genreList: [],
@@ -19,9 +19,16 @@ export default new Vuex.Store({
     filterText: ""
   },
   mutations: {
-    //ユーザを設定する
-    [types.SET_USER](state, user) {
-      state.user = user ? user : {};
+    //ユーザUIDを設定する
+    [types.SET_USER_UID](state, userUid) {
+      localStorage.setItem("userUid", userUid);
+      state.userUid = userUid;
+    },
+
+    //ユーザUIDをクリアする
+    [types.CLEAR_USER_UID](state) {
+      localStorage.removeItem("userUid");
+      state.userUid = null;
     },
 
     //ダウンロードしたデータを設定する
@@ -149,8 +156,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getUser: state => {
-      return state.user;
+    getUserUid: state => {
+      return state.userUid;
     },
 
     getGenreList: state => {
@@ -275,13 +282,13 @@ export default new Vuex.Store({
     },
 
     downloadData({ commit, getters }) {
-      if (getters.getUser.uid == null) {
+      if (getters.getUserUid == null) {
         return;
       }
 
       firebase
         .storage()
-        .ref(`user/${getters.getUser.uid}/data.json`)
+        .ref(`user/${getters.getUserUid}/data.json`)
         .getDownloadURL()
         .then(function(url) {
           axios.get(url).then(function(response) {
@@ -297,13 +304,13 @@ export default new Vuex.Store({
     },
 
     uploadData({ getters }) {
-      if (getters.getUser.uid == null) {
+      if (getters.getUserUid == null) {
         return;
       }
 
       const dataRef = firebase
         .storage()
-        .ref(`user/${getters.getUser.uid}/data.json`);
+        .ref(`user/${getters.getUserUid}/data.json`);
 
       const jsonData = {
         genreList: getters.getGenreList,

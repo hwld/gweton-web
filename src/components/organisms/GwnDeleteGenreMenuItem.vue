@@ -9,12 +9,9 @@
     <v-card>
       <v-card-title>削除確認</v-card-title>
       <v-card-text>ジャンルを削除しても良いですか?</v-card-text>
-
       <v-card-actions>
         <v-spacer></v-spacer>
-
         <v-btn text @click="dialog = false">いいえ</v-btn>
-
         <v-btn text @click="dialog = false, deleteGenre()">はい</v-btn>
       </v-card-actions>
     </v-card>
