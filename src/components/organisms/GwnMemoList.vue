@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <GwnMemoListMenu></GwnMemoListMenu> -->
     <div v-if="!selectedGenre.id">ジャンルを選択してください</div>
     <GwnMemoListBase v-else :memos="memosInSelectedGenre"></GwnMemoListBase>
     <v-footer padless fixed>

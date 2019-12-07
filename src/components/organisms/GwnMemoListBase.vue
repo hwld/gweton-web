@@ -6,7 +6,7 @@
           <v-list-item-content>
             <GwnMemoItem :searchText="searchText" :memo="memo"></GwnMemoItem>
           </v-list-item-content>
-          <GwnEditMemoMenuItem :memo="memo"></GwnEditMemoMenuItem>
+          <GwnMemoListItemMenu :memo="memo"></GwnMemoListItemMenu>
         </v-list-item>
       </template>
     </v-list-item-group>
@@ -15,14 +15,14 @@
 
 <script>
 import GwnMemoItem from "@/components/organisms/GwnMemoItem.vue";
-import GwnEditMemoMenuItem from "@/components/organisms/GwnEditMemoMenuItem.vue";
+import GwnMemoListItemMenu from "@/components/organisms/GwnMemoListItemMenu.vue";
 
 export default {
   name: "GwnMemoListBase",
 
   components: {
     GwnMemoItem,
-    GwnEditMemoMenuItem
+    GwnMemoListItemMenu
   },
 
   props: {

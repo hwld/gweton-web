@@ -1,7 +1,7 @@
 <template>
   <div>
     <GwnAddMemoMenuItem></GwnAddMemoMenuItem>
-    <GwnDeleteMemoMenuItem></GwnDeleteMemoMenuItem>
+    <GwnDeleteMemoMenuItem :memos="selectedMemos" :activatorDisabled="selectedMemos[0] == null"></GwnDeleteMemoMenuItem>
     <GwnMoveMemoMenuItem></GwnMoveMemoMenuItem>
   </div>
 </template>
@@ -18,6 +18,12 @@ export default {
     GwnAddMemoMenuItem,
     GwnDeleteMemoMenuItem,
     GwnMoveMemoMenuItem
+  },
+
+  computed: {
+    selectedMemos() {
+      return this.$store.getters.getSelectedMemos;
+    }
   }
 };
 </script>

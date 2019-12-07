@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
-      <v-btn icon v-on="on" :disabled="selectedMemos[0] == null" large class="mx-4">
+      <v-btn icon @click.stop="on.click" :disabled="activatorDisabled" large class="mx-4">
         <v-icon>delete</v-icon>
       </v-btn>
     </template>
@@ -22,22 +22,25 @@
 export default {
   name: "GwnDeleteMemoMenuItem",
 
+  props: {
+    memos: {
+      type: Array
+    },
+    activatorDisabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data() {
     return {
       dialog: false
     };
   },
 
-  computed: {
-    selectedMemos() {
-      return this.$store.getters.getSelectedMemos;
-    }
-  },
-
   methods: {
     deleteMemos() {
-      this.$store.dispatch("deleteMemos", this.selectedMemos);
-      this.$store.dispatch("selectMemos", []);
+      this.$store.dispatch("deleteMemos", this.memos);
     }
   }
 };
