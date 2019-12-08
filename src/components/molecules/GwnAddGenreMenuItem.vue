@@ -20,12 +20,6 @@ export default {
     GwnEditGenreCard
   },
 
-  computed: {
-    selectedGenre() {
-      return this.$store.getters.getSelectedGenre;
-    }
-  },
-
   data() {
     return {
       dialog: false
@@ -35,10 +29,7 @@ export default {
   methods: {
     addGenre(genre) {
       this.dialog = false;
-      this.$store.dispatch("addGenre", {
-        genre: genre,
-        parentGenreId: this.selectedGenre.id
-      });
+      this.$emit("addGenre", genre);
     }
   }
 };

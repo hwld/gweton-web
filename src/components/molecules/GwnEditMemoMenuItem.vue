@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
-      <v-btn icon @click.stop="on.click" large>
+      <v-btn icon @click.stop="on.click" large :class="activatorClass">
         <v-icon>edit</v-icon>
       </v-btn>
     </template>
@@ -28,7 +28,12 @@ export default {
 
   props: {
     memo: {
-      type: Object
+      type: Object,
+      require: true
+    },
+    activatorClass: {
+      type: String,
+      default: ""
     }
   },
 
@@ -41,7 +46,7 @@ export default {
   methods: {
     editMemo(newMemo) {
       this.dialog = false;
-      this.$store.dispatch("editMemo", newMemo);
+      this.$emit("editMemo", newMemo);
     }
   }
 };

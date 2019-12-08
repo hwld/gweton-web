@@ -1,7 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
-      <v-btn icon @click.stop="on.click" :disabled="selectedGenre.id == null" large class="mx-4">
+      <v-btn
+        icon
+        @click.stop="on.click"
+        :disabled="activatorDisabled"
+        large
+        :class="activatorClass"
+      >
         <v-icon>post_add</v-icon>
       </v-btn>
     </template>
@@ -20,9 +26,14 @@ export default {
     GwnEditMemoCard
   },
 
-  computed: {
-    selectedGenre() {
-      return this.$store.getters.getSelectedGenre;
+  props: {
+    activatorDisabled: {
+      type: Boolean,
+      default: false
+    },
+    activatorClass: {
+      type: String,
+      default: ""
     }
   },
 
@@ -35,10 +46,7 @@ export default {
   methods: {
     addMemo(memo) {
       this.dialog = false;
-      this.$store.dispatch("addMemo", {
-        memo,
-        genreId: this.selectedGenre.id
-      });
+      this.$emit("addMemo", memo);
     }
   }
 };

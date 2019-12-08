@@ -1,7 +1,13 @@
 <template>
-  <v-dialog v-model="dialog" max-width="800" @click:outside="close">
+  <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
-      <v-btn icon @click.stop="on.click" :disabled="selectedMemos[0] == null" large class="mx-4">
+      <v-btn
+        icon
+        @click.stop="on.click"
+        :disabled="activatorDisabled"
+        large
+        :class="activatorClass"
+      >
         <v-icon>drive_file_move_outline</v-icon>
       </v-btn>
     </template>
@@ -11,7 +17,7 @@
       <GwnGenreListBase class="treeview" @selectGenre="selectGenre"></GwnGenreListBase>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="close">中止</v-btn>
+        <v-btn text @click="dialog = false">中止</v-btn>
         <v-btn text @click="moveMemo" :disabled="selectedGenreId == null">移動</v-btn>
       </v-card-actions>
     </v-card>
@@ -24,6 +30,17 @@ import GwnGenreListBase from "@/components/organisms/GwnGenreListBase.vue";
 export default {
   name: "GwnMoveMemoMenuItem",
 
+  props: {
+    activatorDisabled: {
+      type: Boolean,
+      default: false
+    },
+    activatorClass: {
+      type: String,
+      default: ""
+    }
+  },
+
   data() {
     return {
       dialog: false,
@@ -35,25 +52,13 @@ export default {
     GwnGenreListBase
   },
 
-  computed: {
-    selectedMemos() {
-      return this.$store.getters.getSelectedMemos;
-    }
-  },
-
   methods: {
     selectGenre(event) {
       this.selectedGenreId = event;
     },
     moveMemo() {
-      this.selectedMemos.forEach(memo => {
-        memo.genreId = this.selectedGenreId;
-        this.$store.dispatch("editMemo", memo);
-      });
-      this.close();
-    },
-    close() {
       this.dialog = false;
+      this.$emit("moveMemo", this.selectedGenreId);
     }
   }
 };

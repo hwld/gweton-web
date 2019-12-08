@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import GwnDeleteMemoMenuItem from "@/components/organisms/GwnDeleteMemoMenuItem.vue";
+import GwnDeleteMemoMenuItem from "@/components/molecules/GwnDeleteMemoMenuItem.vue";
 
 export default {
   name: "GwnSearchResultMemoListMenu",
