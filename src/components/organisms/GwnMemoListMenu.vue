@@ -2,6 +2,8 @@
   <div>
     <GwnAddMemoMenuItem
       @addMemo="addMemo"
+      :authorNameList="authorNameList"
+      :bookNameList="bookNameList"
       :activatorDisabled="selectedGenre.id == null"
       :activatorClass="activatorClass"
     ></GwnAddMemoMenuItem>
@@ -21,9 +23,9 @@
 </template>
 
 <script>
-import GwnAddMemoMenuItem from "@/components/molecules/GwnAddMemoMenuItem.vue";
-import GwnDeleteMemoMenuItem from "@/components/molecules/GwnDeleteMemoMenuItem.vue";
-import GwnMoveMemoMenuItem from "@/components/molecules/GwnMoveMemoMenuItem.vue";
+import GwnAddMemoMenuItem from "@/components/molecules/MenuItem/GwnAddMemoMenuItem.vue";
+import GwnDeleteMemoMenuItem from "@/components/molecules/MenuItem/GwnDeleteMemoMenuItem.vue";
+import GwnMoveMemoMenuItem from "@/components/molecules/MenuItem/GwnMoveMemoMenuItem.vue";
 
 export default {
   name: "GwnMemoListMenu",
@@ -46,6 +48,12 @@ export default {
     },
     selectedMemos() {
       return this.$store.getters.getSelectedMemos;
+    },
+    authorNameList() {
+      return this.$store.getters.getAuthorNameList;
+    },
+    bookNameList() {
+      return this.$store.getters.getBookNameList;
     }
   },
 
@@ -56,9 +64,11 @@ export default {
         genreId: this.selectedGenre.id
       });
     },
+
     deleteMemos() {
       this.$store.dispatch("deleteMemos", this.selectedMemos);
     },
+
     moveMemo(toGenreId) {
       this.selectedMemos.forEach(memo => {
         memo.genreId = toGenreId;

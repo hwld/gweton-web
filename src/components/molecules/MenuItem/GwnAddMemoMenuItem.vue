@@ -12,7 +12,14 @@
       </v-btn>
     </template>
 
-    <GwnEditMemoCard v-if="dialog" cardTitle="メモ作成" @onOk="addMemo" @onCancel="dialog = false"></GwnEditMemoCard>
+    <GwnEditMemoCard
+      v-if="dialog"
+      :authorNameList="authorNameList"
+      :bookNameList="bookNameList"
+      cardTitle="メモ作成"
+      @onOk="addMemo"
+      @onCancel="dialog = false"
+    ></GwnEditMemoCard>
   </v-dialog>
 </template>
 
@@ -34,6 +41,14 @@ export default {
     activatorClass: {
       type: String,
       default: ""
+    },
+    authorNameList: {
+      type: Array,
+      default: () => []
+    },
+    bookNameList: {
+      type: Array,
+      default: () => []
     }
   },
 

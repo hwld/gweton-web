@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import GwnMemoItem from "@/components/organisms/GwnMemoItem.vue";
+import GwnMemoItem from "@/components/molecules/GwnMemoItem.vue";
 import GwnMemoListItemMenu from "@/components/organisms/GwnMemoListItemMenu.vue";
 
 export default {

@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import GwnAddGenreMenuItem from "@/components/molecules/GwnAddGenreMenuItem.vue";
-import GwnDeleteGenreMenuItem from "@/components/molecules/GwnDeleteGenreMenuItem.vue";
-import GwnEditGenreMenuItem from "@/components/molecules/GwnEditGenreMenuItem.vue";
+import GwnAddGenreMenuItem from "@/components/molecules/MenuItem/GwnAddGenreMenuItem.vue";
+import GwnDeleteGenreMenuItem from "@/components/molecules/MenuItem/GwnDeleteGenreMenuItem.vue";
+import GwnEditGenreMenuItem from "@/components/molecules/MenuItem/GwnEditGenreMenuItem.vue";
 
 export default {
   name: "GwnGenreListMenu",

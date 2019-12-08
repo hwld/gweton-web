@@ -168,6 +168,40 @@ export default new Vuex.Store({
       return state.memoList;
     },
 
+    getAuthorNameList: state => {
+      let list = [];
+
+      state.memoList.forEach((memo, index, self) => {
+        if (
+          //重複していたら一番最初の要素のみを対象とする
+          self.findIndex(m => m.authorName === memo.authorName) === index &&
+          memo.authorName != null &&
+          memo.authorName != ""
+        ) {
+          list.push(memo.authorName);
+        }
+      });
+
+      return list;
+    },
+
+    getBookNameList: state => {
+      let list = [];
+
+      state.memoList.forEach((memo, index, self) => {
+        if (
+          //重複していたら一番最初の要素のみを対象とする
+          self.findIndex(m => m.bookName === memo.bookName) === index &&
+          memo.bookName != null &&
+          memo.bookName != ""
+        ) {
+          list.push(memo.bookName);
+        }
+      });
+
+      return list;
+    },
+
     getSelectedGenre: state => {
       return state.selectedGenre;
     },

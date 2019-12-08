@@ -8,6 +8,8 @@
 
     <GwnEditMemoCard
       v-if="dialog"
+      :authorNameList="authorNameList"
+      :bookNameList="bookNameList"
       :defaultMemo="memo"
       cardTitle="メモ編集"
       @onOk="editMemo"
@@ -34,6 +36,14 @@ export default {
     activatorClass: {
       type: String,
       default: ""
+    },
+    authorNameList: {
+      type: Array,
+      default: () => []
+    },
+    bookNameList: {
+      type: Array,
+      default: () => []
     }
   },
 
