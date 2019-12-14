@@ -30,8 +30,10 @@ export default {
     }
   },
 
-  deleteMemos() {
-    this.$store.dispatch("deleteMemos", this.selectedMemos);
+  methods: {
+    deleteMemos() {
+      this.$store.dispatch("deleteMemos", this.selectedMemos);
+    }
   }
 };
 </script>

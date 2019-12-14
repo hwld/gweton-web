@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import GwnEditMemoCard from "@/components/organisms/GwnEditMemoCard.vue";
+import GwnEditMemoCard from "@/components/molecules/GwnEditMemoCard.vue";
 
 export default {
   name: "GwnAddMemoMenuItem",

@@ -1,7 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
-      <v-btn icon @click.stop="on.click" large class="mx-4">
+      <v-btn
+        icon
+        @click.stop="on.click"
+        :disabled="activatorDisabled"
+        large
+        :class="activatorClass"
+      >
         <v-icon>playlist_add</v-icon>
       </v-btn>
     </template>
@@ -11,13 +17,24 @@
 </template>
 
 <script>
-import GwnEditGenreCard from "@/components/organisms/GwnEditGenreCard.vue";
+import GwnEditGenreCard from "@/components/molecules/GwnEditGenreCard.vue";
 
 export default {
   name: "GwnAddGenreMenuItem",
 
   components: {
     GwnEditGenreCard
+  },
+
+  props: {
+    activatorDisabled: {
+      type: Boolean,
+      default: false
+    },
+    activatorClass: {
+      type: String,
+      default: ""
+    }
   },
 
   data() {

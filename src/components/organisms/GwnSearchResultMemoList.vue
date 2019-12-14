@@ -1,6 +1,9 @@
 <template>
   <div>
-    <GwnMemoListBase :searchText="filterText" :memos="searchResultMemos"></GwnMemoListBase>
+    <v-card v-if="searchResultMemos[0] == null">
+      <v-card-text>メモが見つかりませんでした</v-card-text>
+    </v-card>
+    <GwnMemoListBase v-else :searchText="filterText" :memos="searchResultMemos"></GwnMemoListBase>
     <v-footer padless fixed>
       <v-card width="100%" flat tile class="text-center">
         <v-card-text>

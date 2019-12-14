@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import GwnEditGenreCard from "@/components/organisms/GwnEditGenreCard.vue";
+import GwnEditGenreCard from "@/components/molecules/GwnEditGenreCard.vue";
 
 export default {
   name: "GwnEditGenreMenuItem",

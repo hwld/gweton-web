@@ -19,6 +19,8 @@
       :activatorDisabled="selectedMemos[0] == null"
       :activatorClass="activatorClass"
     ></GwnMoveMemoMenuItem>
+
+    <GwnSortMemoMenuItem @sortMemo="sortMemo" :activatorClass="activatorClass"></GwnSortMemoMenuItem>
   </div>
 </template>
 
@@ -27,13 +29,16 @@ import GwnAddMemoMenuItem from "@/components/molecules/MenuItem/GwnAddMemoMenuIt
 import GwnDeleteMemoMenuItem from "@/components/molecules/MenuItem/GwnDeleteMemoMenuItem.vue";
 import GwnMoveMemoMenuItem from "@/components/molecules/MenuItem/GwnMoveMemoMenuItem.vue";
 
+import GwnSortMemoMenuItem from "@/components/molecules/MenuItem/GwnSortMemoMenuItem.vue";
+
 export default {
   name: "GwnMemoListMenu",
 
   components: {
     GwnAddMemoMenuItem,
     GwnDeleteMemoMenuItem,
-    GwnMoveMemoMenuItem
+    GwnMoveMemoMenuItem,
+    GwnSortMemoMenuItem
   },
 
   data() {
@@ -74,6 +79,10 @@ export default {
         memo.genreId = toGenreId;
         this.$store.dispatch("editMemo", memo);
       });
+    },
+
+    sortMemo(sortMemoInfo) {
+      this.$emit("sortMemo", sortMemoInfo);
     }
   }
 };
