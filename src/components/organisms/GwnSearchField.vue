@@ -11,6 +11,7 @@
     @click:append="clear"
     @keydown="keydown"
     ref="field"
+    autocomplete="off"
   ></v-text-field>
 </template>
 

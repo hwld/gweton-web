@@ -12,9 +12,16 @@ export default new Vuex.Store({
     userUid: localStorage.getItem("userUid"),
     selectedGenre: {},
     selectedMemos: [],
-    genreList: [],
+    genreList: [
+      {
+        genreName: "新しいジャンル1",
+        id: 1,
+        parentGenreId: undefined,
+        childrenId: []
+      }
+    ],
     memoList: [],
-    nextGenreId: 1,
+    nextGenreId: 2,
     nextMemoId: 1,
     filterText: ""
   },

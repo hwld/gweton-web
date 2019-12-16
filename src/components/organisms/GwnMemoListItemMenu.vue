@@ -1,12 +1,11 @@
 <template>
   <div>
-    <GwnDeleteMemoMenuItem @deleteMemos="deleteMemo" :activatorClass="activatorClass"></GwnDeleteMemoMenuItem>
+    <GwnDeleteMemoMenuItem @deleteMemos="deleteMemo"></GwnDeleteMemoMenuItem>
     <GwnEditMemoMenuItem
       :authorNameList="authorNameList"
       :bookNameList="bookNameList"
       @editMemo="editMemo"
       :memo="memo"
-      :activatorClass="activatorClass"
     ></GwnEditMemoMenuItem>
   </div>
 </template>
@@ -25,12 +24,6 @@ export default {
     memo: {
       type: Object
     }
-  },
-
-  data() {
-    return {
-      activatorClass: "mx-4"
-    };
   },
 
   computed: {

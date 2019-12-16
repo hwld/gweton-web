@@ -1,15 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
-      <v-btn
-        icon
-        @click.stop="on.click"
+      <GwnIconButton
+        iconName="playlist_add"
+        @click="on.click"
         :disabled="activatorDisabled"
-        large
-        :class="activatorClass"
-      >
-        <v-icon>playlist_add</v-icon>
-      </v-btn>
+        :classes="activatorClasses"
+        :size="size"
+      ></GwnIconButton>
     </template>
 
     <GwnEditGenreCard v-if="dialog" cardTitle="ジャンル作成" @onOk="addGenre" @onCancel="dialog = false"></GwnEditGenreCard>
@@ -18,12 +16,14 @@
 
 <script>
 import GwnEditGenreCard from "@/components/molecules/GwnEditGenreCard.vue";
+import GwnIconButton from "@/components/atoms/GwnIconButton.vue";
 
 export default {
   name: "GwnAddGenreMenuItem",
 
   components: {
-    GwnEditGenreCard
+    GwnEditGenreCard,
+    GwnIconButton
   },
 
   props: {
@@ -31,7 +31,11 @@ export default {
       type: Boolean,
       default: false
     },
-    activatorClass: {
+    activatorClasses: {
+      type: Array,
+      default: () => []
+    },
+    size: {
       type: String,
       default: ""
     }

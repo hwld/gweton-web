@@ -1,18 +1,20 @@
 <template>
   <div>
-    <GwnAddGenreMenuItem @addGenre="addGenre" :activatorClass="activatorClass"></GwnAddGenreMenuItem>
+    <GwnAddGenreMenuItem @addGenre="addGenre" :activatorClasses="activatorClasses" :size="size"></GwnAddGenreMenuItem>
 
     <GwnDeleteGenreMenuItem
       @deleteGenre="deleteGenre"
       :activatorDisabled="selectedGenre.id == null"
-      :activatorClass="activatorClass"
+      :activatorClasses="activatorClasses"
+      :size="size"
     ></GwnDeleteGenreMenuItem>
 
     <GwnEditGenreMenuItem
       @editGenre="editGenre"
       :genre="selectedGenre"
       :activatorDisabled="selectedGenre.id == null"
-      :activatorClass="activatorClass"
+      :activatorClasses="activatorClasses"
+      :size="size"
     ></GwnEditGenreMenuItem>
   </div>
 </template>
@@ -33,7 +35,8 @@ export default {
 
   data() {
     return {
-      activatorClass: "mx-4"
+      activatorClasses: ["mx-4"],
+      size: "large"
     };
   },
 

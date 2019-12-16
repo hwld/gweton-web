@@ -1,15 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
-      <v-btn
-        icon
-        @click.stop="on.click"
+      <GwnIconButton
+        iconName="delete"
+        @click="on.click"
         :disabled="activatorDisabled"
-        large
-        :class="activatorClass"
-      >
-        <v-icon>delete</v-icon>
-      </v-btn>
+        :classes="activatorClasses"
+        :size="size"
+      ></GwnIconButton>
     </template>
 
     <v-card>
@@ -25,15 +23,25 @@
 </template>
 
 <script>
+import GwnIconButton from "@/components/atoms/GwnIconButton.vue";
+
 export default {
   name: "GwnDeleteMemoMenuItem",
+
+  components: {
+    GwnIconButton
+  },
 
   props: {
     activatorDisabled: {
       type: Boolean,
       default: false
     },
-    activatorClass: {
+    activatorClasses: {
+      type: Array,
+      default: () => []
+    },
+    size: {
       type: String,
       default: ""
     }

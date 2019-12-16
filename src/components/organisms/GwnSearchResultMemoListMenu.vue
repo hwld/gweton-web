@@ -3,7 +3,8 @@
     <GwnDeleteMemoMenuItem
       @deleteMemos="deleteMemos"
       :activatorDisabled="selectedMemos[0] == null"
-      :activatorClass="activatorClass"
+      :activatorClasses="activatorClasses"
+      :size="size"
     ></GwnDeleteMemoMenuItem>
   </div>
 </template>
@@ -20,7 +21,8 @@ export default {
 
   data() {
     return {
-      activatorClass: "mx-4"
+      activatorClasses: ["mx-4"],
+      size: "large"
     };
   },
 

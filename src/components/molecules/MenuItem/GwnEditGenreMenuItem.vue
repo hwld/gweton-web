@@ -1,15 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
-      <v-btn
-        icon
-        @click.stop="on.click"
+      <GwnIconButton
+        iconName="edit"
+        @click="on.click"
         :disabled="activatorDisabled"
-        large
-        :class="activatorClass"
-      >
-        <v-icon>edit</v-icon>
-      </v-btn>
+        :classes="activatorClasses"
+        :size="size"
+      ></GwnIconButton>
     </template>
 
     <GwnEditGenreCard
@@ -24,12 +22,14 @@
 
 <script>
 import GwnEditGenreCard from "@/components/molecules/GwnEditGenreCard.vue";
+import GwnIconButton from "@/components/atoms/GwnIconButton.vue";
 
 export default {
   name: "GwnEditGenreMenuItem",
 
   components: {
-    GwnEditGenreCard
+    GwnEditGenreCard,
+    GwnIconButton
   },
 
   props: {
@@ -41,7 +41,11 @@ export default {
       type: Boolean,
       default: false
     },
-    activatorClass: {
+    activatorClasses: {
+      type: Array,
+      default: () => []
+    },
+    size: {
       type: String,
       default: ""
     }

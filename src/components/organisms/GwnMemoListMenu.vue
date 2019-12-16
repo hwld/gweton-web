@@ -5,22 +5,25 @@
       :authorNameList="authorNameList"
       :bookNameList="bookNameList"
       :activatorDisabled="selectedGenre.id == null"
-      :activatorClass="activatorClass"
+      :activatorClasses="activatorClasses"
+      :size="size"
     ></GwnAddMemoMenuItem>
 
     <GwnDeleteMemoMenuItem
       @deleteMemos="deleteMemos"
       :activatorDisabled="selectedMemos[0] == null"
-      :activatorClass="activatorClass"
+      :activatorClasses="activatorClasses"
+      :size="size"
     ></GwnDeleteMemoMenuItem>
 
     <GwnMoveMemoMenuItem
       @moveMemo="moveMemo"
       :activatorDisabled="selectedMemos[0] == null"
-      :activatorClass="activatorClass"
+      :activatorClasses="activatorClasses"
+      :size="size"
     ></GwnMoveMemoMenuItem>
 
-    <GwnSortMemoMenuItem @sortMemo="sortMemo" :activatorClass="activatorClass"></GwnSortMemoMenuItem>
+    <GwnSortMemoMenuItem @sortMemo="sortMemo" :activatorClasses="activatorClasses" :size="size"></GwnSortMemoMenuItem>
   </div>
 </template>
 
@@ -43,7 +46,8 @@ export default {
 
   data() {
     return {
-      activatorClass: "mx-4"
+      activatorClasses: ["mx-4"],
+      size: "large"
     };
   },
 

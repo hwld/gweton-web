@@ -1,15 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
-      <v-btn
-        icon
-        @click.stop="on.click"
+      <GwnIconButton
+        iconName="drive_file_move_outline"
+        @click="on.click"
         :disabled="activatorDisabled"
-        large
-        :class="activatorClass"
-      >
-        <v-icon>drive_file_move_outline</v-icon>
-      </v-btn>
+        :classes="activatorClasses"
+        :size="size"
+      ></GwnIconButton>
     </template>
 
     <v-card v-if="dialog" height="800">
@@ -26,6 +24,7 @@
 
 <script>
 import GwnGenreListBase from "@/components/organisms/GwnGenreListBase.vue";
+import GwnIconButton from "@/components/atoms/GwnIconButton.vue";
 
 export default {
   name: "GwnMoveMemoMenuItem",
@@ -35,7 +34,11 @@ export default {
       type: Boolean,
       default: false
     },
-    activatorClass: {
+    activatorClasses: {
+      type: Array,
+      default: () => []
+    },
+    size: {
       type: String,
       default: ""
     }
@@ -49,7 +52,8 @@ export default {
   },
 
   components: {
-    GwnGenreListBase
+    GwnGenreListBase,
+    GwnIconButton
   },
 
   methods: {

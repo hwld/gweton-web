@@ -3,7 +3,7 @@
     <v-toolbar>
       <GwnGenreListMenu></GwnGenreListMenu>
     </v-toolbar>
-
+    <v-label>ジャンル</v-label>
     <GwnGenreListBase @selectGenre="selectGenre" class="treeview"></GwnGenreListBase>
   </div>
 </template>

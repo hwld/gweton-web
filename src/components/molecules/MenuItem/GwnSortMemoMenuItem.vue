@@ -1,15 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{ on }">
-      <v-btn
-        icon
-        @click.stop="on.click"
-        large
-        :class="activatorClass"
+      <GwnIconButton
+        iconName="sort"
+        @click="on.click"
         :disabled="activatorDisabled"
-      >
-        <v-icon>sort</v-icon>
-      </v-btn>
+        :classes="activatorClasses"
+        :size="size"
+      ></GwnIconButton>
     </template>
 
     <v-card>
@@ -43,15 +41,25 @@
 </template>
 
 <script>
+import GwnIconButton from "@/components/atoms/GwnIconButton.vue";
+
 export default {
   name: "GwnSortMemoMenuItem",
+
+  components: {
+    GwnIconButton
+  },
 
   props: {
     activatorDisabled: {
       type: Boolean,
       default: false
     },
-    activatorClass: {
+    activatorClasses: {
+      type: Array,
+      default: () => []
+    },
+    size: {
       type: String,
       default: ""
     }

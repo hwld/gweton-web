@@ -1,9 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
-      <v-btn icon @click.stop="on.click" large :class="activatorClass">
-        <v-icon>edit</v-icon>
-      </v-btn>
+      <GwnIconButton
+        iconName="edit"
+        @click="on.click"
+        :disabled="activatorDisabled"
+        :classes="activatorClasses"
+        :size="size"
+      ></GwnIconButton>
     </template>
 
     <GwnEditMemoCard
@@ -20,12 +24,14 @@
 
 <script>
 import GwnEditMemoCard from "@/components/molecules/GwnEditMemoCard.vue";
+import GwnIconButton from "@/components/atoms/GwnIconButton.vue";
 
 export default {
   name: "GwnEditMemoMenuItem",
 
   components: {
-    GwnEditMemoCard
+    GwnEditMemoCard,
+    GwnIconButton
   },
 
   props: {
@@ -33,9 +39,9 @@ export default {
       type: Object,
       require: true
     },
-    activatorClass: {
-      type: String,
-      default: ""
+    activatorClasses: {
+      type: Array,
+      default: () => []
     },
     authorNameList: {
       type: Array,
@@ -44,6 +50,10 @@ export default {
     bookNameList: {
       type: Array,
       default: () => []
+    },
+    size: {
+      type: String,
+      default: ""
     }
   },
 
