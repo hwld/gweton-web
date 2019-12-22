@@ -39,6 +39,10 @@ export default {
       type: Object,
       require: true
     },
+    activatorDisabled: {
+      type: Boolean,
+      default: false
+    },
     activatorClasses: {
       type: Array,
       default: () => []

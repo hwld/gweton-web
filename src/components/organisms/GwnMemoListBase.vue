@@ -1,14 +1,13 @@
 <template>
   <v-list dense class="overflow-y-auto" max-height="87vh">
     <v-list-item-group multiple v-model="selectedMemos">
-      <template v-for="memo in memos">
-        <v-list-item :key="memo.id" :value="memo">
-          <v-list-item-content>
-            <GwnMemoItem :searchText="searchText" :memo="memo"></GwnMemoItem>
-          </v-list-item-content>
-          <GwnMemoListItemMenu :memo="memo"></GwnMemoListItemMenu>
-        </v-list-item>
-      </template>
+      <v-list-item v-for="memo in memos" :key="memo.id" :value="memo">
+        <v-list-item-content>
+          <GwnMemoItem :searchText="searchText" :memo="memo"></GwnMemoItem>
+          <v-divider></v-divider>
+        </v-list-item-content>
+        <GwnMemoListItemMenu :memo="memo"></GwnMemoListItemMenu>
+      </v-list-item>
     </v-list-item-group>
   </v-list>
 </template>

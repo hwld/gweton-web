@@ -69,15 +69,14 @@ export default {
     },
 
     searchResultMemos() {
-      const text = this.filterText;
+      const text = this.filterText.toUpperCase();
       if (text == "") return [];
-
       return this.searchTargetMemos.filter(memo => {
         if (
-          memo.title.includes(text) ||
-          memo.text.includes(text) ||
-          memo.authorName.includes(text) ||
-          memo.bookName.includes(text)
+          memo.title.toUpperCase().includes(text) ||
+          memo.text.toUpperCase().includes(text) ||
+          memo.authorName.toUpperCase().includes(text) ||
+          memo.bookName.toUpperCase().includes(text)
         ) {
           return memo;
         }

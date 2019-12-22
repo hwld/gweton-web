@@ -55,7 +55,6 @@ export default {
     compareFunctionGenerator(propName, order) {
       return function(memo1, memo2) {
         if (order === "creation") return 0;
-        window.console.log(propName + ":" + order);
         var target1 = memo1[propName].toUpperCase();
         var target2 = memo2[propName].toUpperCase();
         if (target1 < target2) {

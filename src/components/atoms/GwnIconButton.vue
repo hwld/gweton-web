@@ -31,22 +31,6 @@ export default {
     size: {
       type: String,
       default: ""
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    xSmall: {
-      type: Boolean,
-      default: false
-    },
-    large: {
-      type: Boolean,
-      default: false
-    },
-    xLarge: {
-      type: Boolean,
-      default: false
     }
   }
 };
