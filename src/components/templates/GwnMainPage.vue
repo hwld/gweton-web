@@ -1,51 +1,26 @@
 <template>
-  <v-app>
-    <GwnHeader>
-      <template v-slot:prepend>
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      </template>
-    </GwnHeader>
-
-    <v-navigation-drawer v-model="drawer" app clipped :width="drawerWidth">
+  <GwnMainPageBase>
+    <template v-slot:drawerView>
       <GwnGenreList></GwnGenreList>
-    </v-navigation-drawer>
-
-    <v-content>
-      <router-view></router-view>
-    </v-content>
-  </v-app>
+    </template>
+    <template v-slot:contentView>
+      <GwnMemoList></GwnMemoList>
+    </template>
+  </GwnMainPageBase>
 </template>
 
 <script>
-import GwnHeader from "@/components/organisms/GwnHeader.vue";
+import GwnMainPageBase from "@/components/templates/GwnMainPageBase.vue";
 import GwnGenreList from "@/components/organisms/GwnGenreList.vue";
+import GwnMemoList from "@/components/organisms/GwnMemoList.vue";
 
 export default {
   name: "GwnMainView",
 
   components: {
-    GwnHeader,
-    GwnGenreList
-  },
-
-  data: () => ({
-    drawer: true,
-    drawerWidth: null
-  }),
-
-  created() {
-    this.$vuetify.theme.dark = true;
-
-    const screenWidth = window.parent.screen.width;
-    if (screenWidth >= 960) {
-      this.drawerWidth = screenWidth * 0.3;
-      this.drawer = true;
-    } else {
-      this.drawerWidth = screenWidth * 0.8;
-      this.drawer = false;
-    }
-
-    this.$store.dispatch("downloadData");
+    GwnMainPageBase,
+    GwnGenreList,
+    GwnMemoList
   }
 };
 </script>

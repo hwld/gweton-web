@@ -24,6 +24,14 @@
     ></GwnMoveMemoMenuItem>
 
     <GwnSortMemoMenuItem @sortMemo="sortMemo" :activatorClasses="activatorClasses" :size="size"></GwnSortMemoMenuItem>
+
+    <GwnSearchMemoMenuItem
+      :authorNameList="authorNameList"
+      :bookNameList="bookNameList"
+      @search="searchMemo"
+      :allGenre="allGenre"
+      :activatorClasses="activatorClasses"
+    ></GwnSearchMemoMenuItem>
   </div>
 </template>
 
@@ -33,6 +41,7 @@ import GwnDeleteMemoMenuItem from "@/components/molecules/MenuItem/GwnDeleteMemo
 import GwnMoveMemoMenuItem from "@/components/molecules/MenuItem/GwnMoveMemoMenuItem.vue";
 
 import GwnSortMemoMenuItem from "@/components/molecules/MenuItem/GwnSortMemoMenuItem.vue";
+import GwnSearchMemoMenuItem from "@/components/molecules/MenuItem/GwnSearchMemoMenuItem.vue";
 
 export default {
   name: "GwnMemoListMenu",
@@ -41,7 +50,8 @@ export default {
     GwnAddMemoMenuItem,
     GwnDeleteMemoMenuItem,
     GwnMoveMemoMenuItem,
-    GwnSortMemoMenuItem
+    GwnSortMemoMenuItem,
+    GwnSearchMemoMenuItem
   },
 
   data() {
@@ -52,6 +62,9 @@ export default {
   },
 
   computed: {
+    allGenre() {
+      return this.$store.getters.getGenreList;
+    },
     selectedGenre() {
       return this.$store.getters.getSelectedGenre;
     },
@@ -87,6 +100,21 @@ export default {
 
     sortMemo(sortMemoInfo) {
       this.$emit("sortMemo", sortMemoInfo);
+    },
+
+    searchMemo(criteria) {
+      this.$router.push({
+        path: "/search",
+        query: {
+          isSelectAllGenre: criteria.isSelectAllGenre,
+          genreId: criteria.genreId,
+          isSelectGenreOnly: criteria.isSelectGenreOnly,
+          title: criteria.title,
+          text: criteria.text,
+          authorName: criteria.authorName,
+          bookName: criteria.bookName
+        }
+      });
     }
   }
 };

@@ -6,17 +6,21 @@
       :activatorClasses="activatorClasses"
       :size="size"
     ></GwnDeleteMemoMenuItem>
+
+    <GwnCloseMenuItem @close="close" :activatorClasses="activatorClasses" :size="size"></GwnCloseMenuItem>
   </div>
 </template>
 
 <script>
 import GwnDeleteMemoMenuItem from "@/components/molecules/MenuItem/GwnDeleteMemoMenuItem.vue";
+import GwnCloseMenuItem from "@/components/molecules/MenuItem/GwnCloseMenuItem.vue";
 
 export default {
   name: "GwnSearchResultMemoListMenu",
 
   components: {
-    GwnDeleteMemoMenuItem
+    GwnDeleteMemoMenuItem,
+    GwnCloseMenuItem
   },
 
   data() {
@@ -35,6 +39,9 @@ export default {
   methods: {
     deleteMemos() {
       this.$store.dispatch("deleteMemos", this.selectedMemos);
+    },
+    close() {
+      this.$router.push("/home");
     }
   }
 };

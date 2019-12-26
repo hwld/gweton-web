@@ -8,6 +8,7 @@
     :active="active"
     @update:active="updateActive"
     class="overflow-y-auto"
+    open-all
   ></v-treeview>
 </template>
 
@@ -20,6 +21,7 @@ export default {
       active: []
     };
   },
+
   computed: {
     genreTree() {
       let tree = [];

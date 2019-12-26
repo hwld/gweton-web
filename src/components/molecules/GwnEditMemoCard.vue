@@ -27,6 +27,7 @@
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
+
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="10">
@@ -34,6 +35,7 @@
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
+
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="10">
