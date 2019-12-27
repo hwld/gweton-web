@@ -48,7 +48,7 @@
         <v-row dense>
           <v-spacer></v-spacer>
           <v-col cols="10">
-            <v-combobox :items="bookNameList" label="書籍名" v-model="bookName"></v-combobox>
+            <v-autocomplete :items="bookNameList" label="書籍名" v-model="bookName"></v-autocomplete>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -56,7 +56,7 @@
         <v-row dense>
           <v-spacer></v-spacer>
           <v-col cols="10">
-            <v-combobox :items="authorNameList" label="著者名" v-model="authorName"></v-combobox>
+            <v-autocomplete :items="authorNameList" label="著者名" v-model="authorName"></v-autocomplete>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>

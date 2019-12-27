@@ -2,13 +2,16 @@
   <GwnMainPageBase>
     <template v-slot:drawerView>
       <GwnSetSearchCriteriaCard
-        :allGenre="allGenre"
-        :defaultCriteria="defaultCriteria"
         @onSearch="search"
+        @onCancel="cancel"
+        :allGenre="allGenre"
+        :authorNameList="authorNameList"
+        :bookNameList="bookNameList"
+        :defaultCriteria="searchCriteria"
       ></GwnSetSearchCriteriaCard>
     </template>
     <template v-slot:contentView>
-      <GwnSearchResultMemoList></GwnSearchResultMemoList>
+      <GwnSearchResultMemoList :searchCriteria="searchCriteria"></GwnSearchResultMemoList>
     </template>
   </GwnMainPageBase>
 </template>
@@ -28,42 +31,35 @@ export default {
 
   data() {
     return {
-      defaultCriteria: {}
+      searchCriteria: {}
     };
   },
 
   computed: {
     allGenre() {
       return this.$store.getters.getGenreList;
+    },
+    authorNameList() {
+      return this.$store.getters.getAuthorNameList;
+    },
+    bookNameList() {
+      return this.$store.getters.getBookNameList;
     }
   },
 
   methods: {
     search(criteria) {
-      this.$router
-        .push({
-          path: "/search",
-          query: criteria
-        })
-        .catch(error => {
-          switch (error.name) {
-            case "NavigationDuplicated":
-              //何もしない
-              break;
-          }
-        });
+      this.searchCriteria = criteria;
+    },
+    cancel() {
+      this.$router.push("home");
     }
   },
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.defaultCriteria = to.query;
+      vm.searchCriteria = to.query;
     });
-  },
-
-  beforeRouteUpdate(to, from, next) {
-    this.defaultCriteria = to.query;
-    next();
   }
 };
 </script>

@@ -26,6 +26,13 @@ export default {
     GwnSearchResultMemoListMenu
   },
 
+  props: {
+    searchCriteria: {
+      type: Object,
+      required: true
+    }
+  },
+
   computed: {
     genres() {
       return this.$store.getters.getGenres;
