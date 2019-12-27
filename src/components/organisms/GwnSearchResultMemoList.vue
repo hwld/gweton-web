@@ -95,6 +95,7 @@ export default {
     },
 
     setSearchTargetGenresId(genre, searchTargetGenresId) {
+      if (!genre) return;
       searchTargetGenresId.push(...genre.childrenId);
 
       for (const childGenreId of genre.childrenId) {
