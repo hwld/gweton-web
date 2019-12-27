@@ -88,6 +88,7 @@ export default {
       type: Object,
       default: () => ({
         genreId: "",
+        genreName: "",
         isSelectAllGenre: false,
         isSelectGenreOnly: true,
         title: "",
@@ -108,15 +109,14 @@ export default {
 
   data() {
     return {
-      genreId: this.defaultCriteria.genreId,
-      isSelectAllGenre: this.defaultCriteria.isSelectAllGenre,
-      isSelectGenreOnly: this.defaultCriteria.isSelectGenreOnly,
-      title: this.defaultCriteria.title,
-      text: this.defaultCriteria.text,
-      authorName: this.defaultCriteria.authorName,
-      bookName: this.defaultCriteria.bookName,
-
-      genreName: ""
+      genreId: "",
+      genreName: "",
+      isSelectAllGenre: false,
+      isSelectGenreOnly: true,
+      title: "",
+      text: "",
+      authorName: "",
+      bookName: ""
     };
   },
 
@@ -131,21 +131,42 @@ export default {
       this.$emit("onCancel");
     },
     onSearch() {
-      this.$emit("onSearch", {
-        isSelectAllGenre: this.isSelectAllGenre,
-        genreId: this.genreId,
-        isSelectGenreOnly: this.isSelectGenreOnly,
+      let criteria = {
         title: this.title,
         text: this.text,
         authorName: this.authorName,
         bookName: this.bookName
-      });
+      };
+
+      if (this.isSelectAllGenre) {
+        criteria.isSelectAllGenre = true;
+      } else {
+        criteria.genreId = this.genreId;
+        criteria.isSelectGenreOnly = this.isSelectGenreOnly;
+        criteria.genreName = this.genreName;
+      }
+
+      this.$emit("onSearch", criteria);
     },
     onSelectGenre(genre) {
       if (genre != null) {
         this.genreId = genre.id;
         this.genreName = genre.genreName;
       }
+    }
+  },
+
+  watch: {
+    defaultCriteria: function(criteria) {
+      this.genreId = criteria.genreId;
+      this.isSelectAllGenre = criteria.isSelectAllGenre;
+      this.isSelectGenreOnly = criteria.isSelectGenreOnly;
+      this.title = criteria.title;
+      this.text = criteria.text;
+      this.authorName = criteria.authorName;
+      this.bookName = criteria.bookName;
+
+      this.genreName = criteria.genreName;
     }
   }
 };

@@ -29,7 +29,7 @@ export default {
   props: {
     allGenre: {
       type: Array,
-      default: () => []
+      required: true
     },
     activatorDisabled: {
       type: Boolean,

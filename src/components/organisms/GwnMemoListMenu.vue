@@ -105,15 +105,7 @@ export default {
     searchMemo(criteria) {
       this.$router.push({
         path: "/search",
-        query: {
-          isSelectAllGenre: criteria.isSelectAllGenre,
-          genreId: criteria.genreId,
-          isSelectGenreOnly: criteria.isSelectGenreOnly,
-          title: criteria.title,
-          text: criteria.text,
-          authorName: criteria.authorName,
-          bookName: criteria.bookName
-        }
+        query: criteria
       });
     }
   }
