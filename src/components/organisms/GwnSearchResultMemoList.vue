@@ -120,15 +120,6 @@ export default {
         (!cTitle || memoTitle.toUpperCase().includes(cTitle.toUpperCase())) &&
         (!cText || memoText.toUpperCase().includes(cText.toUpperCase()));
 
-      window.console.log(memo);
-      window.console.log(!cAuthorName || memo.authorName === cAuthorName);
-      window.console.log(!cBookName || memo.authorName === cBookName);
-      window.console.log(
-        !cTitle || memoTitle.toUpperCase().includes(cTitle.toUpperCase())
-      );
-      window.console.log(
-        !cText || memoText.toUpperCase().includes(cText.toUpperCase())
-      );
       return bool;
     }
   }

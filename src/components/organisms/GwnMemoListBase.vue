@@ -36,9 +36,6 @@ export default {
   },
 
   computed: {
-    selectedGenre() {
-      return this.$store.getters.getSelectedGenre;
-    },
     selectedMemos: {
       get: function() {
         return this.$store.getters.getSelectedMemos;
